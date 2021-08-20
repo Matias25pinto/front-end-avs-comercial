@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UsuarioService } from '../services/usuario.service';
+import { UsuarioService } from '../../services/usuario.service';
 // ES6 Modules or TypeScript
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
@@ -31,9 +31,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    localStorage.removeItem('access_token');
-  }
+  ngOnInit(): void {}
 
   enviarFormulario() {
     if (this.formularioLogin.valid) {
@@ -51,7 +49,7 @@ export class LoginComponent implements OnInit {
             timer: 1500,
           });
           this.limpiarFormulario();
-          this.router.navigate(['sistema', 'home']);
+          this.router.navigate(['/home']);
           this.isLoading = false;
         },
         (err) => {

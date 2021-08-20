@@ -1,0 +1,99 @@
+<!-- Formulario articulo -->
+<!-- form start -->
+<form [formGroup]="formularioArticulo">
+  <div class="card-body">
+    <div class="form-group mb-3">
+      <label for="exampleInput">Nombre</label>
+      <input
+        formControlName="nombre"
+        type="text"
+        class="form-control"
+        placeholder="Nombre del Artículo"
+      />
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="exampleInput">Código de Barra</label>
+      <input  formControlName="codigo" type="number" class="form-control" placeholder="Código de barra" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="exampleInput">Costo</label>
+      <input  formControlName="costo" type="number" class="form-control" placeholder="Precio compra" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="exampleInput">IVA %</label>
+      <input
+      formControlName="porc_iva"
+        type="number"
+        class="form-control"
+        placeholder="Porcentaje del IVA"
+      />
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="exampleInput">Comisión %</label>
+      <input
+      formControlName="porc_comision"
+        type="number"
+        class="form-control"
+        placeholder="Porcentaje de comisión"
+      />
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="exampleInput">Stock Actual</label>
+      <input  formControlName="stock_actual" type="number" class="form-control" placeholder="Stock actual" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="exampleInput">Stock Mínimo</label>
+      <input  formControlName="stock_minimo" type="number" class="form-control" placeholder="Stock mínimo" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="exampleInput">Unidad de Medida</label>
+      <select  formControlName="unidad_medida" id="exampleSelect" class="custom-select" name="">
+        <option value="unidad">Unidad</option>
+        <option value="kg">Kilogramo</option>
+        <option value="caja">Por Caja</option>
+      </select>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="exampleInput">Precio Unitario</label>
+      <input  formControlName="precio_unitario" type="number" class="form-control" placeholder="Precio 1" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="exampleInput">Precio Mayorista</label>
+      <input  formControlName="precio_mayorista" type="number" class="form-control" placeholder="Precio 2" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="exampleInput">Precio Especial</label>
+      <input  formControlName="precio_especial" type="number" class="form-control" placeholder="Precio 3" />
+    </div>
+
+    <div class="form-group">
+      <label for="exampleInputFile">Imagen</label>
+      <div class="input-group">
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="exampleInputFile" />
+          <label class="custom-file-label" for="exampleInputFile"
+            >Seleccione una imagen</label
+          >
+        </div>
+        <div class="input-group-append">
+          <span class="input-group-text">Upload</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.card-body -->
+
+  <div class="card-footer">
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </div>
+</form>

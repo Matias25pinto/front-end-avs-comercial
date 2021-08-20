@@ -1,0 +1,220 @@
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <!-- Brand Logo -->
+  <a [routerLink]="'/'" class="brand-link">
+    <img
+      src="../../assets/img/AdminLTELogo.png"
+      alt="AdminLTE Logo"
+      class="brand-image img-circle elevation-3"
+      style="opacity: 0.8"
+    />
+    <span class="brand-text font-weight-light">AVS Comercial</span>
+  </a>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Sidebar user panel (optional) -->
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+        <img
+          [src]="'../../assets/img/user2-160x160.jpg'"
+          class="img-circle elevation-2"
+          alt="User Image"
+        />
+      </div>
+      <div class="info">
+        <a class="d-block">Nombre del usuario</a>
+      </div>
+    </div>
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul
+        class="nav nav-pills nav-sidebar flex-column"
+        data-widget="treeview"
+        role="menu"
+        data-accordion="false"
+      >
+        <li class="nav-item">
+          <a class="nav-link cursor-pointer">
+            <i class="fas fa-chart-pie"></i>
+            <p>
+              Reportes
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Reporte</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link cursor-pointer">
+            <i class="fas fa-cash-register"></i>
+            <p>
+              Ventas
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Ventas1</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link cursor-pointer">
+            <i class="fas fa-dolly"></i>
+            <p>
+              Compras
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Compra1</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link cursor-pointer">
+            <i class="fas fa-boxes"></i>
+            <p>
+              Inventario
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a
+                routerLink="{{ '/inventario/crear-articulo' }}"
+                class="nav-link"
+              >
+                <i class="far fa-circle nav-icon"></i>
+                <p>Crear Articulo</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                routerLink="{{ '/inventario/ver-articulos' }}"
+                class="nav-link"
+              >
+                <i class="far fa-circle nav-icon"></i>
+                <p>Ver Articulos</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link cursor-pointer">
+            <i class="fas fa-money-bill-wave"></i>
+            <p>
+              Arqueo de Caja
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Arqueo</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link cursor-pointer">
+            <i class="fas fa-user-friends"></i>
+            <p>
+              Recursos Humanos
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Crear Usuario</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Ver Usuarios</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link cursor-pointer">
+            <i class="fas fa-unlock-alt"></i>
+            <p>
+              Seguridad
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Crear Rol</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Listar Roles</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Crear Usuario</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Ver Usuarios</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link cursor-pointer">
+            <i class="fas fa-hdd"></i>
+            <p>
+              Configuración
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>configuracion</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>
