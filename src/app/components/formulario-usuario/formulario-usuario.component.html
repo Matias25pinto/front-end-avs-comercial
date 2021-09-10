@@ -1,0 +1,70 @@
+<!-- Formulario de rol -->
+<form [formGroup]="formularioUsuario">
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label class="" for="">Nombre</label>
+        <input
+          formControlName="first_name"
+          type="text"
+          class="form-control"
+          placeholder="Nombre"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label class="" for="">Apellido</label>
+        <input
+          formControlName="last_name"
+          type="text"
+          class="form-control"
+          placeholder="Apellido"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label class="" for="">Correo</label>
+        <input
+          formControlName="email"
+          type="email"
+          class="form-control"
+          placeholder="Correo"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="exampleInput">Rol</label>
+        <select
+          formControlName="rol"
+          id="exampleSelect"
+          class="custom-select"
+          name=""
+        >
+          <option value="rol1">Rol 1</option>
+          <option value="rol2">Rol 2</option>
+          <option value="rol3">Rol 3</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="card-footer text-center">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </div>
+</form>

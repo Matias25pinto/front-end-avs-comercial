@@ -147,13 +147,7 @@
             <li class="nav-item">
               <a class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Crear Usuario</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Ver Usuarios</p>
+                <p>Recursos</p>
               </a>
             </li>
           </ul>
@@ -169,27 +163,30 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a class="nav-link">
+              <a routerLink="{{ '/seguridad/crear-rol' }}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Crear Rol</p>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link">
+              <a routerLink="{{ '/seguridad/listar-roles' }}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Listar Roles</p>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link">
+              <a routerLink="{{ '/seguridad/crear-usuario' }}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Crear Usuario</p>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link">
+              <a
+                routerLink="{{ '/seguridad/listar-usuarios' }}"
+                class="nav-link"
+              >
                 <i class="far fa-circle nav-icon"></i>
-                <p>Ver Usuarios</p>
+                <p>Listar Usuarios</p>
               </a>
             </li>
           </ul>

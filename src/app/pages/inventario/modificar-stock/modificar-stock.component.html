@@ -1,0 +1,116 @@
+<!-- navbar -->
+<app-navbar></app-navbar>
+<!-- /navbar-->
+<!-- aside -->
+<app-aside></app-aside>
+<!-- /aside -->
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Inventario</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item">
+              <a [routerLink]="'home'">inventario</a>
+            </li>
+            <li class="breadcrumb-item active">modificar stock</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <!-- Default box -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Modificar Stock</h3>
+
+        <div class="card-tools">
+          <button
+            type="button"
+            class="btn btn-tool"
+            data-card-widget="collapse"
+            title="Collapse"
+          >
+            <i class="fas fa-minus"></i>
+          </button>
+          <button
+            type="button"
+            class="btn btn-tool"
+            data-card-widget="remove"
+            title="Remove"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <!-- Formulario articulo -->
+        <!-- form start -->
+        <form [formGroup]="formularioModificarStock">
+          <div class="form-group mb-3">
+            <label for="exampleInput">{{ "Artículo: Articulo 1" }}</label>
+          </div>
+          <div class="form-group mb-3">
+            <label for="exampleInput">{{ "Código: 123" }}</label>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="exampleInput">Motivo de ajuste de stock</label>
+            <textarea
+              formControlName="motivo"
+              class="form-control"
+              rows="3"
+              placeholder=""
+            ></textarea>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="exampleInput">Tipo de Ajuste</label>
+            <select
+              formControlName="tipo"
+              class="custom-select rounded-0"
+              id="tipoAjuste"
+              name="tipoAjuste"
+            >
+              <option value="alta">Alta de Artículo</option>
+              <option value="baja">Baja de Artículo</option>
+            </select>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="exampleInput">Ajuste</label>
+            <input
+              formControlName="ajuste"
+              type="number"
+              class="form-control"
+              placeholder="Ajuste de Stock"
+            />
+          </div>
+
+          <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+        </form>
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer">Footer</div>
+      <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- footer -->
+<app-footer></app-footer>
+<!-- /footer -->

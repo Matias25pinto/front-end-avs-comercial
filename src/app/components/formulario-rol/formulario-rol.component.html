@@ -1,0 +1,71 @@
+<!-- Formulario de rol -->
+<form [formGroup]="formularioRol">
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label class="" for="">Nombre del Rol</label>
+        <input
+          formControlName="rol"
+          type="text"
+          class="form-control"
+          placeholder="Nombre del Rol"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="form-group mb-3">
+        <label for="exampleInput">Descripción</label>
+        <textarea
+          formControlName="descripcion"
+          class="form-control"
+          rows="3"
+          placeholder=""
+        ></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <div class="custom-control custom-checkbox">
+          <input
+            formControlName="inventario"
+            id="opt1"
+            class="custom-control-input"
+            type="checkbox"
+          />
+          <label for="opt1" class="custom-control-label">Inventario</label>
+        </div>
+
+        <div class="custom-control custom-checkbox">
+          <input
+            formControlName="seguridad"
+            id="opt2"
+            class="custom-control-input"
+            type="checkbox"
+          />
+          <label for="opt2" class="custom-control-label">Seguridad</label>
+        </div>
+
+        <div class="custom-control custom-checkbox">
+          <input
+            id="opt3"
+            class="custom-control-input"
+            type="checkbox"
+            value="option3"
+          />
+          <label for="opt3" class="custom-control-label">Permiso 3</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="card-footer text-center">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </div>
+</form>
