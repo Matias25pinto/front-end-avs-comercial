@@ -27,6 +27,9 @@ import { CrearUsuarioComponent } from './pages/seguridad/crear-usuario/crear-usu
 import { ModificarUsuarioComponent } from './pages/seguridad/modificar-usuario/modificar-usuario.component';
 import { ListarUsuariosComponent } from './pages/seguridad/listar-usuarios/listar-usuarios.component';
 import { FormularioUsuarioComponent } from './components/formulario-usuario/formulario-usuario.component';
+import { ListarClientesComponent } from './pages/ventas/listar-clientes/listar-clientes.component';
+import { CrearClienteComponent } from './pages/ventas/crear-cliente/crear-cliente.component';
+import { FormularioPersonaComponent } from './components/formulario-persona/formulario-persona.component';
 
 
 @NgModule({
@@ -50,6 +53,9 @@ import { FormularioUsuarioComponent } from './components/formulario-usuario/form
     ModificarUsuarioComponent,
     ListarUsuariosComponent,
     FormularioUsuarioComponent,
+    ListarClientesComponent,
+    CrearClienteComponent,
+    FormularioPersonaComponent,
   ],
   imports: [
     BrowserModule,

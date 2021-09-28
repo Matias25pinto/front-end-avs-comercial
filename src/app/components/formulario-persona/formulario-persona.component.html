@@ -1,0 +1,106 @@
+<!-- Formulario de rol -->
+<form [formGroup]="formularioPersona" (ngSubmit)="enviarFormulario()">
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label class="" for="">Nombre y Apellido</label>
+        <input
+          formControlName="nombre_apellido"
+          type="text"
+          class="form-control"
+          placeholder="Nombre y Apellido"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label class="" for="">Cédula</label>
+        <input
+          formControlName="cedula"
+          type="text"
+          class="form-control"
+          placeholder="Cédula"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label class="" for="">RUC</label>
+        <input
+          formControlName="ruc"
+          type="text"
+          class="form-control"
+          placeholder="RUC"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="inputGroupSelect01"
+        >Tipo de Persona</label
+      >
+    </div>
+    <select formControlName="tipo_persona" class="custom-select" id="inputGroupSelect01">
+      <option value="F">Persona Física</option>
+      <option value="J">Persona Jurídica</option>
+    </select>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label class="" for="">Dirección</label>
+        <input
+          formControlName="direccion"
+          type="text"
+          class="form-control"
+          placeholder="Dirección"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label class="" for="">Teléfono / Celular</label>
+        <input
+          formControlName="telefono"
+          type="text"
+          class="form-control"
+          placeholder="Teléfono / Celular"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label class="" for="">Correo</label>
+        <input
+          formControlName="correo_electronico"
+          type="email"
+          class="form-control"
+          placeholder="Correo"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="card-footer text-center">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </div>
+</form>

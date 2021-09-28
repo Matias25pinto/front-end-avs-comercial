@@ -15,6 +15,8 @@ import { ModificarRolComponent } from './pages/seguridad/modificar-rol/modificar
 import { ListarUsuariosComponent } from './pages/seguridad/listar-usuarios/listar-usuarios.component';
 import { CrearUsuarioComponent } from './pages/seguridad/crear-usuario/crear-usuario.component';
 import { ModificarUsuarioComponent } from './pages/seguridad/modificar-usuario/modificar-usuario.component';
+import { ListarClientesComponent } from './pages/ventas/listar-clientes/listar-clientes.component';
+import { CrearClienteComponent } from './pages/ventas/crear-cliente/crear-cliente.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -70,6 +72,12 @@ const routes: Routes = [
     component: ModificarUsuarioComponent,
     canActivate: [LoginGuard],
   },
+  {
+    path: 'ventas/listar-clientes',
+    component: ListarClientesComponent,
+    canActivate: [LoginGuard],
+  },
+  {path:'ventas/agregar-cliente', component: CrearClienteComponent, canActivate: [LoginGuard]},
   { path: '*', pathMatch: 'full', redirectTo: 'home' },
 ];
 
