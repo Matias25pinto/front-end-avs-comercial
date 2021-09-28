@@ -30,7 +30,20 @@ import { FormularioUsuarioComponent } from './components/formulario-usuario/form
 import { ListarClientesComponent } from './pages/ventas/listar-clientes/listar-clientes.component';
 import { CrearClienteComponent } from './pages/ventas/crear-cliente/crear-cliente.component';
 import { FormularioPersonaComponent } from './components/formulario-persona/formulario-persona.component';
+import { ModificarClienteComponent } from './pages/ventas/modificar-cliente/modificar-cliente.component';
 
+//La localidad de la app
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localEs from '@angular/common/locales/es';
+registerLocaleData(localEs);
+
+//Angular Material
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field'; //Para utilizar formularios de Angular Material
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -56,14 +69,22 @@ import { FormularioPersonaComponent } from './components/formulario-persona/form
     ListarClientesComponent,
     CrearClienteComponent,
     FormularioPersonaComponent,
+    ModificarClienteComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'es' },
+    { provide: MAT_DATE_LOCALE, useValue: 'es-PY' },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

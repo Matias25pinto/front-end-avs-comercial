@@ -19,7 +19,7 @@
             <li class="breadcrumb-item">
               <a [routerLink]="'home'">Ventas</a>
             </li>
-            <li class="breadcrumb-item active">agregar-cliente</li>
+            <li class="breadcrumb-item active">modificar-cliente</li>
           </ol>
         </div>
       </div>
@@ -32,7 +32,7 @@
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Agregar Cliente</h3>
+        <h3 class="card-title">Modificar Cliente</h3>
 
         <div class="card-tools">
           <button
@@ -55,7 +55,7 @@
       </div>
       <div class="card-body">
         <!--Formulario de Cliente-->
-        <app-formulario-persona [isCreatePerson]="true"></app-formulario-persona>
+        <app-formulario-persona [isCreatePerson]="false" [id_persona]="id_persona"></app-formulario-persona>
       </div>
       <!-- /.card-body -->
       <div class="card-footer">Footer</div>

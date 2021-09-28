@@ -2,7 +2,7 @@
 <form [formGroup]="formularioPersona" (ngSubmit)="enviarFormulario()">
   <div class="row">
     <div class="col">
-      <div class="form-group">
+      <div class="form-group mb-3">
         <label class="" for="">Nombre y Apellido</label>
         <input
           formControlName="nombre_apellido"
@@ -10,13 +10,16 @@
           class="form-control"
           placeholder="Nombre y Apellido"
         />
+        <small *ngIf="nombre_apellidoNoValido" class="text-danger"
+          >El campo Nombre y Apellido es obligatorio.</small
+        >
       </div>
     </div>
   </div>
 
   <div class="row">
     <div class="col">
-      <div class="form-group">
+      <div class="form-group mb-3">
         <label class="" for="">Cédula</label>
         <input
           formControlName="cedula"
@@ -24,13 +27,39 @@
           class="form-control"
           placeholder="Cédula"
         />
+        <small *ngIf="cedulaNoValido" class="text-danger"
+          >El campo Cédula es obligatorio.</small
+        >
       </div>
     </div>
   </div>
 
   <div class="row">
     <div class="col">
-      <div class="form-group">
+      <div class="form-group mb-3">
+        <label>Fecha de Nacimiento: </label>
+        <input
+          formControlName="fecha_nacimiento"
+          class="ml-3"
+          matInput
+          [matDatepicker]="picker"
+          placeholder="día / mes / año"
+          [disabled]="true"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker [disabled]="false"></mat-datepicker>
+        <div class="form-group">
+          <small *ngIf="fecha_nacimientoNoValido" class="text-danger"
+            >El campo Fecha de Nacimiento es obligatorio.</small
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group mb-3">
         <label class="" for="">RUC</label>
         <input
           formControlName="ruc"
@@ -38,6 +67,9 @@
           class="form-control"
           placeholder="RUC"
         />
+        <small *ngIf="rucNoValido" class="text-danger"
+          >El campo RUC es obligatorio.</small
+        >
       </div>
     </div>
   </div>
@@ -48,7 +80,11 @@
         >Tipo de Persona</label
       >
     </div>
-    <select formControlName="tipo_persona" class="custom-select" id="inputGroupSelect01">
+    <select
+      formControlName="tipo_persona"
+      class="custom-select"
+      id="inputGroupSelect01"
+    >
       <option value="F">Persona Física</option>
       <option value="J">Persona Jurídica</option>
     </select>
@@ -56,7 +92,7 @@
 
   <div class="row">
     <div class="col">
-      <div class="form-group">
+      <div class="form-group mb-3">
         <label class="" for="">Dirección</label>
         <input
           formControlName="direccion"
@@ -64,13 +100,16 @@
           class="form-control"
           placeholder="Dirección"
         />
+        <small *ngIf="direccionNoValido" class="text-danger"
+          >El campo Dirección es obligatorio.</small
+        >
       </div>
     </div>
   </div>
 
   <div class="row">
     <div class="col">
-      <div class="form-group">
+      <div class="form-group mb-3">
         <label class="" for="">Teléfono / Celular</label>
         <input
           formControlName="telefono"
@@ -78,13 +117,16 @@
           class="form-control"
           placeholder="Teléfono / Celular"
         />
+        <small *ngIf="telefonoNoValido" class="text-danger"
+          >El campo Télefono / Celular es obligatorio.</small
+        >
       </div>
     </div>
   </div>
 
   <div class="row">
     <div class="col">
-      <div class="form-group">
+      <div class="form-group mb-3">
         <label class="" for="">Correo</label>
         <input
           formControlName="correo_electronico"
@@ -92,6 +134,9 @@
           class="form-control"
           placeholder="Correo"
         />
+        <small *ngIf="correoNoValido" class="text-danger"
+          >El campo Correo es obligatorio.</small
+        >
       </div>
     </div>
   </div>

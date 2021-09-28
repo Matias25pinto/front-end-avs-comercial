@@ -59,7 +59,7 @@ export class ListarClientesComponent implements OnInit {
     this.clientes = [];
     this.siguiente = '';
     this.anterior = '';
-    this.personaService.getPersona(pagina).subscribe(
+    this.personaService.getPersonas(pagina).subscribe(
       (data) => {
         this.clientes = data.results;
         this.siguiente = data.next != null ? data.next : '';

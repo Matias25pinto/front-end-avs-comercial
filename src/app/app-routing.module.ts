@@ -17,6 +17,7 @@ import { CrearUsuarioComponent } from './pages/seguridad/crear-usuario/crear-usu
 import { ModificarUsuarioComponent } from './pages/seguridad/modificar-usuario/modificar-usuario.component';
 import { ListarClientesComponent } from './pages/ventas/listar-clientes/listar-clientes.component';
 import { CrearClienteComponent } from './pages/ventas/crear-cliente/crear-cliente.component';
+import { ModificarClienteComponent } from './pages/ventas/modificar-cliente/modificar-cliente.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -77,7 +78,17 @@ const routes: Routes = [
     component: ListarClientesComponent,
     canActivate: [LoginGuard],
   },
-  {path:'ventas/agregar-cliente', component: CrearClienteComponent, canActivate: [LoginGuard]},
+  {
+    path: 'ventas/modificar-cliente/:id',
+    component: ModificarClienteComponent,
+    canActivate: [LoginGuard],
+  },
+
+  {
+    path: 'ventas/agregar-cliente',
+    component: CrearClienteComponent,
+    canActivate: [LoginGuard],
+  },
   { path: '*', pathMatch: 'full', redirectTo: 'home' },
 ];
 
