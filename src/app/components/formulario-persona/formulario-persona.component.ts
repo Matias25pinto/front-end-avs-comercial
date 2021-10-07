@@ -16,7 +16,9 @@ import { environment } from '../../../environments/environment';
 export class FormularioPersonaComponent implements OnInit {
   @Input() isCreatePerson: boolean = false;
   @Input() id_persona: number = 0;
+
   public formularioPersona: FormGroup;
+  public isLoading: boolean = false;
   private url = environment.url;
 
   private es_cliente = 'V';
@@ -35,8 +37,8 @@ export class FormularioPersonaComponent implements OnInit {
       correo_electronico: [
         '',
         [
-          Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$'),
           Validators.required,
+          Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$'),
         ],
       ],
       fecha_nacimiento: ['', Validators.required],
@@ -132,6 +134,7 @@ export class FormularioPersonaComponent implements OnInit {
 
   enviarFormulario() {
     if (this.formularioPersona.valid) {
+      this.isLoading = true;
       let fecha = this.formularioPersona.get('fecha_nacimiento')?.value;
       const fecha_nacimiento = `${fecha.getFullYear()}-${
         fecha.getMonth() + 1
@@ -188,6 +191,7 @@ export class FormularioPersonaComponent implements OnInit {
     this.personaService.crearPersona(body).subscribe(
       (data) => {
         this.limpiarFormulario();
+        this.isLoading = false;
         Swal.fire({
           position: 'top-end',
           icon: 'success',
@@ -197,6 +201,7 @@ export class FormularioPersonaComponent implements OnInit {
         });
       },
       (err) => {
+        this.isLoading = false;
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -210,6 +215,7 @@ export class FormularioPersonaComponent implements OnInit {
   modificarPersona(body: Persona) {
     this.personaService.actualizarPersona(body).subscribe(
       (data) => {
+        this.isLoading = false;
         Swal.fire({
           position: 'top-end',
           icon: 'success',
@@ -219,6 +225,7 @@ export class FormularioPersonaComponent implements OnInit {
         });
       },
       (err) => {
+        this.isLoading = false;
         Swal.fire({
           icon: 'error',
           title: 'Oops...',

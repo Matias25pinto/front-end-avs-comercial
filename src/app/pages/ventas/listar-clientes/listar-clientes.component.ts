@@ -132,11 +132,16 @@ export class ListarClientesComponent implements OnInit {
             .deletePersona(`${this.url}/personas/${id}/`)
             .subscribe(
               (resp: any) => {
-                if (this.urlActual != `${this.url}/personas/clientes/`) {
-                  this.cargarClientes(`${this.urlActual}`);
+                if (this.urlActual != `${this.url}/personas/`) {
+                  if (this.clientes.length > 1) {
+                    this.cargarClientes(`${this.urlActual}`);
+                  } else {
+                    this.cargarClientes(`${this.anterior}`);
+                  }
                 } else {
-                  this.cargarClientes(`${this.url}/personas/clientes/`);
+                  this.cargarClientes(`${this.url}/personas/`);
                 }
+
                 swalWithBootstrapButtons.fire(
                   'Eliminado!!!',
                   'El cliente fue eliminado con éxito!!!',

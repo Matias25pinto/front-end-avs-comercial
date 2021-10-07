@@ -1,21 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-modificar-usuario',
   templateUrl: './modificar-usuario.component.html',
 })
 export class ModificarUsuarioComponent implements OnInit {
-  public usuario = {
-    id: 123,
-    username: 'Matias',
-    first_name: 'matias',
-    last_name: 'Pinto',
-    email: 'matias25pinto@gmail.com',
-    rol: 'rol2',
-  };
   public isModified = true;
+  public id_user: number = 0;
 
-  constructor() {}
+  constructor(private routes: ActivatedRoute) {
+    this.routes.params.subscribe((params) => {
+      this.id_user = params['id'];
+    });
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 }

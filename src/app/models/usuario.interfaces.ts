@@ -1,11 +1,14 @@
 export interface Login {
-  users: Users;
+  users: User;
   access_token: string;
 }
-export interface Users {
-  id?: number;
+export interface User {
+  id?:number;
   username: string;
   first_name: string;
   last_name: string;
   email: string;
+  password?: string;
+  password_confirmation?: string;
+  role:string;
 }

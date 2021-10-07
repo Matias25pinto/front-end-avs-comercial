@@ -1,5 +1,22 @@
 <!-- Formulario de rol -->
-<form [formGroup]="formularioUsuario">
+<form [formGroup]="formularioUsuario" (ngSubmit)="enviarFormulario()">
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label class="" for="">Usuario</label>
+        <input
+          formControlName="username"
+          type="text"
+          class="form-control"
+          placeholder="usuario"
+        />
+        <small *ngIf="usernameNoValido" class="text-danger"
+          >El campo Usuario es obligatorio.</small
+        >
+      </div>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col">
       <div class="form-group">
@@ -10,6 +27,9 @@
           class="form-control"
           placeholder="Nombre"
         />
+        <small *ngIf="first_nameNoValido" class="text-danger"
+          >El campo Nombre es obligatorio.</small
+        >
       </div>
     </div>
   </div>
@@ -24,6 +44,9 @@
           class="form-control"
           placeholder="Apellido"
         />
+        <small *ngIf="last_nameNoValido" class="text-danger"
+          >El campo Apellido es obligatorio.</small
+        >
       </div>
     </div>
   </div>
@@ -38,6 +61,9 @@
           class="form-control"
           placeholder="Correo"
         />
+        <small *ngIf="emailNoValido" class="text-danger"
+          >El campo Email es obligatorio.</small
+        >
       </div>
     </div>
   </div>
@@ -47,23 +73,64 @@
       <div class="form-group">
         <label for="exampleInput">Rol</label>
         <select
-          formControlName="rol"
+          formControlName="role"
           id="exampleSelect"
           class="custom-select"
           name=""
         >
+          <option value="">Seleccionar Rol</option>
           <option value="rol1">Rol 1</option>
           <option value="rol2">Rol 2</option>
           <option value="rol3">Rol 3</option>
         </select>
+        <small *ngIf="roleNoValido" class="text-danger"
+          >El campo Rol es obligatorio.</small
+        >
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isCreateUser" class="row">
+    <div class="col">
+      <div class="form-group">
+        <label class="" for="">Contraseña</label>
+        <input
+          formControlName="password"
+          type="password"
+          class="form-control"
+          placeholder="Contraseña"
+        />
+        <small *ngIf="passwordNoValido" class="text-danger"
+          >La contraseña no es valida.</small
+        >
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isCreateUser" class="row">
+    <div class="col">
+      <div class="form-group">
+        <label class="" for="">Confirmar Contraseña</label>
+        <input
+          formControlName="password_confirmation"
+          type="password"
+          class="form-control"
+          placeholder="Confirmar Contraseña"
+        />
+        <small *ngIf="password_confirmationNoValido" class="text-danger"
+          >Las contraseñas no coinciden.</small
+        >
       </div>
     </div>
   </div>
 
   <div class="row">
     <div class="col">
-      <div class="card-footer text-center">
+      <div *ngIf="!isLoading" class="card-footer text-center">
         <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+      <div *ngIf="isLoading" class="card-footer text-center">
+        <button type="button" [disabled]="true" class="btn btn-primary"><i class="fas fa-spinner fa-pulse"></i></button>
       </div>
     </div>
   </div>

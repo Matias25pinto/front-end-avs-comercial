@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Persona } from '../models/persona.interface';
-import {environment } from '../../environments/environment';
+import { environment } from '../../environments/environment';
 export interface getPersonas {
   count: number;
   next: string;
@@ -12,7 +12,6 @@ export interface getPersonas {
   providedIn: 'root',
 })
 export class PersonaService {
-
   private url = environment.url;
 
   constructor(private http: HttpClient) {}
@@ -32,8 +31,7 @@ export class PersonaService {
     return this.http.post(`${this.url}/personas/`, body);
   }
 
-actualizarPersona(body: Persona) {
+  actualizarPersona(body: Persona) {
     return this.http.put(`${this.url}/personas/${body.id_persona}/`, body);
   }
-
 }
