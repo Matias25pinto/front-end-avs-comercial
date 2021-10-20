@@ -18,6 +18,9 @@ import { ModificarUsuarioComponent } from './pages/seguridad/modificar-usuario/m
 import { ListarClientesComponent } from './pages/ventas/listar-clientes/listar-clientes.component';
 import { CrearClienteComponent } from './pages/ventas/crear-cliente/crear-cliente.component';
 import { ModificarClienteComponent } from './pages/ventas/modificar-cliente/modificar-cliente.component';
+import { ListarProveedoresComponent } from './pages/compras/listar-proveedores/listar-proveedores.component';
+import { CrearProveedorComponent } from './pages/compras/crear-proveedor/crear-proveedor.component';
+import { EditarProveedorComponent } from './pages/compras/editar-proveedor/editar-proveedor.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -89,6 +92,22 @@ const routes: Routes = [
     component: CrearClienteComponent,
     canActivate: [LoginGuard],
   },
+  {
+    path: 'compras/listar-proveedores',
+    component: ListarProveedoresComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'compras/crear-proveedor',
+    component: CrearProveedorComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'compras/editar-proveedor/:id',
+    component: EditarProveedorComponent,
+    canActivate: [LoginGuard],
+  },
+
   { path: '*', pathMatch: 'full', redirectTo: 'home' },
 ];
 

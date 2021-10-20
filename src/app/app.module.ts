@@ -8,6 +8,19 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+//La localidad de la app
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localEs from '@angular/common/locales/es';
+registerLocaleData(localEs);
+
+//Angular Material
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field'; //Para utilizar formularios de Angular Material
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+
 //Components
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -31,19 +44,10 @@ import { ListarClientesComponent } from './pages/ventas/listar-clientes/listar-c
 import { CrearClienteComponent } from './pages/ventas/crear-cliente/crear-cliente.component';
 import { FormularioPersonaComponent } from './components/formulario-persona/formulario-persona.component';
 import { ModificarClienteComponent } from './pages/ventas/modificar-cliente/modificar-cliente.component';
-
-//La localidad de la app
-import { LOCALE_ID } from '@angular/core';
-import { registerLocaleData } from '@angular/common';
-import localEs from '@angular/common/locales/es';
-registerLocaleData(localEs);
-
-//Angular Material
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field'; //Para utilizar formularios de Angular Material
-import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { ListarProveedoresComponent } from './pages/compras/listar-proveedores/listar-proveedores.component';
+import { CrearProveedorComponent } from './pages/compras/crear-proveedor/crear-proveedor.component';
+import { EditarProveedorComponent } from './pages/compras/editar-proveedor/editar-proveedor.component';
+import { FormularioProveedorComponent } from './components/formulario-proveedor/formulario-proveedor.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +74,10 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
     CrearClienteComponent,
     FormularioPersonaComponent,
     ModificarClienteComponent,
+    ListarProveedoresComponent,
+    CrearProveedorComponent,
+    EditarProveedorComponent,
+    FormularioProveedorComponent,
   ],
   imports: [
     BrowserModule,

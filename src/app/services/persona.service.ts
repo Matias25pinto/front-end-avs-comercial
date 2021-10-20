@@ -12,6 +12,7 @@ export interface getPersonas {
   providedIn: 'root',
 })
 export class PersonaService {
+
   private url = environment.url;
 
   constructor(private http: HttpClient) {}

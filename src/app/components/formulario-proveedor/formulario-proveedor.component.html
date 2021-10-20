@@ -1,39 +1,23 @@
 <!-- Formulario de rol -->
-<form [formGroup]="formularioPersona" (ngSubmit)="enviarFormulario()">
+<form [formGroup]="formulario" (ngSubmit)="enviarFormulario()">
   <div class="row">
     <div class="col">
       <div class="form-group mb-3">
-        <label class="" for="">Nombre y Apellido</label>
+        <label class="" for="">Propietario</label>
         <input
-          formControlName="nombre_apellido"
+          formControlName="propietario"
           type="text"
           class="form-control"
           placeholder="Nombre y Apellido"
         />
-        <small *ngIf="nombre_apellidoNoValido" class="text-danger"
-          >El campo Nombre y Apellido es obligatorio.</small
+        <small *ngIf="propietarioNoValido" class="text-danger"
+          >El campo Propietario es obligatorio.</small
         >
       </div>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col">
-      <div class="form-group mb-3">
-        <label class="" for="">Cédula</label>
-        <input
-          formControlName="cedula"
-          type="text"
-          class="form-control"
-          placeholder="Cédula"
-        />
-        <small *ngIf="cedulaNoValido" class="text-danger"
-          >El campo Cédula es obligatorio.</small
-        >
-      </div>
-    </div>
-  </div>
-
+  
   <div class="row">
     <div class="col">
       <div class="form-group mb-3">
