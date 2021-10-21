@@ -18,7 +18,7 @@
             <li class="breadcrumb-item">
               <a [routerLink]="'home'">inventario</a>
             </li>
-            <li class="breadcrumb-item active">ver-articulos</li>
+            <li class="breadcrumb-item active">artículos</li>
           </ol>
         </div>
       </div>
@@ -31,7 +31,7 @@
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Ver Artículos</h3>
+        <h3 class="card-title">Artículos</h3>
 
         <div class="card-tools">
           <button
@@ -59,51 +59,53 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Lista de Artículos</h3>
-
                 <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px">
-                    <input
-                      type="text"
-                      name="table_search"
-                      class="form-control float-right"
-                      placeholder="Buscar"
-                    />
-
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default">
-                        <i class="fas fa-search"></i>
-                      </button>
+                  <form
+                    [formGroup]="formularioBuscar"
+                    (ngSubmit)="enviarFormulario()"
+                  >
+                    <div
+                      class="input-group input-group-sm"
+                      style="width: 150px"
+                    >
+                      <input
+			formControlName="articulo"
+                        type="text"
+                        name="table_search"
+                        class="form-control float-right"
+                        placeholder="Buscar"
+                      />
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-default">
+                          <i class="fas fa-search"></i>
+                        </button>
+                      </div>
                     </div>
-                  </div>
+                  </form>
                 </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap text-center">
+                <table
+                  *ngIf="!isLoading"
+                  class="table table-hover text-nowrap text-center"
+                >
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Código Interno</th>
-                      <th>Código de Barra</th>
                       <th>Artículo</th>
-                      <th>Stock Actual</th>
-                      <th>Unidad de Medida</th>
-                      <th colspan="2">Opciones</th>
+                      <th>Código</th>
+                      <th [attr.colspan]=2>Opciones</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let articulo of articulos; let i = index;">
-                      <td>{{i+1}}</td>
-                      <td>1</td>
-                      <td>{{articulo.codigo}}</td>
-                      <td>
-                        <span class="tag tag-success">{{articulo.nombre}}</span>
-                      </td>
-                      <td>{{articulo.stock_actual}}</td>
-                      <td>{{articulo.unidad_medida}}</td>
+                    <tr *ngFor="let articulo of articulos; let i = index">
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ articulo.nombre}}</td>
+                      <td>{{articulo.codigo_barras}}</td>
                       <td>
                         <button
-                          (click)="modificarArticulo(articulo.id)"
+                          (click)="modificarArticulo(articulo.id_articulo)"
                           class="btn btn-block bg-gradient-primary btn-flat"
                           type="button"
                         >
@@ -112,7 +114,7 @@
                       </td>
                       <td>
                         <button
-                        (click)="eliminarArticulo(articulo.nombre)"
+                          (click)="eliminarArticulo(articulo.nombre, articulo.id_articulo)"
                           class="btn btn-block bg-gradient-danger btn-flat"
                           type="button"
                         >
@@ -129,26 +131,45 @@
           </div>
         </div>
         <!-- /.row -->
+        <div *ngIf="isLoading" class="row justify-content-center">
+          <div class="col-auto">
+            <i class="fas fa-sync fa-spin fa-5x"></i>
+          </div>
+        </div>
+        <div *ngIf="isError" class="row justify-content-center">
+          <div class="col-auto col-8 text-center">
+            <div class="alert alert-danger" role="alert">
+              <h3>ERROR!!!</h3>
+              <i class="fas fa-exclamation-circle fa-7x"></i>
+            </div>
+          </div>
+        </div>
       </div>
       <!-- /.card-body -->
       <div class="card-footer">
-	<!-- Paginación de pagina-->
+        <!-- Paginación de pagina-->
         <nav aria-label="Page navigation example">
           <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-              <a class="page-link" href="#" tabindex="-1" aria-disabled="true"
+            <li [ngClass]="{'disabled':anterior == ''}" class="page-item">
+              <a
+                (click)="cargarArticulos(anterior)"
+                class="page-link cursor-pointer m-1"
+                tabindex="-1"
+                [attr.aria-disabled]="anterior != ''"
                 >Anterior</a
               >
             </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">Siguiente</a>
+            <li [ngClass]="{'disabled':siguiente == ''}" class="page-item">
+              <a
+                (click)="cargarArticulos(siguiente)"
+                [attr.aria-disabled]="siguiente != ''"
+                class="page-link cursor-pointer m-1"
+                >Siguiente</a
+              >
             </li>
           </ul>
         </nav>
-	<!-- /paginación -->
+        <!-- /paginación -->
       </div>
       <!-- /.card-footer-->
     </div>

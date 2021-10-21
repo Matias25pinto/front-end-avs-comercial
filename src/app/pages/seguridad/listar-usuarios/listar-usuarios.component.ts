@@ -43,6 +43,7 @@ export class ListarUsuariosComponent implements OnInit {
   }
 
   enviarFormulario() {
+    this.isError = false;
     if (this.formularioBuscar.valid) {
       const termino = this.formularioBuscar.get('usuario')?.value;
       const pagina: string = `${this.url}/users/busqueda/?search=${termino}`;
@@ -54,7 +55,6 @@ export class ListarUsuariosComponent implements OnInit {
 
   buscarUsuarios(pagina: string) {
     this.isLoading = true;
-    this.isError = false;
     this.usuarios = [];
     this.siguiente = '';
     this.anterior = '';

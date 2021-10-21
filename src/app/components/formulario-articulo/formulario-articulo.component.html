@@ -1,6 +1,6 @@
 <!-- Formulario articulo -->
 <!-- form start -->
-<form [formGroup]="formularioArticulo">
+<form [formGroup]="formulario" (ngSubmit)="enviarFormulario()">
   <div class="card-body">
     <div class="form-group mb-3">
       <label for="exampleInput">Nombre</label>
@@ -10,90 +10,174 @@
         class="form-control"
         placeholder="Nombre del Artículo"
       />
+      <small *ngIf="nombreNoValido" class="text-danger"
+        >El campo Nombre es obligatorio.</small
+      >
     </div>
 
     <div class="form-group mb-3">
       <label for="exampleInput">Código de Barra</label>
-      <input  formControlName="codigo" type="number" class="form-control" placeholder="Código de barra" />
+      <input
+        formControlName="codigo_barras"
+        type="number"
+        class="form-control"
+        placeholder="Código de barra"
+      />
+      <small *ngIf="codigo_barrasNoValido" class="text-danger"
+        >El campo Código de Barra es obligatorio.</small
+      >
     </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect01">Marca</label>
+      </div>
+      <select
+        formControlName="id_marca"
+        class="custom-select"
+        id="inputGroupSelect01"
+      >
+        <option value="5b5">Marca 1</option>
+        <option value="5b5">Marca 2</option>
+      </select>
+      <button type="button" class="btn btn-primary float-right">
+        <i class="fas fa-plus"></i> Agregar Marca
+      </button>
+    </div>
+    <small *ngIf="id_marcaNoValido" class="text-danger"
+      >El campo Marca es obligatorio.</small
+    >
 
     <div class="form-group mb-3">
       <label for="exampleInput">Costo</label>
-      <input  formControlName="costo" type="number" class="form-control" placeholder="Precio compra" />
+      <input
+        formControlName="costo"
+        type="number"
+        class="form-control"
+        placeholder="Precio compra"
+      />
+      <small *ngIf="costoNoValido" class="text-danger"
+        >El campo Costo es obligatorio.</small
+      >
     </div>
 
     <div class="form-group mb-3">
       <label for="exampleInput">IVA %</label>
       <input
-      formControlName="porc_iva"
+        formControlName="porc_iva"
         type="number"
         class="form-control"
         placeholder="Porcentaje del IVA"
       />
+      <small *ngIf="porc_ivaNoValido" class="text-danger"
+        >El campo IVA es obligatorio.</small
+      >
     </div>
 
     <div class="form-group mb-3">
       <label for="exampleInput">Comisión %</label>
       <input
-      formControlName="porc_comision"
+        formControlName="porc_comision"
         type="number"
         class="form-control"
         placeholder="Porcentaje de comisión"
       />
+      <small *ngIf="porc_comisionNoValido" class="text-danger"
+        >El campo Comisión es obligatorio.</small
+      >
     </div>
 
     <div class="form-group mb-3">
       <label for="exampleInput">Stock Actual</label>
-      <input  formControlName="stock_actual" type="number" class="form-control" placeholder="Stock actual" />
+      <input
+        formControlName="stock_actual"
+        type="number"
+        class="form-control"
+        placeholder="Stock actual"
+      />
+      <small *ngIf="stock_actualNoValido" class="text-danger"
+        >El campo Stock Actual es obligatorio.</small
+      >
     </div>
 
     <div class="form-group mb-3">
       <label for="exampleInput">Stock Mínimo</label>
-      <input  formControlName="stock_minimo" type="number" class="form-control" placeholder="Stock mínimo" />
+      <input
+        formControlName="stock_minimo"
+        type="number"
+        class="form-control"
+        placeholder="Stock mínimo"
+      />
+      <small *ngIf="stock_minimoNoValido" class="text-danger"
+        >El campo Stock Mínimo es obligatorio.</small
+      >
     </div>
 
     <div class="form-group mb-3">
       <label for="exampleInput">Unidad de Medida</label>
-      <select  formControlName="unidad_medida" id="exampleSelect" class="custom-select" name="">
-        <option value="unidad">Unidad</option>
-        <option value="kg">Kilogramo</option>
-        <option value="caja">Por Caja</option>
+      <select
+        formControlName="unidad_medida"
+        id="exampleSelect"
+        class="custom-select"
+        name=""
+      >
+        <option value="UN">Unidad</option>
+        <option value="KG">Kilogramo</option>
+        <option value="CC">Centímetros Cúbicos</option>
+        <option value="CJ">Por Caja</option>
       </select>
     </div>
 
     <div class="form-group mb-3">
       <label for="exampleInput">Precio Unitario</label>
-      <input  formControlName="precio_unitario" type="number" class="form-control" placeholder="Precio 1" />
+      <input
+        formControlName="precio_unitario"
+        type="number"
+        class="form-control"
+        placeholder="Precio 1"
+      />
+      <small *ngIf="precio_unitarioNoValido" class="text-danger"
+        >El campo Precio Unitario es obligatorio.</small
+      >
     </div>
 
     <div class="form-group mb-3">
       <label for="exampleInput">Precio Mayorista</label>
-      <input  formControlName="precio_mayorista" type="number" class="form-control" placeholder="Precio 2" />
+      <input
+        formControlName="precio_mayorista"
+        type="number"
+        class="form-control"
+        placeholder="Precio 2"
+      />
+      <small *ngIf="precio_mayoristaNoValido" class="text-danger"
+        >El campo Precio Mayorista es obligatorio.</small
+      >
     </div>
 
     <div class="form-group mb-3">
       <label for="exampleInput">Precio Especial</label>
-      <input  formControlName="precio_especial" type="number" class="form-control" placeholder="Precio 3" />
-    </div>
-
-    <div class="form-group">
-      <label for="exampleInputFile">Imagen</label>
-      <div class="input-group">
-        <div class="custom-file">
-          <input type="file" class="custom-file-input" id="exampleInputFile" />
-          <label class="custom-file-label" for="exampleInputFile"
-            >Seleccione una imagen</label
-          >
-        </div>
-        <div class="input-group-append">
-          <span class="input-group-text">Upload</span>
-        </div>
-      </div>
+      <input
+        formControlName="precio_especial"
+        type="number"
+        class="form-control"
+        placeholder="Precio 3"
+      />
+      <small *ngIf="precio_especialNoValido" class="text-danger"
+        >El campo Precio Especial es obligatorio.</small
+      >
     </div>
   </div>
   <!-- /.card-body -->
-
-  <div class="card-footer">
-    <button type="submit" class="btn btn-primary">Guardar</button>
+  <div class="row">
+    <div class="col">
+      <div *ngIf="!isLoading" class="card-footer text-center">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+      <div *ngIf="isLoading" class="card-footer text-center">
+        <button type="button" [disabled]="true" class="btn btn-primary">
+          <i class="fas fa-spinner fa-pulse"></i>
+        </button>
+      </div>
+    </div>
   </div>
 </form>

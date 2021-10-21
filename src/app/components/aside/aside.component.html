@@ -94,10 +94,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a
-                class="nav-link"
-                routerLink="{{'/compras/crear-proveedor'}}"
-              >
+              <a class="nav-link" routerLink="{{'/compras/crear-proveedor'}}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Crear Proveedor</p>
               </a>
@@ -116,20 +113,20 @@
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a
+                routerLink="{{ '/inventario/ver-articulos' }}"
+                class="nav-link"
+              >
+                <i class="far fa-circle nav-icon"></i>
+                <p>Articulos</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
                 routerLink="{{ '/inventario/crear-articulo' }}"
                 class="nav-link"
               >
                 <i class="far fa-circle nav-icon"></i>
                 <p>Crear Articulo</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a
-                routerLink="{{ '/inventario/ver-articulos' }}"
-                class="nav-link"
-              >
-                <i class="far fa-circle nav-icon"></i>
-                <p>Ver Articulos</p>
               </a>
             </li>
           </ul>

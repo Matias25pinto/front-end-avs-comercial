@@ -1,6 +1,7 @@
 export interface Articulo{
-  id?:number;
-  codigo: number;
+  id_articulo:number;
+  id_marca: number;
+  codigo_barras:number;
   nombre: string;
   costo:number;
   porc_iva:number;

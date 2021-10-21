@@ -44,6 +44,7 @@ export class ListarProveedoresComponent implements OnInit {
   }
 
   enviarFormulario() {
+    this.isError = false;
     if (this.formularioBuscar.valid) {
       const termino = this.formularioBuscar.get('proveedor')?.value;
       const pagina: string = `${this.url}/proveedores/busqueda/?search=${termino}`;
@@ -55,7 +56,6 @@ export class ListarProveedoresComponent implements OnInit {
 
   buscarProveedores(pagina: string) {
     this.isLoading = true;
-    this.isError = false;
     this.proveedores = [];
     this.siguiente = '';
     this.anterior = '';

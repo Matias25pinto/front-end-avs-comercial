@@ -44,6 +44,7 @@ export class ListarClientesComponent implements OnInit {
   }
 
   enviarFormulario() {
+    this.isError = false;
     if (this.formularioBuscar.valid) {
       const termino = this.formularioBuscar.get('cliente')?.value;
       const pagina: string = `${this.url}/personas/busqueda/?search=${termino}`;
@@ -55,7 +56,6 @@ export class ListarClientesComponent implements OnInit {
 
   buscarClientes(pagina: string) {
     this.isLoading = true;
-    this.isError = false;
     this.clientes = [];
     this.siguiente = '';
     this.anterior = '';
