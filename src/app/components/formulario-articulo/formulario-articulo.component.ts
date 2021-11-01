@@ -9,6 +9,10 @@ import { Articulo } from '../../models/articulo.interface';
 
 import { environment } from '../../../environments/environment';
 
+import { Marca } from '../../models/marca.interface';
+
+import { MarcasService } from '../../services/marcas.service';
+
 @Component({
   selector: 'app-formulario-articulo',
   templateUrl: './formulario-articulo.component.html',
@@ -19,11 +23,15 @@ export class FormularioArticuloComponent implements OnInit {
 
   public formulario: FormGroup;
   public isLoading: boolean = false;
+  public marcas: Marca[] = [];
+  public marcasDesc: string[] = [];
+  public loadingMarca = false;
   private url = environment.url;
 
   constructor(
     private fb: FormBuilder,
-    private articulosService: ArticulosService
+    private articulosService: ArticulosService,
+    private marcasServices: MarcasService
   ) {
     this.formulario = this.fb.group({
       nombre: ['', Validators.required],
@@ -63,6 +71,7 @@ export class FormularioArticuloComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.cargarMarcas();
     if (!this.isCreateArticulo) {
       this.cargarFormulario();
     }
@@ -155,8 +164,60 @@ export class FormularioArticuloComponent implements OnInit {
       false
     );
   }
+  cargarMarcas() {
+    this.marcasServices.getMarcas().subscribe((resp) => {
+      this.marcasDesc = resp.map((marca) => {
+        return marca.descripcion;
+      });
 
-  cargarFormulario() {}
+      this.marcas = resp;
+    });
+  }
+  addMarca(input: HTMLInputElement) {
+    const value = input.value;
+    if (this.marcasDesc.indexOf(value) === -1 && input.value != '') {
+    this.loadingMarca = true;
+      let fecha = new Date();
+      const fecha_creacion = `${fecha.getFullYear()}-${fecha.getMonth()}-${fecha.getDate()}`;
+      const body: Marca = {
+        id_marca: value.split(' ').join('-'),
+        descripcion: value,
+        estado: 'A',
+        fecha_creacion,
+      };
+      this.marcasServices.crearMarca(body).subscribe(
+        (resp) => {
+          console.log(resp);
+          this.cargarMarcas();
+          this.loadingMarca = false;
+        },
+        (err) => {
+          console.log(err);
+          this.loadingMarca = false;
+        }
+      );
+    }
+  }
+  cargarFormulario() {
+    this.articulosService
+      .getArticulo(`${this.url}/articulos/${this.id_articulo}/`)
+      .subscribe((articulo) => {
+        this.formulario.reset({
+          nombre: articulo.nombre,
+          id_marca: articulo.id_marca,
+          codigo_barras: articulo.codigo_barras,
+          costo: articulo.costo,
+          porc_iva: articulo.porc_iva,
+          porc_comision: articulo.porc_comision,
+          stock_actual: articulo.stock_actual,
+          stock_minimo: articulo.stock_minimo,
+          unidad_medida: articulo.unidad_medida,
+          precio_unitario: articulo.precio_unitario,
+          precio_mayorista: articulo.precio_mayorista,
+          precio_especial: articulo.precio_especial,
+        });
+      });
+  }
 
   enviarFormulario() {
     console.log(this.formulario.valid);
@@ -261,6 +322,7 @@ export class FormularioArticuloComponent implements OnInit {
       stock_actual: '',
       stock_minimo: '',
       unidad_medida: 'UN',
+      precio_unitario: '',
       precio_mayorista: '',
       precio_especial: '',
     });

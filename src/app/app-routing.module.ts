@@ -21,6 +21,7 @@ import { ModificarClienteComponent } from './pages/ventas/modificar-cliente/modi
 import { ListarProveedoresComponent } from './pages/compras/listar-proveedores/listar-proveedores.component';
 import { CrearProveedorComponent } from './pages/compras/crear-proveedor/crear-proveedor.component';
 import { EditarProveedorComponent } from './pages/compras/editar-proveedor/editar-proveedor.component';
+import { CrearVentaComponent } from './pages/ventas/crear-venta/crear-venta.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -32,20 +33,15 @@ const routes: Routes = [
     canActivate: [LoginGuard],
   },
   {
-    path: 'inventario/modificar-articulo/:id',
-    component: ModificarArticuloComponent,
-    canActivate: [LoginGuard],
-  },
-  {
     path: 'inventario/ver-articulos',
     component: VerArticulosComponent,
     canActivate: [LoginGuard],
   },
   {
-    path: 'inventario/modificar-stock/:id',
-    component: ModificarStockComponent,
-    canActivate: [LoginGuard],
+    path: 'inventario/modificar-articulo/:id',
+    component: ModificarArticuloComponent,
   },
+
   {
     path: 'seguridad/listar-roles',
     component: VisualizarRolesComponent,
@@ -93,6 +89,11 @@ const routes: Routes = [
     canActivate: [LoginGuard],
   },
   {
+    path: 'ventas/crear-venta',
+    component: CrearVentaComponent,
+    canActivate: [LoginGuard],
+  },
+  {
     path: 'compras/listar-proveedores',
     component: ListarProveedoresComponent,
     canActivate: [LoginGuard],
@@ -107,7 +108,6 @@ const routes: Routes = [
     component: EditarProveedorComponent,
     canActivate: [LoginGuard],
   },
-
   { path: '*', pathMatch: 'full', redirectTo: 'home' },
 ];
 

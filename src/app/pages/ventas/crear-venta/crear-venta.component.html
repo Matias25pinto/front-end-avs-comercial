@@ -1,0 +1,341 @@
+<!-- navbar -->
+<app-navbar></app-navbar>
+<!-- /navbar-->
+<!-- aside -->
+<app-aside></app-aside>
+<!-- /aside -->
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Ventas</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item">
+              <a [routerLink]="'ventas'">ventas</a>
+            </li>
+            <li class="breadcrumb-item active">crear-venta</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <!-- Default box -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Venta</h3>
+        <div class="card-tools">
+          <button
+            type="button"
+            class="btn btn-tool"
+            data-card-widget="collapse"
+            title="Collapse"
+          >
+            <i class="fas fa-minus"></i>
+          </button>
+          <button
+            type="button"
+            class="btn btn-tool"
+            data-card-widget="remove"
+            title="Remove"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3 class="m-2 text-white">
+                  {{totalVenta | number: '1.0-0' }} Gs.
+                </h3>
+                <p>Total a pagar</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3 class="m-2 text-white">{{iva10 | number: '1.2-2' }} Gs.</h3>
+                <p>IVA 1O%</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-balance-scale"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3 class="m-2 text-white">0 Gs.</h3>
+                <p>IVA 5%</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-balance-scale"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3 class="m-2 text-white">0 Gs.</h3>
+                <p class="text-white">Exenta</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-balance-scale"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <!--MODAL -->
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+            data-backdrop="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">
+                    Agregar Cliente
+                  </h5>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <!--Formulario de Cliente-->
+                  <app-formulario-persona
+                    [isCreatePerson]="true"
+                  ></app-formulario-persona>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <div class="row justify-content-left align-items-center">
+                  <form
+                    [formGroup]="formularioGrilla"
+                    (ngSubmit)="enviarFormularioGrilla()"
+                    class="
+                      col-5
+                      d-flex
+                      flex-row
+                      justify-content-left
+                      align-items-center
+                    "
+                  >
+                    <div
+                      class="input-group input-group-sm mr-3"
+                      style="width: 60%"
+                    >
+                      <input
+                        formControlName="codigo"
+                        #inputCodigo
+                        type="text"
+                        name="table_search"
+                        class="form-control float-right"
+                        placeholder="Código"
+                      />
+
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-default">
+                          <i class="fas fa-cart-arrow-down"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      class="input-group input-group-sm mr-3"
+                      style="width: 40%"
+                    >
+                      <input
+                        #inputCantidad
+                        formControlName="cantidad"
+                        type="number"
+                        name="table_search"
+                        class="form-control float-right"
+                        placeholder="Cantidad"
+                      />
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-default">
+                          <i class="fas fa-boxes"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                  <form
+                    [formGroup]="formularioVenta"
+                    (ngSubmit)="enviarFormularioVenta()"
+                    class="
+                      col-7
+                      d-flex
+                      flex-row
+                      justify-content-left
+                      align-items-center
+                    "
+                  >
+                    <div
+                      class="input-group input-group-sm mr-3"
+                      style="width: 50%"
+                    >
+                      <nz-select
+                        formControlName="cliente"
+                        class="nz-select"
+                        #selectCliente
+                        nzShowSearch
+                        nzAllowClear
+                        [nzDropdownRender]="renderTemplate"
+                        nzPlaceHolder="Seleccionar Cliente"
+                      >
+                        <nz-option
+                          *ngFor="let cliente of clientes"
+                          [nzLabel]="cliente.ruc+' '+cliente.nombre_apellido"
+                          [nzValue]="cliente.id_persona"
+                        ></nz-option>
+                      </nz-select>
+                      <ng-template #renderTemplate>
+                        <nz-divider></nz-divider>
+                        <div class="container">
+                          <a
+                            *ngIf="!isLoadingCliente"
+                            class="add-item"
+                            data-toggle="modal"
+                            data-target="#exampleModal"
+                            (click)="addCliente(inputImporte)"
+                          >
+                            <i nz-icon nzType="plus"></i>
+                            Agregar Cliente
+                          </a>
+                          <a *ngIf="isLoadingCliente" class="add-item">
+                            <i class="fas fa-spinner fa-pulse"></i>
+                            Loading...
+                          </a>
+                        </div>
+                      </ng-template>
+                    </div>
+                    <div
+                      class="input-group input-group-sm mr-3"
+                      style="width: 30%"
+                    >
+                      <input
+                        formControlName="importe"
+                        #inputImporte
+                        type="number"
+                        name="table_search"
+                        class="form-control float-right"
+                        placeholder="Importe"
+                      />
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-default">
+                          <i class="fas fa-money-bill-wave"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      class="input-group input-group-sm mr-3"
+                      style="width: 20%"
+                    >
+                      <button
+                        type="submit"
+                        class="btn btn-block bg-gradient-primary"
+                      >
+                        Pagar
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0" style="height: 300px">
+                <table class="table table-head-fixed text-nowrap text-center">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Código</th>
+                      <th>Artículo</th>
+                      <th>Precio</th>
+                      <th>Cantidad</th>
+                      <th>Unidad Medida</th>
+                      <th>Tipo de Precio</th>
+                      <th>IVA</th>
+                      <th>SubTotal</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody *ngIf="grilla.length > 0">
+                    <tr *ngFor="let articulo of grilla; let i = index">
+                      <td>{{i+1}}</td>
+                      <td>{{articulo.codigo_barras}}</td>
+                      <td>{{articulo.nombre}}</td>
+                      <td>{{articulo.precio | number: '1.0-0'}} Gs.</td>
+                      <td>{{articulo.cantidad}}</td>
+                      <td>{{articulo.unidad_medida}}</td>
+                      <td>{{articulo.tipo_precio}}</td>
+                      <td>{{articulo.porc_iva}}%</td>
+                      <td>
+                        {{articulo.precio * articulo.cantidad | number:
+                        '1.0-0'}} Gs.
+                      </td>
+                      <td>
+                        <button
+                          (click)="eliminarGrilla(articulo.id_articulo)"
+                          type="button"
+                          class="btn btn-block bg-gradient-danger btn-xs"
+                        >
+                          <i class="fas fa-trash-alt"></i> Eliminar
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer">Footer</div>
+      <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- footer -->
+<app-footer></app-footer>
+<!-- /footer -->

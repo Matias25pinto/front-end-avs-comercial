@@ -37,7 +37,7 @@ export class VerArticulosComponent implements OnInit {
     this.cargarArticulos(`${this.url}/articulos/`);
   }
 
-limpiarFormulario() {
+  limpiarFormulario() {
     this.formularioBuscar.reset({ articulo: '' });
   }
 
@@ -54,7 +54,7 @@ limpiarFormulario() {
 
   buscarArticulos(pagina: string) {
     this.isLoading = true;
-    this.articulos= [];
+    this.articulos = [];
     this.siguiente = '';
     this.anterior = '';
     this.articulosService.getArticulos(pagina).subscribe(
@@ -100,7 +100,7 @@ limpiarFormulario() {
   }
 
   modificarArticulo(id: number) {
-    this.router.navigate(['compras', 'editar-proveedor', id]);
+    this.router.navigate(['inventario', 'modificar-articulo', id]);
   }
 
   eliminarArticulo(articulo: string, id: number) {
@@ -166,5 +166,4 @@ limpiarFormulario() {
         }
       });
   }
-
 }

@@ -4,5 +4,35 @@
   cursor: pointer;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/*Cambiar la clase de datepicker de angular material*/
+.cdk-overlay-container {
+  z-index: 2000 !important;
+}
+/*NZ estilos*/
+.nz-select {
+  width: 100%;
+}
+.nz-divider {
+  margin: 4px 0;
+}
+.container {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+}
+.add-item {
+  flex: 0 0 auto;
+  padding: 8px;
+  display: block;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

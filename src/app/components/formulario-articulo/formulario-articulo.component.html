@@ -27,27 +27,40 @@
         >El campo Código de Barra es obligatorio.</small
       >
     </div>
-
+    <label for="exampleInput">Marca</label>
     <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <label class="input-group-text" for="inputGroupSelect01">Marca</label>
-      </div>
-      <select
+      <nz-select
         formControlName="id_marca"
         class="custom-select"
-        id="inputGroupSelect01"
+        nzShowSearch
+        nzAllowClear
+        [nzDropdownRender]="renderTemplate"
+        nzPlaceHolder="Seleccionar Marca"
       >
-        <option value="5b5">Marca 1</option>
-        <option value="5b5">Marca 2</option>
-      </select>
-      <button type="button" class="btn btn-primary float-right">
-        <i class="fas fa-plus"></i> Agregar Marca
-      </button>
+        <nz-option
+          *ngFor="let item of marcas"
+          [nzLabel]="item.descripcion"
+          [nzValue]="item.id_marca"
+        ></nz-option>
+      </nz-select>
+      <ng-template #renderTemplate>
+        <nz-divider></nz-divider>
+        <div class="container">
+          <input class="form-control" type="text" nz-input #inputElement />
+          <a *ngIf="!loadingMarca" class="add-item" (click)="addMarca(inputElement)">
+            <i nz-icon nzType="plus"></i>
+            Add Marca
+          </a>
+          <a *ngIf="loadingMarca" class="add-item" >
+            <i class="fas fa-spinner fa-pulse"></i>
+	    Loading...
+          </a>
+        </div>
+      </ng-template>
     </div>
     <small *ngIf="id_marcaNoValido" class="text-danger"
       >El campo Marca es obligatorio.</small
     >
-
     <div class="form-group mb-3">
       <label for="exampleInput">Costo</label>
       <input

@@ -25,9 +25,19 @@ export class ArticulosService {
   getArticulos(url: string) {
     return this.http.get<getArticulos>(`${url}`);
   }
-
+  getArticulo(url: string) {
+    return this.http.get<Articulo>(`${url}`);
+  }
+  getArticulosLista() {
+    return this.http.get<Array<Articulo>>(
+      `${this.url}/articulos/articulos-lista/`
+    );
+  }
   actualizarArticulo(body: Articulo) {
-    return this.http.put<Articulo>(`${this.url}/articulos/${body.id_articulo}/`, body);
+    return this.http.put<Articulo>(
+      `${this.url}/articulos/${body.id_articulo}/`,
+      body
+    );
   }
 
   deleteArticulo(url: string) {

@@ -12,13 +12,16 @@ export interface getPersonas {
   providedIn: 'root',
 })
 export class PersonaService {
-
   private url = environment.url;
 
   constructor(private http: HttpClient) {}
 
   getPersonas(url: string) {
     return this.http.get<getPersonas>(`${url}`);
+  }
+
+  getPersonasLista() {
+    return this.http.get<Array<Persona>>(`${this.url}/personas/clientes-lista/`);
   }
 
   getPersona(url: string) {

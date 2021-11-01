@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Persona } from '../../../models/persona.interface';
-import { PersonaService } from '../../../services/persona.service';
-import { environment } from '../../../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -24,11 +22,9 @@ export class ModificarClienteComponent implements OnInit {
     fecha_nacimiento: '',
     estado_activo: 'V',
   };
-  private url = environment.url;
   public id_persona = 0;
 
   constructor(
-    private personaService: PersonaService,
     private route: ActivatedRoute
   ) {
     this.cargarPersona();

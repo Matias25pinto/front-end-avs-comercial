@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Articulo } from 'src/app/models/articulo.interface';
-
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-modificar-articulo',
   templateUrl: './modificar-articulo.component.html',
 })
 export class ModificarArticuloComponent implements OnInit {
-  public crearArticulo = false;
-
-  constructor() {}
+  public id_articulo: number = 0;
+  constructor(private routes: ActivatedRoute) {
+    this.routes.params.subscribe((params) => {
+      this.id_articulo = params['id'];
+    });
+  }
 
   ngOnInit(): void {}
 }

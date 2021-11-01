@@ -46,8 +46,9 @@
           placeholder="día / mes / año"
           [disabled]="true"
         />
+        <mat-datepicker  touchUi #picker [disabled]="false"></mat-datepicker>
+
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker [disabled]="false"></mat-datepicker>
         <div class="form-group">
           <small *ngIf="fecha_nacimientoNoValido" class="text-danger"
             >El campo Fecha de Nacimiento es obligatorio.</small
@@ -154,3 +155,4 @@
     </div>
   </div>
 </form>
+

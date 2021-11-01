@@ -21,6 +21,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field'; //Para utilizar formularios de Angular Material
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 
+//NG-Zorro
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+
 //Components
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -48,6 +52,7 @@ import { ListarProveedoresComponent } from './pages/compras/listar-proveedores/l
 import { CrearProveedorComponent } from './pages/compras/crear-proveedor/crear-proveedor.component';
 import { EditarProveedorComponent } from './pages/compras/editar-proveedor/editar-proveedor.component';
 import { FormularioProveedorComponent } from './components/formulario-proveedor/formulario-proveedor.component';
+import { CrearVentaComponent } from './pages/ventas/crear-venta/crear-venta.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +83,7 @@ import { FormularioProveedorComponent } from './components/formulario-proveedor/
     CrearProveedorComponent,
     EditarProveedorComponent,
     FormularioProveedorComponent,
+    CrearVentaComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,7 +94,10 @@ import { FormularioProveedorComponent } from './components/formulario-proveedor/
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
+    NzSelectModule,
+    NzDividerModule,
   ],
+
   providers: [
     { provide: LOCALE_ID, useValue: 'es' },
     { provide: MAT_DATE_LOCALE, useValue: 'es-PY' },
