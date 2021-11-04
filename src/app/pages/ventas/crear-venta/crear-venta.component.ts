@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PersonaService } from '../../../services/persona.service';
 import { Persona } from '../../../models/persona.interface';
 import { ArticulosService } from '../../../services/articulos.service';
+import { Venta, DetalleVenta } from '../../../models/venta.interface';
+import { VentasService } from '../../../services/ventas.service';
 // ES6 Modules or TypeScript
 import Swal from 'sweetalert2';
 
@@ -35,7 +37,8 @@ export class CrearVentaComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private personaService: PersonaService,
-    private articulosService: ArticulosService
+    private articulosService: ArticulosService,
+    private ventasService: VentasService
   ) {
     this.formularioVenta = this.fb.group({
       cliente: ['', [Validators.required]],
@@ -137,7 +140,7 @@ export class CrearVentaComponent implements OnInit {
         this.iva5 = this.iva5 + (articulo.precio * articulo.cantidad) / 21;
       }
       if (articulo.porc_iva == 0) {
-        this.exenta = this.exenta + (articulo.precio * articulo.cantidad);
+        this.exenta = this.exenta + articulo.precio * articulo.cantidad;
       }
     });
   }
@@ -234,10 +237,46 @@ export class CrearVentaComponent implements OnInit {
       const id_cliente = this.formularioVenta.get('cliente')?.value;
       const importe = this.formularioVenta.get('importe')?.value;
       if (importe >= this.totalVenta) {
-        console.log(this.formularioVenta.value);
-        console.log(this.grilla);
-        this.limpiarFormularioGrilla();
-        this.limpiarFormularioVenta();
+        let fecha = new Date();
+        let fecha_creacion = `${fecha.getFullYear()}-${fecha.getMonth()}-${fecha.getDate()}`;
+        let detalleVenta: DetalleVenta[] = this.grilla.map((articulo) => {
+          let detalle: DetalleVenta = {
+            estado: 'A',
+            fecha_creacion: fecha_creacion,
+            cantidad: articulo.cantidad,
+            sub_total: articulo.cantidad * articulo.precio,
+            id_articulo: articulo.id_articulo,
+          };
+          return detalle;
+        });
+
+        let body: Venta = {
+          id_detalle_venta: detalleVenta,
+          id_venta: 0,
+          estado: 'A',
+          fecha_creacion: fecha_creacion,
+          fecha: fecha_creacion,
+          total: this.totalVenta,
+          id_cliente: id_cliente,
+        };
+        console.log(body);
+
+        this.ventasService.crearVenta(body).subscribe(
+          (resp) => {
+            console.log(resp);
+            this.mostrarVuelto(this.totalVenta, importe);
+            this.limpiarFormularioGrilla();
+            this.limpiarFormularioVenta();
+          },
+          (err) => {
+            console.log(err);
+            Swal.fire({
+              icon: 'error',
+              title: 'No se pudo realizar la venta',
+              text: 'Verificar su conexión a internet',
+            });
+          }
+        );
       } else {
         Swal.fire({
           icon: 'error',
@@ -256,5 +295,24 @@ export class CrearVentaComponent implements OnInit {
 
       console.log('Formulario Venta no válido');
     }
+  }
+  formatearMoneda(monto: number) {
+    return monto.toLocaleString('es-PY', {
+      minimumFractionDigits: 0,
+    });
+  }
+  mostrarVuelto(totalVenta: number, importe: number) {
+    Swal.fire({
+      title: `AVS Comercial`,
+      text: `Gracias por su compra, vuelto: ${this.formatearMoneda(
+        importe - totalVenta
+      )} Gs.`,
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown',
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp',
+      },
+    });
   }
 }

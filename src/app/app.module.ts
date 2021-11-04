@@ -53,6 +53,7 @@ import { CrearProveedorComponent } from './pages/compras/crear-proveedor/crear-p
 import { EditarProveedorComponent } from './pages/compras/editar-proveedor/editar-proveedor.component';
 import { FormularioProveedorComponent } from './components/formulario-proveedor/formulario-proveedor.component';
 import { CrearVentaComponent } from './pages/ventas/crear-venta/crear-venta.component';
+import { ListarVentasComponent } from './pages/ventas/listar-ventas/listar-ventas.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { CrearVentaComponent } from './pages/ventas/crear-venta/crear-venta.comp
     EditarProveedorComponent,
     FormularioProveedorComponent,
     CrearVentaComponent,
+    ListarVentasComponent,
   ],
   imports: [
     BrowserModule,

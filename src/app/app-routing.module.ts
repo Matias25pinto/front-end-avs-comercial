@@ -22,6 +22,7 @@ import { ListarProveedoresComponent } from './pages/compras/listar-proveedores/l
 import { CrearProveedorComponent } from './pages/compras/crear-proveedor/crear-proveedor.component';
 import { EditarProveedorComponent } from './pages/compras/editar-proveedor/editar-proveedor.component';
 import { CrearVentaComponent } from './pages/ventas/crear-venta/crear-venta.component';
+import { ListarVentasComponent } from './pages/ventas/listar-ventas/listar-ventas.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -88,6 +89,12 @@ const routes: Routes = [
     component: CrearClienteComponent,
     canActivate: [LoginGuard],
   },
+  {
+    path: 'ventas/listar-ventas',
+    component: ListarVentasComponent,
+    canActivate: [LoginGuard],
+  },
+
   {
     path: 'ventas/crear-venta',
     component: CrearVentaComponent,

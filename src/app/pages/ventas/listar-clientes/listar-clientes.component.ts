@@ -40,7 +40,7 @@ export class ListarClientesComponent implements OnInit {
   }
 
   limpiarFormulario() {
-    this.formularioBuscar.reset({ clientes: '' });
+    this.formularioBuscar.reset({ cliente: '' });
   }
 
   enviarFormulario() {
