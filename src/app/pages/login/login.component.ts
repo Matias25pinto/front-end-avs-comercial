@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
       this.usuarioServices.iniciarSesion(email, password).subscribe(
         (data) => {
           localStorage.setItem('access_token', data.access_token);
+	  localStorage.removeItem('reload');
           Swal.fire({
             position: 'top-end',
             icon: 'success',
@@ -51,8 +52,6 @@ export class LoginComponent implements OnInit {
           this.limpiarFormulario();
           this.router.navigate(['/home']);
           this.isLoading = false;
-          // Vuelve a cargar la página actual sin la caché del navegador
-          location.reload();
         },
         (err) => {
           console.log(err);
