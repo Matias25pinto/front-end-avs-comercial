@@ -238,7 +238,7 @@ export class CrearVentaComponent implements OnInit {
       const importe = this.formularioVenta.get('importe')?.value;
       if (importe >= this.totalVenta) {
         let fecha = new Date();
-        let fecha_creacion = `${fecha.getFullYear()}-${fecha.getMonth()}-${fecha.getDate()}`;
+        let fecha_creacion = `${fecha.getFullYear()}-${fecha.getMonth()+1}-${fecha.getDate()}`;
         let detalleVenta: DetalleVenta[] = this.grilla.map((articulo) => {
           let detalle: DetalleVenta = {
             estado: 'A',
