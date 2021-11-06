@@ -51,9 +51,11 @@ export class LoginComponent implements OnInit {
           this.limpiarFormulario();
           this.router.navigate(['/home']);
           this.isLoading = false;
+          // Vuelve a cargar la página actual sin la caché del navegador
+          location.reload();
         },
         (err) => {
-	  console.log(err);
+          console.log(err);
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
