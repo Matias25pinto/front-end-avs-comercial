@@ -13,4 +13,5 @@ export interface Venta{
   fecha:string;
   total:number;
   id_cliente:number;
+  facutra?:string;
 }

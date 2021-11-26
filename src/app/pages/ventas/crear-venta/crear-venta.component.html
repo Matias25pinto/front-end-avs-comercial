@@ -28,6 +28,25 @@
 
   <!-- Main content -->
   <section class="content">
+    <!-- Mostrar Modal-->
+    <nz-modal
+      [(nzVisible)]="isVisible"
+      nzTitle="Factura"
+      (nzOnCancel)="handleCancel()"
+      (nzOnOk)="handleOk()"
+      nzCancelText="Cancelar"
+      nzOkText="Ok"
+    >
+      <ng-container *nzModalContent>
+        <iframe
+          id="iframe"
+          [src]="linkPdf | safe"
+          style="width: 100%; height: 700px"
+          frameborder="0"
+        ></iframe>
+      </ng-container>
+    </nz-modal>
+    <!-- Fin Modal -->
     <!-- Default box -->
     <div class="card">
       <div class="card-header">

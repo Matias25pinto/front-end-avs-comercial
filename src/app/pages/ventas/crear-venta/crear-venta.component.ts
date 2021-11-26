@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewChecked } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PersonaService } from '../../../services/persona.service';
 import { Persona } from '../../../models/persona.interface';
@@ -7,6 +7,15 @@ import { Venta, DetalleVenta } from '../../../models/venta.interface';
 import { VentasService } from '../../../services/ventas.service';
 // ES6 Modules or TypeScript
 import Swal from 'sweetalert2';
+
+//PDFmake en TypeScript
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+
+//Print.js
+import printJS from 'print-js';
+
+(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
 interface Grilla {
   id_articulo: number;
@@ -22,7 +31,7 @@ interface Grilla {
   selector: 'app-crear-venta',
   templateUrl: './crear-venta.component.html',
 })
-export class CrearVentaComponent implements OnInit {
+export class CrearVentaComponent implements OnInit, AfterViewChecked {
   public isModal = false;
   public isLoadingCliente = false;
   public clientes: Persona[] = [];
@@ -34,6 +43,11 @@ export class CrearVentaComponent implements OnInit {
   public exenta: number = 0;
   public formularioVenta: FormGroup;
   public formularioGrilla: FormGroup;
+
+  public isVisible = false;
+  public linkPdf: string = '';
+  public isLoadingIframe: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private personaService: PersonaService,
@@ -53,6 +67,9 @@ export class CrearVentaComponent implements OnInit {
   ngOnInit(): void {
     this.cargarClientes();
     this.cargarArticulos();
+  }
+  ngAfterViewChecked(): void {
+    //this.imprimirIframe();
   }
   cargarArticulos() {
     this.articulosService.getArticulosLista().subscribe((articulos) => {
@@ -121,7 +138,6 @@ export class CrearVentaComponent implements OnInit {
         });
       }
 
-      console.log(articuloGrilla);
       this.grilla = [articuloGrilla, ...result];
       this.actualizarPanel();
       this.limpiarFormularioGrilla();
@@ -131,7 +147,6 @@ export class CrearVentaComponent implements OnInit {
     this.totalVenta = 0;
     this.iva10 = 0;
     this.grilla.map((articulo) => {
-      console.log(articulo.precio, articulo.cantidad);
       this.totalVenta = this.totalVenta + articulo.precio * articulo.cantidad;
       if (articulo.porc_iva == 10) {
         this.iva10 = this.iva10 + (articulo.precio * articulo.cantidad) / 11;
@@ -150,7 +165,6 @@ export class CrearVentaComponent implements OnInit {
         return articulo;
       }
     });
-    console.log(articulo);
     let titulo = `Eliminar Artículo!!!`;
     let message = `¿Está seguro de eliminar el artículo ${articulo.nombre} de la venta? `;
     const swalWithBootstrapButtons = Swal.mixin({
@@ -201,7 +215,6 @@ export class CrearVentaComponent implements OnInit {
     //keycode de enter es 13
     if (event.keyCode == 13) {
       if (parseInt(importe) > 0) {
-        console.log(id_usuario, importe);
       }
     }
   }
@@ -238,7 +251,9 @@ export class CrearVentaComponent implements OnInit {
       const importe = this.formularioVenta.get('importe')?.value;
       if (importe >= this.totalVenta) {
         let fecha = new Date();
-        let fecha_creacion = `${fecha.getFullYear()}-${fecha.getMonth()+1}-${fecha.getDate()}`;
+        let fecha_creacion = `${fecha.getFullYear()}-${
+          fecha.getMonth() + 1
+        }-${fecha.getDate()}`;
         let detalleVenta: DetalleVenta[] = this.grilla.map((articulo) => {
           let detalle: DetalleVenta = {
             estado: 'A',
@@ -259,17 +274,16 @@ export class CrearVentaComponent implements OnInit {
           total: this.totalVenta,
           id_cliente: id_cliente,
         };
-        console.log(body);
 
         this.ventasService.crearVenta(body).subscribe(
           (resp) => {
             console.log(resp);
-            this.mostrarVuelto(this.totalVenta, importe);
+            let link: string = resp.factura;
+            this.mostrarVuelto(resp);
             this.limpiarFormularioGrilla();
             this.limpiarFormularioVenta();
           },
           (err) => {
-            console.log(err);
             Swal.fire({
               icon: 'error',
               title: 'No se pudo realizar la venta',
@@ -283,7 +297,6 @@ export class CrearVentaComponent implements OnInit {
           title: 'Importe Insuficiente',
           text: 'El monto del importe debe ser mayor o igual al total de la venta',
         });
-        console.log('Importe insuficiente');
       }
     } else {
       Swal.fire({
@@ -292,8 +305,6 @@ export class CrearVentaComponent implements OnInit {
         text: 'El campo cliente y el importe son obligatorios',
         footer: '<p>Verificar el campo cliente y el campo importe</p>',
       });
-
-      console.log('Formulario Venta no válido');
     }
   }
   formatearMoneda(monto: number) {
@@ -301,18 +312,176 @@ export class CrearVentaComponent implements OnInit {
       minimumFractionDigits: 0,
     });
   }
-  mostrarVuelto(totalVenta: number, importe: number) {
-    Swal.fire({
-      title: `AVS Comercial`,
-      text: `Gracias por su compra, vuelto: ${this.formatearMoneda(
-        importe - totalVenta
-      )} Gs.`,
-      showClass: {
-        popup: 'animate__animated animate__fadeInDown',
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    this.isVisible = false;
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
+  async createPdf(venta: Venta) {
+    let detalleVenta: Array<DetalleVenta> = venta.id_detalle_venta;
+    //cargar body
+    let body = [];
+    let positionY = 200;
+    for (let articulo of detalleVenta) {
+      positionY = positionY + 20;
+      let grilla: Array<any> = [
+        {
+          text: articulo.id_articulo,
+          style: 'grilla',
+          absolutePosition: { x: 100, y:positionY },
+        },
+        {
+          text: articulo.cantidad,
+          style: 'grilla',
+          absolutePosition: { x: 150, y:positionY },
+        },
+        {
+          text: `nombre del artículo ${articulo.id_articulo}`,
+          style: 'grilla',
+          absolutePosition: { x: 180, y: positionY },
+        },
+        {
+          text: 'precio unitario',
+          style: 'grilla',
+          absolutePosition: { x: 370, y:positionY },
+        },
+        {
+          text: '0',
+          style: 'grilla',
+          absolutePosition: { x: 430, y:positionY },
+        },
+        {
+          text: '0',
+          style: 'grilla',
+          absolutePosition: { x: 480, y:positionY },
+        },
+        {
+          text: '0',
+          style: 'grilla',
+          absolutePosition: { x: 530, y:positionY },
+        },
+      ];
+      body = [...body, ...grilla];
+    }
+    const pdfDefinition: any = {
+      // a string or { width: number, height: number }
+      pageSize: 'A4',
+      //formatear factura
+      content: [
+        {
+          text: '102302020123123',
+          style: 'header',
+          absolutePosition: { x: 400, y: 100 },
+        },
+        {
+          text: venta.fecha,
+          style: 'header',
+          absolutePosition: { x: 100, y: 110 },
+        },
+        {
+          text: `Nombre del cliente ${venta.id_cliente}`,
+          style: 'header',
+          absolutePosition: { x: 100, y: 120 },
+        },
+        {
+          text: `dirección del cliente ${venta.id_cliente}`,
+          style: 'header',
+          absolutePosition: { x: 100, y: 130 },
+        },
+        {
+          text: 'X',
+          style: 'header',
+          absolutePosition: { x: 360, y: 110 },
+        },
+        {
+          text: 'ruc cliente',
+          style: 'header',
+          absolutePosition: { x: 360, y: 120 },
+        },
+        {
+          text: 'telefono cliente',
+          style: 'header',
+          absolutePosition: { x: 360, y: 130 },
+        },
+        ...body,
+        {
+          text: 'OBS -------',
+          style: 'header',
+          absolutePosition: { x: 110, y: 430 },
+        },
+        {
+          text: 'MONTO TOTAL EN LETRAS',
+          style: 'header',
+          absolutePosition: { x: 110, y: 445 },
+        },
+        {
+          text: venta.total,
+          style: 'header',
+          absolutePosition: { x: 530, y: 445 },
+        },
+        {
+          text: '0',
+          style: 'header',
+          absolutePosition: { x: 160, y: 470 },
+        },
+        {
+          text: venta.total,
+          style: 'header',
+          absolutePosition: { x: 210, y: 470 },
+        },
+        {
+          text: venta.total,
+          style: 'header',
+          absolutePosition: { x: 280, y: 470 },
+        },
+      ],
+      styles: {
+        header: {
+          fontSize: 12,
+          bold: true,
+        },
+        grilla: {
+          fontSize: 8,
+        },
+        anotherStyle: {
+          italics: true,
+          alignment: 'right',
+        },
       },
-      hideClass: {
-        popup: 'animate__animated animate__fadeOutUp',
-      },
+    };
+    const pdfDocGenerator = pdfMake.createPdf(pdfDefinition);
+    await pdfDocGenerator.getDataUrl((dataUrl) => {
+      this.linkPdf = dataUrl;
+      console.log(dataUrl);
+      //printJS(dataUrl);
+      //printJS({printable:dataUrl, type:'pdf', showModal:true})
     });
+
+    //pdfDocGenerator.print({});
+    //this.imprimirIframe();
+  }
+  mostrarVuelto(venta: Venta) {
+    //this.linkPdf = `https://docs.google.com/gview?url=https://${link}&embedded=true`;
+    this.createPdf(venta);
+    this.showModal();
+  }
+  imprimirIframe() {
+    let iframe: HTMLIFrameElement = document.getElementById(
+      'iframe'
+    ) as HTMLIFrameElement;
+    if (iframe) {
+      iframe.onload = () => {
+        console.log('imprimir el pdf');
+        const element = iframe.contentWindow;
+        element.focus();
+        element.print();
+      };
+    }
   }
 }

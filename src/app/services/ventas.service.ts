@@ -10,6 +10,16 @@ export interface getVentas {
   previous: string;
   results: Array<Venta>;
 }
+export interface postVenta {
+  estado: string;
+  factura: string;
+  fecha: string;
+  fecha_creacion: string;
+  id_cliente: number;
+  id_detalle_venta: Array<DetalleVenta>;
+  id_venta: number;
+  total: number;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +30,7 @@ export class VentasService {
   constructor(private http: HttpClient) {}
 
   crearVenta(body: Venta) {
-    return this.http.post(`${this.url}/ventas/ventas/`, body);
+    return this.http.post<postVenta>(`${this.url}/ventas/ventas/`, body);
   }
 
   getVentas(pagina: string) {

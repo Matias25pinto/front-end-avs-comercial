@@ -8,6 +8,9 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+//Pipes
+import { SafePipe } from './pipes/safe.pipe';
+
 //La localidad de la app
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
@@ -24,6 +27,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 //NG-Zorro
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 //Components
 import { LoginComponent } from './pages/login/login.component';
@@ -86,6 +90,7 @@ import { ListarVentasComponent } from './pages/ventas/listar-ventas/listar-venta
     FormularioProveedorComponent,
     CrearVentaComponent,
     ListarVentasComponent,
+    SafePipe,
   ],
   imports: [
     BrowserModule,
@@ -98,6 +103,7 @@ import { ListarVentasComponent } from './pages/ventas/listar-ventas/listar-venta
     MatFormFieldModule,
     NzSelectModule,
     NzDividerModule,
+    NzModalModule,
   ],
 
   providers: [
