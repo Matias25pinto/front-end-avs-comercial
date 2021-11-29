@@ -1,0 +1,175 @@
+<!-- navbar -->
+<app-navbar></app-navbar>
+<!-- /navbar-->
+<!-- aside -->
+<app-aside></app-aside>
+<!-- /aside -->
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Compras</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item">
+              <a [routerLink]="'home'">compras</a>
+            </li>
+            <li class="breadcrumb-item active">comprobantes</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <!-- Default box -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Compras</h3>
+
+        <div class="card-tools">
+          <button
+            type="button"
+            class="btn btn-tool"
+            data-card-widget="collapse"
+            title="Collapse"
+          >
+            <i class="fas fa-minus"></i>
+          </button>
+          <button
+            type="button"
+            class="btn btn-tool"
+            data-card-widget="remove"
+            title="Remove"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <!-- /.row -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Lista de Compras</h3>
+                <div class="card-tools">
+                  <form
+                    [formGroup]="formularioBuscar"
+                    (ngSubmit)="enviarFormulario()"
+                  >
+                    <div
+                      class="input-group input-group-sm"
+                      style="width: 150px"
+                    >
+                      <input
+                        formControlName="comprobante"
+                        type="text"
+                        name="table_search"
+                        class="form-control float-right"
+                        placeholder="Buscar"
+                      />
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-default">
+                          <i class="fas fa-search"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table
+                  *ngIf="!isLoading"
+                  class="table table-hover text-nowrap text-center"
+                >
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Proveedor</th>
+                      <th>Ruc</th>
+                      <th colspan="1">Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let compra of compras; let i = index">
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ compra.proveedor}}</td>
+                      <td>{{compra.ruc}}</td>
+                      <td>
+                        <button
+                          (click)="eliminarCompra(compra.proveedor, compra.id_compra)"
+                          class="btn btn-block bg-gradient-danger btn-flat"
+                          type="button"
+                        >
+                          Eliminar
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+        <!-- /.row -->
+        <div *ngIf="isLoading" class="row justify-content-center">
+          <div class="col-auto">
+            <i class="fas fa-sync fa-spin fa-5x"></i>
+          </div>
+        </div>
+        <div *ngIf="isError" class="row justify-content-center">
+          <div class="col-auto col-8 text-center">
+            <div class="alert alert-danger" role="alert">
+              <h3>ERROR!!!</h3>
+              <i class="fas fa-exclamation-circle fa-7x"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer">
+        <!-- Paginación de pagina-->
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <li [ngClass]="{'disabled':anterior == ''}" class="page-item">
+              <a
+                (click)="cargarCompras(anterior)"
+                class="page-link cursor-pointer m-1"
+                tabindex="-1"
+                [attr.aria-disabled]="anterior != ''"
+                >Anterior</a
+              >
+            </li>
+            <li [ngClass]="{'disabled':siguiente == ''}" class="page-item">
+              <a
+                (click)="cargarCompras(siguiente)"
+                [attr.aria-disabled]="siguiente != ''"
+                class="page-link cursor-pointer m-1"
+                >Siguiente</a
+              >
+            </li>
+          </ul>
+        </nav>
+        <!-- /paginación -->
+      </div>
+      <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- footer -->
+<app-footer></app-footer>
+<!-- /footer -->

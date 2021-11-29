@@ -14,4 +14,5 @@ export interface Venta{
   total:number;
   id_cliente:number;
   facutra?:string;
+  tipo_factura:string;
 }

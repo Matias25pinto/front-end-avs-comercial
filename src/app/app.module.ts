@@ -58,6 +58,12 @@ import { EditarProveedorComponent } from './pages/compras/editar-proveedor/edita
 import { FormularioProveedorComponent } from './components/formulario-proveedor/formulario-proveedor.component';
 import { CrearVentaComponent } from './pages/ventas/crear-venta/crear-venta.component';
 import { ListarVentasComponent } from './pages/ventas/listar-ventas/listar-ventas.component';
+import { CrearCompraComponent } from './pages/compras/crear-compra/crear-compra.component';
+import { ListarComprasComponent } from './pages/compras/listar-compras/listar-compras.component';
+import { ListarPerfilesImpresoraComponent } from './pages/configuracion/listar-perfiles-impresora/listar-perfiles-impresora.component';
+import { CrearPerfilImpresoraComponent } from './pages/configuracion/crear-perfil-impresora/crear-perfil-impresora.component';
+import { ModificarPerfilImpresoraComponent } from './pages/configuracion/modificar-perfil-impresora/modificar-perfil-impresora.component';
+import { FormularioPerfilImpresoraComponent } from './components/formulario-perfil-impresora/formulario-perfil-impresora.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +97,12 @@ import { ListarVentasComponent } from './pages/ventas/listar-ventas/listar-venta
     CrearVentaComponent,
     ListarVentasComponent,
     SafePipe,
+    CrearCompraComponent,
+    ListarComprasComponent,
+    ListarPerfilesImpresoraComponent,
+    CrearPerfilImpresoraComponent,
+    ModificarPerfilImpresoraComponent,
+    FormularioPerfilImpresoraComponent,
   ],
   imports: [
     BrowserModule,

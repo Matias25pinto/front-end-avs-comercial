@@ -23,6 +23,10 @@ import { CrearProveedorComponent } from './pages/compras/crear-proveedor/crear-p
 import { EditarProveedorComponent } from './pages/compras/editar-proveedor/editar-proveedor.component';
 import { CrearVentaComponent } from './pages/ventas/crear-venta/crear-venta.component';
 import { ListarVentasComponent } from './pages/ventas/listar-ventas/listar-ventas.component';
+import { ListarComprasComponent } from './pages/compras/listar-compras/listar-compras.component';
+import { CrearPerfilImpresoraComponent } from './pages/configuracion/crear-perfil-impresora/crear-perfil-impresora.component';
+import { ListarPerfilesImpresoraComponent } from './pages/configuracion/listar-perfiles-impresora/listar-perfiles-impresora.component';
+import { ModificarPerfilImpresoraComponent } from './pages/configuracion/modificar-perfil-impresora/modificar-perfil-impresora.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -113,6 +117,26 @@ const routes: Routes = [
   {
     path: 'compras/editar-proveedor/:id',
     component: EditarProveedorComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'compras/listar-compras',
+    component: ListarComprasComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'configuracion/crear-perfil-impresora',
+    component: CrearPerfilImpresoraComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'configuracion/listar-perfiles-impresora',
+    component: ListarPerfilesImpresoraComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'configuracion/modificar-perfil-impresora/:id',
+    component: ModificarPerfilImpresoraComponent,
     canActivate: [LoginGuard],
   },
   { path: '*', pathMatch: 'full', redirectTo: 'home' },

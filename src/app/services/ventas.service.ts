@@ -19,6 +19,7 @@ export interface postVenta {
   id_detalle_venta: Array<DetalleVenta>;
   id_venta: number;
   total: number;
+  tipo_factura:string;
 }
 
 @Injectable({

@@ -10,5 +10,5 @@ export interface User {
   email: string;
   password?: string;
   password_confirmation?: string;
-  role:string;
+  rol_usuario:string;
 }

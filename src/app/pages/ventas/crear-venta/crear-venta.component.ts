@@ -57,6 +57,7 @@ export class CrearVentaComponent implements OnInit, AfterViewChecked {
     this.formularioVenta = this.fb.group({
       cliente: ['', [Validators.required]],
       importe: ['', [Validators.required]],
+      tipo_factura: ['CON', Validators.required],
     });
     this.formularioGrilla = this.fb.group({
       codigo: ['', [Validators.required]],
@@ -238,7 +239,11 @@ export class CrearVentaComponent implements OnInit, AfterViewChecked {
     this.formularioGrilla.reset({ codigo: '', cantidad: 1 });
   }
   limpiarFormularioVenta() {
-    this.formularioVenta.reset({ cliente: '', importe: '' });
+    this.formularioVenta.reset({
+      cliente: '',
+      importe: '',
+      tipo_factura: 'CON',
+    });
     this.grilla = [];
     this.totalVenta = 0;
     this.iva10 = 0;
@@ -249,6 +254,7 @@ export class CrearVentaComponent implements OnInit, AfterViewChecked {
     if (this.formularioVenta.valid && this.totalVenta > 0) {
       const id_cliente = this.formularioVenta.get('cliente')?.value;
       const importe = this.formularioVenta.get('importe')?.value;
+      const tipo_factura = this.formularioVenta.get('tipo_factura')?.value;
       if (importe >= this.totalVenta) {
         let fecha = new Date();
         let fecha_creacion = `${fecha.getFullYear()}-${
@@ -273,6 +279,7 @@ export class CrearVentaComponent implements OnInit, AfterViewChecked {
           fecha: fecha_creacion,
           total: this.totalVenta,
           id_cliente: id_cliente,
+          tipo_factura,
         };
 
         this.ventasService.crearVenta(body).subscribe(
@@ -334,12 +341,12 @@ export class CrearVentaComponent implements OnInit, AfterViewChecked {
         {
           text: articulo.id_articulo,
           style: 'grilla',
-          absolutePosition: { x: 100, y:positionY },
+          absolutePosition: { x: 100, y: positionY },
         },
         {
           text: articulo.cantidad,
           style: 'grilla',
-          absolutePosition: { x: 150, y:positionY },
+          absolutePosition: { x: 150, y: positionY },
         },
         {
           text: `nombre del artículo ${articulo.id_articulo}`,
@@ -349,22 +356,22 @@ export class CrearVentaComponent implements OnInit, AfterViewChecked {
         {
           text: 'precio unitario',
           style: 'grilla',
-          absolutePosition: { x: 370, y:positionY },
+          absolutePosition: { x: 370, y: positionY },
         },
         {
           text: '0',
           style: 'grilla',
-          absolutePosition: { x: 430, y:positionY },
+          absolutePosition: { x: 430, y: positionY },
         },
         {
           text: '0',
           style: 'grilla',
-          absolutePosition: { x: 480, y:positionY },
+          absolutePosition: { x: 480, y: positionY },
         },
         {
           text: '0',
           style: 'grilla',
-          absolutePosition: { x: 530, y:positionY },
+          absolutePosition: { x: 530, y: positionY },
         },
       ];
       body = [...body, ...grilla];

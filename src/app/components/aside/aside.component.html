@@ -113,6 +113,12 @@
                 <p>Crear Proveedor</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="{{'/compras/listar-compras'}}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Compras</p>
+              </a>
+            </li>
           </ul>
         </li>
 
@@ -231,9 +237,21 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a class="nav-link">
+              <a
+                class="nav-link"
+                routerLink="{{'/configuracion/crear-perfil-impresora'}}"
+              >
                 <i class="far fa-circle nav-icon"></i>
-                <p>configuracion</p>
+                <p>Crear Perfil de Impresora</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                routerLink="{{'/configuracion/listar-perfiles-impresora'}}"
+              >
+                <i class="far fa-circle nav-icon"></i>
+                <p>Perfiles de Impresora</p>
               </a>
             </li>
           </ul>

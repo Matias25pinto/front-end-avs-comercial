@@ -136,9 +136,14 @@
                   name=""
                 >
                   <option value="">Seleccionar Rol</option>
-                  <option value="rol1">Rol 1</option>
-                  <option value="rol2">Rol 2</option>
-                  <option value="rol3">Rol 3</option>
+                  <option value="VENTAS">Ventas</option>
+                  <option value="COMPRAS">Compras</option>
+                  <option value="INVENTARIO">Inventario</option>
+                  <option value="COMPRAS-INVENTARIO">Compras-Inventario</option>
+                  <option value="VENTAS-COMPRAS-INVENTARIO">
+                    Ventas-Compras-Inventario
+                  </option>
+                  <option value="ADMINISTRADOR">Administrador</option>
                 </select>
                 <small *ngIf="roleNoValido" class="text-danger"
                   >El campo Rol es obligatorio.</small

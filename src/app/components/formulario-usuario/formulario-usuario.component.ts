@@ -151,7 +151,7 @@ export class FormularioUsuarioComponent implements OnInit {
       let first_name = this.formularioUsuario.get('first_name')?.value;
       let last_name = this.formularioUsuario.get('last_name')?.value;
       let email = this.formularioUsuario.get('email')?.value;
-      let role = this.formularioUsuario.get('role')?.value;
+      let rol_usuario = this.formularioUsuario.get('role')?.value;
       if (this.isCreateUser) {
         let password = this.formularioUsuario.get('password')?.value;
         let password_confirmation = this.formularioUsuario.get(
@@ -165,7 +165,7 @@ export class FormularioUsuarioComponent implements OnInit {
           email,
           password,
           password_confirmation,
-          role,
+          rol_usuario,
         };
 
         this.crearUsuario(body);
@@ -175,7 +175,7 @@ export class FormularioUsuarioComponent implements OnInit {
           first_name,
           last_name,
           email,
-          role,
+          rol_usuario,
         };
 
         this.modificarUsuario(body);

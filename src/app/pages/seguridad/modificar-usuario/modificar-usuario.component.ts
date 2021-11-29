@@ -91,6 +91,7 @@ export class ModificarUsuarioComponent implements OnInit {
         email: user.email,
         password: user.password,
         password_confirmation: user.password_confirmation,
+	role:user.rol_usuario
       });
     });
   }
@@ -102,13 +103,13 @@ export class ModificarUsuarioComponent implements OnInit {
       let first_name = this.formularioUsuario.get('first_name')?.value;
       let last_name = this.formularioUsuario.get('last_name')?.value;
       let email = this.formularioUsuario.get('email')?.value;
-      let role = this.formularioUsuario.get('role')?.value;
+      let rol_usuario = this.formularioUsuario.get('role')?.value;
       let body: User = {
         username,
         first_name,
         last_name,
         email,
-        role,
+        rol_usuario,
       };
 
       this.modificarUsuario(body);

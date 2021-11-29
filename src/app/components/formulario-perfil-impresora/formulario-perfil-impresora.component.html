@@ -1,0 +1,81 @@
+<!-- Formulario perfil impresora -->
+<!-- form start -->
+<form [formGroup]="formulario" (ngSubmit)="enviarFormulario()">
+  <div class="card-body">
+    <div class="form-group mb-3">
+      <label for="exampleInput">Nombre de Impresora</label>
+      <input
+        formControlName="impresora"
+        type="text"
+        class="form-control"
+        placeholder="Impresora"
+      />
+      <small *ngIf="impresoraNoValido" class="text-danger"
+        >El campo Nombre de Impresora es obligatorio.</small
+      >
+    </div>
+    <div class="form-group mb-3">
+      <label for="exampleInput">Numeración Fija de la Factura</label>
+      <input
+        formControlName="factura"
+        type="text"
+        class="form-control"
+        placeholder="Eje: 001-002"
+      />
+      <small *ngIf="facturaNoValido" class="text-danger"
+        >El campo Numeración Fija de la Factura es obligatorio.</small
+      >
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="exampleInput">Número de Factura</label>
+      <input
+        formControlName="nroFactura"
+        type="number"
+        class="form-control"
+        placeholder="Número de Factura"
+      />
+      <small *ngIf="nroFacturaNoValido" class="text-danger"
+        >El campo Número de Factura es obligatorio.</small
+      >
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="exampleInput">Coordenada X</label>
+      <input
+        formControlName="coorX"
+        type="number"
+        class="form-control"
+        placeholder="Coordenada X"
+      />
+      <small *ngIf="coorXNoValido" class="text-danger"
+        >El campo coordenada X es obligatorio.</small
+      >
+    </div>
+    <div class="form-group mb-3">
+      <label for="exampleInput">Coordenada Y</label>
+      <input
+        formControlName="coorY"
+        type="number"
+        class="form-control"
+        placeholder="Coordenada Y"
+      />
+      <small *ngIf="coorYNoValido" class="text-danger"
+        >El campo coordenada Y es obligatorio.</small
+      >
+    </div>
+  </div>
+  <!-- /.card-body -->
+  <div class="row">
+    <div class="col">
+      <div *ngIf="!isLoading" class="card-footer text-center">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+      <div *ngIf="isLoading" class="card-footer text-center">
+        <button type="button" [disabled]="true" class="btn btn-primary">
+          <i class="fas fa-spinner fa-pulse"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
