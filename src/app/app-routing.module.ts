@@ -9,9 +9,6 @@ import { CrearArticuloComponent } from './pages/inventario/crear-articulo/crear-
 import { ModificarArticuloComponent } from './pages/inventario/modificar-articulo/modificar-articulo.component';
 import { VerArticulosComponent } from './pages/inventario/ver-articulos/ver-articulos.component';
 import { ModificarStockComponent } from './pages/inventario/modificar-stock/modificar-stock.component';
-import { VisualizarRolesComponent } from './pages/seguridad/visualizar-roles/visualizar-roles.component';
-import { CrearRolComponent } from './pages/seguridad/crear-rol/crear-rol.component';
-import { ModificarRolComponent } from './pages/seguridad/modificar-rol/modificar-rol.component';
 import { ListarUsuariosComponent } from './pages/seguridad/listar-usuarios/listar-usuarios.component';
 import { CrearUsuarioComponent } from './pages/seguridad/crear-usuario/crear-usuario.component';
 import { ModificarUsuarioComponent } from './pages/seguridad/modificar-usuario/modificar-usuario.component';
@@ -47,21 +44,6 @@ const routes: Routes = [
     component: ModificarArticuloComponent,
   },
 
-  {
-    path: 'seguridad/listar-roles',
-    component: VisualizarRolesComponent,
-    canActivate: [LoginGuard],
-  },
-  {
-    path: 'seguridad/crear-rol',
-    component: CrearRolComponent,
-    canActivate: [LoginGuard],
-  },
-  {
-    path: 'seguridad/modificar-rol/:id',
-    component: ModificarRolComponent,
-    canActivate: [LoginGuard],
-  },
   {
     path: 'seguridad/listar-usuarios',
     component: ListarUsuariosComponent,

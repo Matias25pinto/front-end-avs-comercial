@@ -40,10 +40,6 @@ import { VerArticulosComponent } from './pages/inventario/ver-articulos/ver-arti
 import { ModificarArticuloComponent } from './pages/inventario/modificar-articulo/modificar-articulo.component';
 import { FormularioArticuloComponent } from './components/formulario-articulo/formulario-articulo.component';
 import { ModificarStockComponent } from './pages/inventario/modificar-stock/modificar-stock.component';
-import { CrearRolComponent } from './pages/seguridad/crear-rol/crear-rol.component';
-import { ModificarRolComponent } from './pages/seguridad/modificar-rol/modificar-rol.component';
-import { VisualizarRolesComponent } from './pages/seguridad/visualizar-roles/visualizar-roles.component';
-import { FormularioRolComponent } from './components/formulario-rol/formulario-rol.component';
 import { CrearUsuarioComponent } from './pages/seguridad/crear-usuario/crear-usuario.component';
 import { ModificarUsuarioComponent } from './pages/seguridad/modificar-usuario/modificar-usuario.component';
 import { ListarUsuariosComponent } from './pages/seguridad/listar-usuarios/listar-usuarios.component';
@@ -78,10 +74,6 @@ import { FormularioPerfilImpresoraComponent } from './components/formulario-perf
     ModificarArticuloComponent,
     FormularioArticuloComponent,
     ModificarStockComponent,
-    CrearRolComponent,
-    ModificarRolComponent,
-    VisualizarRolesComponent,
-    FormularioRolComponent,
     CrearUsuarioComponent,
     ModificarUsuarioComponent,
     ListarUsuariosComponent,

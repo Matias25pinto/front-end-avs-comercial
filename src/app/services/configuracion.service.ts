@@ -31,6 +31,9 @@ export class ConfiguracionService {
   getPerfilImpresora(url: string) {
     return this.http.get<PerfilImpresora>(`${url}`);
   }
+  listaImpresoras(url: string) {
+    return this.http.get<Array<PerfilImpresora>>(`${url}`);
+  }
   actualizarPerfilImpresora(body: PerfilImpresora) {
     return this.http.put<PerfilImpresora>(
       `${this.url}/configuracion/configuracion/${body.id_impresora}/`,

@@ -332,46 +332,55 @@ export class CrearVentaComponent implements OnInit, AfterViewChecked {
   }
   async createPdf(venta: Venta) {
     let detalleVenta: Array<DetalleVenta> = venta.id_detalle_venta;
-    //cargar body
+
     let body = [];
-    let positionY = 200;
+
+    let cliente = this.clientes.find(
+      (cliente) => cliente.id_persona == venta.id_cliente
+    );
+
+    let positionX = parseInt(localStorage.getItem('coordenada_x'));
+
+    let positionY = parseInt(localStorage.getItem('coordenada_y'));
+
+    let positionYGrilla = positionY + 150;
     for (let articulo of detalleVenta) {
-      positionY = positionY + 20;
+      positionYGrilla = positionYGrilla + 20;
       let grilla: Array<any> = [
         {
           text: articulo.id_articulo,
           style: 'grilla',
-          absolutePosition: { x: 100, y: positionY },
+          absolutePosition: { x: positionX + 100, y: positionYGrilla },
         },
         {
           text: articulo.cantidad,
           style: 'grilla',
-          absolutePosition: { x: 150, y: positionY },
+          absolutePosition: { x: positionX + 150, y: positionYGrilla },
         },
         {
           text: `nombre del artículo ${articulo.id_articulo}`,
           style: 'grilla',
-          absolutePosition: { x: 180, y: positionY },
+          absolutePosition: { x: positionX + 180, y: positionYGrilla },
         },
         {
           text: 'precio unitario',
           style: 'grilla',
-          absolutePosition: { x: 370, y: positionY },
+          absolutePosition: { x: positionX + 370, y: positionYGrilla },
         },
         {
           text: '0',
           style: 'grilla',
-          absolutePosition: { x: 430, y: positionY },
+          absolutePosition: { x: positionX + 430, y: positionYGrilla },
         },
         {
           text: '0',
           style: 'grilla',
-          absolutePosition: { x: 480, y: positionY },
+          absolutePosition: { x: positionX + 480, y: positionYGrilla },
         },
         {
           text: '0',
           style: 'grilla',
-          absolutePosition: { x: 530, y: positionY },
+          absolutePosition: { x: positionX + 530, y: positionYGrilla },
         },
       ];
       body = [...body, ...grilla];
@@ -384,68 +393,71 @@ export class CrearVentaComponent implements OnInit, AfterViewChecked {
         {
           text: '102302020123123',
           style: 'header',
-          absolutePosition: { x: 400, y: 100 },
+          absolutePosition: { x: positionX + 400, y: positionY + 100 },
         },
         {
           text: venta.fecha,
           style: 'header',
-          absolutePosition: { x: 100, y: 110 },
+          absolutePosition: { x: positionX + 100, y: positionY + 110 },
         },
         {
-          text: `Nombre del cliente ${venta.id_cliente}`,
+          text: `${cliente.nombre_apellido}`,
           style: 'header',
-          absolutePosition: { x: 100, y: 120 },
+          absolutePosition: { x: positionX + 100, y: positionY + 120 },
         },
         {
-          text: `dirección del cliente ${venta.id_cliente}`,
+          text: `${cliente.direccion}`,
           style: 'header',
-          absolutePosition: { x: 100, y: 130 },
+          absolutePosition: { x: positionX + 100, y: positionY + 130 },
         },
         {
           text: 'X',
           style: 'header',
-          absolutePosition: { x: 360, y: 110 },
+          absolutePosition: {
+            x: venta.tipo_factura == 'CON' ? positionX + 400 : positionX + 450,
+            y: positionY + 110,
+          },
         },
         {
-          text: 'ruc cliente',
+          text: `${cliente.ruc}`,
           style: 'header',
-          absolutePosition: { x: 360, y: 120 },
+          absolutePosition: { x: positionX + 360, y: positionY + 120 },
         },
         {
-          text: 'telefono cliente',
+          text: `${cliente.telefono}`,
           style: 'header',
-          absolutePosition: { x: 360, y: 130 },
+          absolutePosition: { x: positionX + 360, y: positionY + 130 },
         },
         ...body,
         {
           text: 'OBS -------',
           style: 'header',
-          absolutePosition: { x: 110, y: 430 },
+          absolutePosition: { x: positionX + 110, y: positionY + 430 },
         },
         {
-          text: 'MONTO TOTAL EN LETRAS',
+          text: `${venta.monto_letras}`,
           style: 'header',
-          absolutePosition: { x: 110, y: 445 },
+          absolutePosition: { x: positionX + 110, y: positionY + 445 },
         },
         {
           text: venta.total,
           style: 'header',
-          absolutePosition: { x: 530, y: 445 },
+          absolutePosition: { x: positionX + 530, y: positionY + 445 },
         },
         {
           text: '0',
           style: 'header',
-          absolutePosition: { x: 160, y: 470 },
+          absolutePosition: { x: positionX + 160, y: positionY + 470 },
         },
         {
           text: venta.total,
           style: 'header',
-          absolutePosition: { x: 210, y: 470 },
+          absolutePosition: { x: positionX + 210, y: positionY + 470 },
         },
         {
           text: venta.total,
           style: 'header',
-          absolutePosition: { x: 280, y: 470 },
+          absolutePosition: { x: positionX + 280, y: positionY + 470 },
         },
       ],
       styles: {
@@ -465,7 +477,6 @@ export class CrearVentaComponent implements OnInit, AfterViewChecked {
     const pdfDocGenerator = pdfMake.createPdf(pdfDefinition);
     await pdfDocGenerator.getDataUrl((dataUrl) => {
       this.linkPdf = dataUrl;
-      console.log(dataUrl);
       //printJS(dataUrl);
       //printJS({printable:dataUrl, type:'pdf', showModal:true})
     });

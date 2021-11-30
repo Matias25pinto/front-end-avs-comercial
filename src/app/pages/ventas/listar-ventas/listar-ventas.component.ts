@@ -16,7 +16,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class ListarVentasComponent implements OnInit {
   public url = environment.url;
-  public ventas: Venta[] = [];
+  public ventas: any[] = [];
   public siguiente: string = '';
   public anterior: string = '';
   public isLoading: boolean = false;
@@ -45,7 +45,7 @@ export class ListarVentasComponent implements OnInit {
     this.isError = false;
     if (this.formularioBuscar.valid) {
       const termino = this.formularioBuscar.get('venta')?.value;
-      const pagina: string = `${this.url}/personas/busqueda/?search=${termino}`;
+      const pagina: string = `${this.url}/ventas/busqueda/?search=${termino}`;
       this.buscarVentas(pagina);
     } else {
       this.cargarVentas(`${this.url}/ventas/ventas/`);

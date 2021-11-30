@@ -11,7 +11,8 @@
           placeholder="usuario"
         />
         <small *ngIf="usernameNoValido" class="text-danger"
-          >El campo Usuario no puede llevar espacio o caracteres especiales.</small
+          >El campo Usuario no puede llevar espacio o caracteres
+          especiales.</small
         >
       </div>
     </div>
@@ -94,28 +95,29 @@
       </div>
     </div>
   </div>
-
   <div
     *ngIf="formularioUsuario.get('role')?.value == 'ADMINISTRADOR' || formularioUsuario.get('role')?.value == 'VENTAS' || formularioUsuario.get('role')?.value == 'VENTAS-COMPRAS-INVENTARIO'"
     class="row"
   >
     <div class="col">
-      <div class="form-group">
         <label for="exampleInput">Impresoras</label>
-        <select
+      <div class="form-group">
+        <nz-select
+	  class="nz-select"
+          nzShowSearch
+          nzAllowClear
+          nzPlaceHolder="Seleccionar Impresora"
           formControlName="impresora"
-          id="exampleSelect"
-          class="custom-select"
-          name=""
         >
-          <option value="">Seleccionar Impresora</option>
-          <option
+          <nz-option
             *ngFor="let impresora of impresoras"
-            value="{{impresora.id_impresora}}"
+            nzCustomContent
+            nzLabel="{{impresora.nombre_impresora}}"
+            nzValue="{{impresora.id_impresora}}"
           >
             {{impresora.nombre_impresora}}
-          </option>
-        </select>
+          </nz-option>
+        </nz-select>
         <small *ngIf="impresoraNoValido" class="text-danger"
           >El campo Impresora es obligatorio.</small
         >

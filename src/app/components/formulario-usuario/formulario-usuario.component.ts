@@ -82,9 +82,9 @@ export class FormularioUsuarioComponent implements OnInit {
     }
 
     this.configuracionService
-      .getPerfilesImpresora(`${this.url}/configuracion/configuracion/`)
+      .listaImpresoras(`${this.url}/configuracion/configuracion-lista/`)
       .subscribe((resp) => {
-        this.impresoras = resp.results;
+        this.impresoras = resp;
         console.log(this.impresoras);
       });
     if (!this.isCreateUser) {

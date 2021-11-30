@@ -8,7 +8,12 @@ export interface getVentas {
   count: number;
   next: string;
   previous: string;
-  results: Array<Venta>;
+  results: Array<vistaVenta>;
+}
+export interface vistaVenta {
+  nombre_usuario: string;
+  nombre_cliente: string;
+  total: number;
 }
 export interface postVenta {
   estado: string;
@@ -19,7 +24,7 @@ export interface postVenta {
   id_detalle_venta: Array<DetalleVenta>;
   id_venta: number;
   total: number;
-  tipo_factura:string;
+  tipo_factura: string;
 }
 
 @Injectable({
@@ -31,10 +36,21 @@ export class VentasService {
   constructor(private http: HttpClient) {}
 
   crearVenta(body: Venta) {
-    return this.http.post<postVenta>(`${this.url}/ventas/ventas/`, body);
+    const access_token = `Token ${localStorage.getItem('access_token')}`;
+    let headers = new HttpHeaders({
+      authorization: access_token,
+    }).set('Content-Type', 'application/json');
+    return this.http.post<postVenta>(`${this.url}/ventas/ventas/`, body, {
+      headers,
+    });
   }
 
   getVentas(pagina: string) {
-    return this.http.get<getVentas>(pagina);
+    const access_token = `Token ${localStorage.getItem('access_token')}`;
+    let headers = new HttpHeaders({
+      authorization: access_token,
+    }).set('Content-Type', 'application/json');
+
+    return this.http.get<getVentas>(pagina, { headers });
   }
 }

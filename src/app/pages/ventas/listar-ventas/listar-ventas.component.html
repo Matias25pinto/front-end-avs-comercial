@@ -104,11 +104,11 @@
                   <tbody>
                     <tr *ngFor="let venta of ventas; let i = index">
                       <td>{{ i + 1 }}</td>
-                      <td>{{'NOMBRE DEL USUARIO'}}</td>
-                      <td>{{'NOMBRE DEL CLIENTE'}}</td>
-                      <td>{{venta.fecha}}</td>
+                      <td>{{venta.nombre_usuario}}</td>
+                      <td>{{venta.nombre_cliente}}</td>
+                      <td>{{venta.fecha | date:'fullDate'}}</td>
                       <td>{{'estado de la venta'}}</td>
-                      <th>{{venta.total}}</th>
+                      <th>{{venta.total | currency : 'GS' : 'symbol' : '1.0-0'}}</th>
                       <td>
                         <button
                           class="btn btn-block bg-gradient-primary btn-flat"
