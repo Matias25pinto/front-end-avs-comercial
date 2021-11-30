@@ -2,32 +2,43 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { User } from '../../models/usuario.interfaces';
 import { UsuarioService } from '../../services/usuario.service';
+import { ConfiguracionService } from '../../services/configuracion.service';
 // ES6 Modules or TypeScript
 import Swal from 'sweetalert2';
 
 import { ValidadoresService } from '../../services/validadores.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-formulario-usuario',
   templateUrl: './formulario-usuario.component.html',
 })
 export class FormularioUsuarioComponent implements OnInit {
-  @Input() isCreateUser: boolean = true;
+  @Input() isCreateUser;
 
-  @Input() id_user: number = 0;
+  @Input() id_user;
   public formularioUsuario: FormGroup;
 
   public isLoading: boolean = false;
 
+  public impresoras: any[] = [];
+  public url: string = environment.url;
+
   constructor(
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
-    private validadores: ValidadoresService
-  ) {
+    private validadores: ValidadoresService,
+    private configuracionService: ConfiguracionService
+  ) {}
+
+  ngOnInit(): void {
     if (this.isCreateUser) {
       this.formularioUsuario = this.fb.group(
         {
-          username: ['', [Validators.required]],
+          username: [
+            '',
+            [Validators.required, Validators.pattern('^[a-zA-Z0-9_]*$')],
+          ],
           first_name: ['', [Validators.required]],
           last_name: ['', [Validators.required]],
           email: [
@@ -38,6 +49,7 @@ export class FormularioUsuarioComponent implements OnInit {
             ],
           ],
           role: ['', [Validators.required]],
+          impresora: [''],
           password: ['', [Validators.required]],
           password_confirmation: ['', [Validators.required]],
         },
@@ -48,9 +60,11 @@ export class FormularioUsuarioComponent implements OnInit {
             'password',
             'password_confirmation'
           ),
+          validators2: this.validadores.impresoraValida('impresora', 'role'),
         }
       );
     } else {
+      console.log('EDITAR USUARIO');
       this.formularioUsuario = this.fb.group({
         username: ['', [Validators.required]],
         first_name: ['', [Validators.required]],
@@ -63,11 +77,16 @@ export class FormularioUsuarioComponent implements OnInit {
           ],
         ],
         role: ['', [Validators.required]],
+        impresora: [''],
       });
     }
-  }
 
-  ngOnInit(): void {
+    this.configuracionService
+      .getPerfilesImpresora(`${this.url}/configuracion/configuracion/`)
+      .subscribe((resp) => {
+        this.impresoras = resp.results;
+        console.log(this.impresoras);
+      });
     if (!this.isCreateUser) {
       this.cargarFormulario();
     }
@@ -108,6 +127,13 @@ export class FormularioUsuarioComponent implements OnInit {
       false
     );
   }
+  get impresoraNoValido(): boolean {
+    return (
+      (this.formularioUsuario.get('impresora')?.invalid &&
+        this.formularioUsuario.get('impresora')?.touched) ||
+      false
+    );
+  }
 
   get passwordNoValido(): boolean {
     if (this.isCreateUser) {
@@ -133,14 +159,21 @@ export class FormularioUsuarioComponent implements OnInit {
 
   cargarFormulario() {
     this.usuarioService.getUsuario(this.id_user).subscribe((user) => {
-      this.formularioUsuario.reset({
+      const impresora = this.impresoras.find(
+        (impresora) => impresora.id_impresora == user.configuracion
+      );
+      let formulario = {
         username: user.username,
         first_name: user.first_name,
         last_name: user.last_name,
         email: user.email,
-        password: user.password,
-        password_confirmation: user.password_confirmation,
-      });
+        role: user.rol_usuario,
+      };
+      if(impresora){
+	formulario["impresora"]=impresora.id_impresora;
+      }
+      console.log(user, formulario);
+      this.formularioUsuario.reset(formulario);
     });
   }
 
@@ -167,6 +200,10 @@ export class FormularioUsuarioComponent implements OnInit {
           password_confirmation,
           rol_usuario,
         };
+        if (this.formularioUsuario.get('impresora')?.value != '') {
+          let configuracion = this.formularioUsuario.get('impresora')?.value;
+          body['configuracion'] = configuracion;
+        }
 
         this.crearUsuario(body);
       } else {
@@ -177,6 +214,10 @@ export class FormularioUsuarioComponent implements OnInit {
           email,
           rol_usuario,
         };
+        if (this.formularioUsuario.get('impresora')?.value != '') {
+          let configuracion = this.formularioUsuario.get('impresora')?.value;
+          body['configuracion'] = configuracion;
+        }
 
         this.modificarUsuario(body);
       }
@@ -197,6 +238,7 @@ export class FormularioUsuarioComponent implements OnInit {
   crearUsuario(body: User) {
     this.usuarioService.crearUsuario(body).subscribe(
       (user) => {
+        console.log(user);
         this.limpiarFormulario();
         this.isLoading = false;
         Swal.fire({
@@ -222,6 +264,7 @@ export class FormularioUsuarioComponent implements OnInit {
   modificarUsuario(body: User) {
     this.usuarioService.modificarUsuario(this.id_user, body).subscribe(
       (user) => {
+        console.log(user);
         this.isLoading = false;
         Swal.fire({
           position: 'top-end',
@@ -252,6 +295,7 @@ export class FormularioUsuarioComponent implements OnInit {
       password: '',
       password_confirmation: '',
       role: '',
+      impresora: '',
     });
   }
 }

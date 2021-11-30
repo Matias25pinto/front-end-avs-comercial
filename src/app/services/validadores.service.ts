@@ -13,7 +13,7 @@ export class ValidadoresService {
 
   //validar si dos pass son iguales, es asincrono
   passwordsIguales(pass1Name: string, pass2Name: string) {
-    console.log("se compara los passwords");
+    console.log('se compara los passwords');
     return (formGrup: FormGroup) => {
       const pass1Control = formGrup.controls[pass1Name];
       const pass2Control = formGrup.controls[pass2Name];
@@ -22,6 +22,25 @@ export class ValidadoresService {
         pass2Control.setErrors(null);
       } else {
         pass2Control.setErrors({ noEsIgual: true });
+      }
+    };
+  }
+  impresoraValida(impresora: string, rol: string) {
+    return (formGrup: FormGroup) => {
+      const impresoraControl = formGrup.controls[impresora];
+      const rolControl = formGrup.controls[rol];
+      if (
+        rolControl.value == 'ADMINISTRADOR' ||
+        rolControl.value == 'VENTAS' ||
+        rolControl.value == 'VENTAS-COMPRAS-INVENTARIO'
+      ) {
+        if (impresoraControl.value == '') {
+          impresoraControl.setErrors({ noEsValido: true });
+        } else {
+          impresoraControl.setErrors(null);
+        }
+      } else {
+        impresoraControl.setErrors(null);
       }
     };
   }

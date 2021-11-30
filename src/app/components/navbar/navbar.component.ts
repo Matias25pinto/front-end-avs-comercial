@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit {
   cerrarSesion() {
     localStorage.removeItem('access_token');
     localStorage.removeItem('reload');
+    localStorage.removeItem('user');
     this.router.navigate(['login']);
   }
 }

@@ -13,16 +13,19 @@
   <!-- Sidebar -->
   <div class="sidebar">
     <!-- Sidebar user panel (optional) -->
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-      <div class="image">
-        <img
-          [src]="'../../assets/img/user2-160x160.jpg'"
-          class="img-circle elevation-2"
-          alt="User Image"
-        />
-      </div>
-      <div class="info">
-        <a class="d-block">Nombre del usuario</a>
+    <div
+      class="
+        user-panel
+        mt-3
+        pb-3
+        mb-3
+        d-flex
+        justify-content-center
+        align-items-center
+      "
+    >
+      <div class="info text-center">
+        <a class="d-block">{{user.username}}</a>
       </div>
     </div>
     <!-- Sidebar Menu -->
@@ -33,7 +36,7 @@
         role="menu"
         data-accordion="false"
       >
-        <li class="nav-item">
+        <li *ngIf="rol =='ADMINISTRADOR'" class="nav-item">
           <a class="nav-link cursor-pointer">
             <i class="fas fa-chart-pie"></i>
             <p>
@@ -51,7 +54,10 @@
           </ul>
         </li>
 
-        <li class="nav-item">
+        <li
+          *ngIf="rol =='ADMINISTRADOR' || rol =='VENTAS' || rol =='VENTAS-COMPRAS-INVENTARIO'"
+          class="nav-item"
+        >
           <a class="nav-link cursor-pointer">
             <i class="fas fa-cash-register"></i>
             <p>
@@ -60,7 +66,7 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
-            <li class="nav-item">
+            <li *ngIf="rol =='ADMINISTRADOR'" class="nav-item">
               <a routerLink="{{ '/ventas/listar-ventas' }}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Listar Ventas</p>
@@ -89,7 +95,10 @@
           </ul>
         </li>
 
-        <li class="nav-item">
+        <li
+          *ngIf="rol =='ADMINISTRADOR' || rol =='COMPRAS' || rol =='VENTAS-COMPRAS-INVENTARIO'"
+          class="nav-item"
+        >
           <a class="nav-link cursor-pointer">
             <i class="fas fa-dolly"></i>
             <p>
@@ -122,7 +131,10 @@
           </ul>
         </li>
 
-        <li class="nav-item">
+        <li
+          *ngIf="rol =='ADMINISTRADOR' || rol =='INVENTARIO' || rol =='VENTAS-COMPRAS-INVENTARIO'"
+          class="nav-item"
+        >
           <a class="nav-link cursor-pointer">
             <i class="fas fa-boxes"></i>
             <p>
@@ -152,7 +164,10 @@
           </ul>
         </li>
 
-        <li class="nav-item">
+        <li
+          *ngIf="rol =='ADMINISTRADOR' || rol =='VENTAS' || rol =='VENTAS-COMPRAS-INVENTARIO'"
+          class="nav-item"
+        >
           <a class="nav-link cursor-pointer">
             <i class="fas fa-money-bill-wave"></i>
             <p>
@@ -170,7 +185,7 @@
           </ul>
         </li>
 
-        <li class="nav-item">
+        <li *ngIf="rol =='ADMINISTRADOR'" class="nav-item">
           <a class="nav-link cursor-pointer">
             <i class="fas fa-user-friends"></i>
             <p>
@@ -188,7 +203,7 @@
           </ul>
         </li>
 
-        <li class="nav-item">
+        <li *ngIf="rol =='ADMINISTRADOR'" class="nav-item">
           <a class="nav-link cursor-pointer">
             <i class="fas fa-unlock-alt"></i>
             <p>
@@ -197,18 +212,6 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a routerLink="{{ '/seguridad/crear-rol' }}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Crear Rol</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="{{ '/seguridad/listar-roles' }}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Roles</p>
-              </a>
-            </li>
             <li class="nav-item">
               <a routerLink="{{ '/seguridad/crear-usuario' }}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
@@ -227,7 +230,7 @@
           </ul>
         </li>
 
-        <li class="nav-item">
+        <li *ngIf="rol =='ADMINISTRADOR'" class="nav-item">
           <a class="nav-link cursor-pointer">
             <i class="fas fa-hdd"></i>
             <p>

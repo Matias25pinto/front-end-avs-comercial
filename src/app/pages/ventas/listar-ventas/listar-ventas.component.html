@@ -93,24 +93,45 @@
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Venta</th>
+                      <th>Usuario</th>
+                      <th>Cliente</th>
                       <th>Fecha</th>
+                      <th>Estado</th>
                       <th>Total</th>
-                      <th colspan="1">Opciones</th>
+                      <th attr.colspan="2">Opciones</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr *ngFor="let venta of ventas; let i = index">
                       <td>{{ i + 1 }}</td>
-		      <td>{{ venta.id_venta}}</td>
-                      <td>{{venta.fecha_creacion}}</td>
+                      <td>{{'NOMBRE DEL USUARIO'}}</td>
+                      <td>{{'NOMBRE DEL CLIENTE'}}</td>
+                      <td>{{venta.fecha}}</td>
+                      <td>{{'estado de la venta'}}</td>
                       <th>{{venta.total}}</th>
                       <td>
                         <button
                           class="btn btn-block bg-gradient-primary btn-flat"
                           type="button"
                         >
-                          Detalle Venta
+                          Ver Factura
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          class="btn btn-block bg-gradient-warning btn-flat"
+                          type="button"
+                        >
+                          Crear Nota de Crédito
+                        </button>
+                      </td>
+
+                      <td>
+                        <button
+                          class="btn btn-block bg-gradient-danger btn-flat"
+                          type="button"
+                        >
+                          Anular Venta
                         </button>
                       </td>
                     </tr>

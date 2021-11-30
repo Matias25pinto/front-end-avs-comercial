@@ -41,7 +41,11 @@ export class LoginComponent implements OnInit {
       this.usuarioServices.iniciarSesion(email, password).subscribe(
         (data) => {
           localStorage.setItem('access_token', data.access_token);
-	  localStorage.removeItem('reload');
+          localStorage.removeItem('reload');
+          localStorage.setItem('user', JSON.stringify(data.users));
+          localStorage.setItem('coordenada_x', data['coordenada_x']);
+          localStorage.setItem('coordenada_y', data['coordenada_y']);
+          console.log(data);
           Swal.fire({
             position: 'top-end',
             icon: 'success',

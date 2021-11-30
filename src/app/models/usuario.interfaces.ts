@@ -11,4 +11,5 @@ export interface User {
   password?: string;
   password_confirmation?: string;
   rol_usuario:string;
+  configuracion?:number;
 }

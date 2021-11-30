@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 // ES6 Modules or TypeScript
 import Swal from 'sweetalert2';
 
@@ -9,6 +8,7 @@ import { Venta } from '../../../models/venta.interface';
 import { environment } from '../../../../environments/environment';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-listar-ventas',
@@ -26,19 +26,18 @@ export class ListarVentasComponent implements OnInit {
   public formularioBuscar: FormGroup;
 
   constructor(
-    private router: Router,
     private ventasService: VentasService,
     private fb: FormBuilder
   ) {
     this.formularioBuscar = this.fb.group({
-      ventas: ['', Validators.required],
+      venta: ['', Validators.required],
     });
   }
 
   ngOnInit(): void {
     this.cargarVentas(`${this.url}/ventas/ventas/`);
   }
-  limpiarFormulario() {
+    limpiarFormulario() {
     this.formularioBuscar.reset({ venta: '' });
   }
 
@@ -80,11 +79,12 @@ export class ListarVentasComponent implements OnInit {
 
   cargarVentas(pagina: string) {
     this.isLoading = true;
-    this.ventas= [];
+    this.ventas = [];
     this.siguiente = '';
     this.anterior = '';
     this.ventasService.getVentas(pagina).subscribe(
       (data) => {
+        console.log(data);
         this.ventas = data.results;
         this.siguiente = data.next != null ? data.next : '';
         this.anterior = data.previous != null ? data.previous.toString() : '';
@@ -92,6 +92,7 @@ export class ListarVentasComponent implements OnInit {
         this.isLoading = false;
       },
       (err) => {
+        console.log(err);
         this.urlActual = pagina;
         this.isLoading = false;
         this.isError = true;
