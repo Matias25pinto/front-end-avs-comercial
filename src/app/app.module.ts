@@ -60,6 +60,7 @@ import { ListarPerfilesImpresoraComponent } from './pages/configuracion/listar-p
 import { CrearPerfilImpresoraComponent } from './pages/configuracion/crear-perfil-impresora/crear-perfil-impresora.component';
 import { ModificarPerfilImpresoraComponent } from './pages/configuracion/modificar-perfil-impresora/modificar-perfil-impresora.component';
 import { FormularioPerfilImpresoraComponent } from './components/formulario-perfil-impresora/formulario-perfil-impresora.component';
+import { CrearNotaCreditoComponent } from './pages/ventas/crear-nota-credito/crear-nota-credito.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +96,7 @@ import { FormularioPerfilImpresoraComponent } from './components/formulario-perf
     CrearPerfilImpresoraComponent,
     ModificarPerfilImpresoraComponent,
     FormularioPerfilImpresoraComponent,
+    CrearNotaCreditoComponent,
   ],
   imports: [
     BrowserModule,

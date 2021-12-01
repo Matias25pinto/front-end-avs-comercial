@@ -24,6 +24,7 @@ import { ListarComprasComponent } from './pages/compras/listar-compras/listar-co
 import { CrearPerfilImpresoraComponent } from './pages/configuracion/crear-perfil-impresora/crear-perfil-impresora.component';
 import { ListarPerfilesImpresoraComponent } from './pages/configuracion/listar-perfiles-impresora/listar-perfiles-impresora.component';
 import { ModificarPerfilImpresoraComponent } from './pages/configuracion/modificar-perfil-impresora/modificar-perfil-impresora.component';
+import { CrearNotaCreditoComponent } from './pages/ventas/crear-nota-credito/crear-nota-credito.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -86,6 +87,12 @@ const routes: Routes = [
     component: CrearVentaComponent,
     canActivate: [LoginGuard],
   },
+  {
+    path: 'ventas/crear-nota-credito/:id',
+    component: CrearNotaCreditoComponent,
+    canActivate: [LoginGuard],
+  },
+
   {
     path: 'compras/listar-proveedores',
     component: ListarProveedoresComponent,

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Venta, DetalleVenta } from '../models/venta.interface';
+import { Venta, DetalleVenta, NotaCredito } from '../models/venta.interface';
 import { environment } from '../../environments/environment';
 
 export interface getVentas {
@@ -53,12 +53,23 @@ export class VentasService {
 
     return this.http.get<getVentas>(pagina, { headers });
   }
-  getVenta(id:number) {
+  getVenta(id: number) {
     const access_token = `Token ${localStorage.getItem('access_token')}`;
     let headers = new HttpHeaders({
       authorization: access_token,
     }).set('Content-Type', 'application/json');
 
-    return this.http.get<postVenta>(`${this.url}/ventas/ventas/${id}/`, { headers });
+    return this.http.get<postVenta>(`${this.url}/ventas/ventas/${id}/`, {
+      headers,
+    });
+  }
+  crearNotaCredito(body:NotaCredito) {
+    const access_token = `Token ${localStorage.getItem('access_token')}`;
+    let headers = new HttpHeaders({
+      authorization: access_token,
+    }).set('Content-Type', 'application/json');
+    return this.http.post<any>(`${this.url}/nota-credito/nota-credito-venta/`, body, {
+      headers,
+    });
   }
 }

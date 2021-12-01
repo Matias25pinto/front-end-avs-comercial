@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router } from '@angular/router';
 // ES6 Modules or TypeScript
 import Swal from 'sweetalert2';
 
@@ -47,7 +48,8 @@ export class ListarVentasComponent implements OnInit {
     private ventasService: VentasService,
     private fb: FormBuilder,
     private personaService: PersonaService,
-    private articulosService: ArticulosService
+    private articulosService: ArticulosService,
+    private router: Router,
   ) {
     this.formularioBuscar = this.fb.group({
       venta: ['', Validators.required],
@@ -58,6 +60,9 @@ export class ListarVentasComponent implements OnInit {
     this.cargarVentas(`${this.url}/ventas/ventas/`);
     this.cargarClientes();
     this.cargarArticulos();
+  }
+  crearNotaCredito(id:number){
+    this.router.navigate(['ventas','crear-nota-credito',id]);
   }
   cargarArticulos() {
     this.articulosService.getArticulosLista().subscribe((articulos) => {

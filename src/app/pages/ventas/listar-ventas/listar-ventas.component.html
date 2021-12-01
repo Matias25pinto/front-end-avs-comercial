@@ -126,7 +126,6 @@
                       <td>{{venta.nombre_usuario}}</td>
                       <td>{{venta.nombre_cliente}}</td>
                       <td>{{venta.fecha | date:'fullDate'}}</td>
-                      <td>{{'estado de la venta'}}</td>
                       <th>
                         {{venta.total | currency : 'GS' : 'symbol' : '1.0-0'}}
                       </th>
@@ -141,6 +140,7 @@
                       </td>
                       <td>
                         <button
+			  (click)="crearNotaCredito(venta.id_venta)"
                           class="btn btn-block bg-gradient-warning btn-flat"
                           type="button"
                         >
