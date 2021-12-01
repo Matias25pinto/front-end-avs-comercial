@@ -53,4 +53,12 @@ export class VentasService {
 
     return this.http.get<getVentas>(pagina, { headers });
   }
+  getVenta(id:number) {
+    const access_token = `Token ${localStorage.getItem('access_token')}`;
+    let headers = new HttpHeaders({
+      authorization: access_token,
+    }).set('Content-Type', 'application/json');
+
+    return this.http.get<postVenta>(`${this.url}/ventas/ventas/${id}/`, { headers });
+  }
 }
