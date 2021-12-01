@@ -38,6 +38,11 @@
       nzOkText="Ok"
     >
       <ng-container *nzModalContent>
+        <div class="row justify-content-center align-items-center">
+          <label class="badge badge-primary text-wrap m-auto" style="width: 10rem; font-size:1.5em"
+            >Vuelto: {{vuelto | currency : 'GS' : 'symbol' : '1.0-0'}}</label
+          >
+        </div>
         <iframe
           id="iframe"
           [src]="linkPdf | safe"
