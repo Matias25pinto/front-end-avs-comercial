@@ -91,12 +91,9 @@ export class CrearNotaCreditoComponent implements OnInit {
   }
   cargarClientes() {
     this.personaService.getPersonasLista().subscribe((resp) => {
-      console.log(this.idCliente);
       this.cliente = resp.find(
         (persona) => persona.id_persona == this.idCliente
       );
-      console.log(resp);
-      console.log(this.cliente);
     });
   }
   cargarArticulos() {
@@ -288,11 +285,11 @@ export class CrearNotaCreditoComponent implements OnInit {
   }
   enviarFormularioNotaCredito() {
     if (this.totalVenta <= this.venta.total) {
-      let fecha = new Date();
       let detalleVenta: DetalleNotaCredito[] = this.grilla.map((articulo) => {
         let detalle: DetalleNotaCredito = {
           cantidad: articulo.cantidad,
           id_articulo: articulo.id_articulo,
+	  id_venta:this.idVenta,
         };
         return detalle;
       });

@@ -69,17 +69,24 @@
             <li *ngIf="rol =='ADMINISTRADOR'" class="nav-item">
               <a routerLink="{{ '/ventas/listar-ventas' }}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Listar Ventas</p>
+                <p>Ventas</p>
               </a>
             </li>
-
             <li class="nav-item">
               <a routerLink="{{ '/ventas/crear-venta' }}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Crear Venta</p>
               </a>
             </li>
-
+            <li class="nav-item">
+              <a
+                routerLink="{{ '/ventas/listar-notas-credito' }}"
+                class="nav-link"
+              >
+                <i class="far fa-circle nav-icon"></i>
+                <p>Notas de Crédito</p>
+              </a>
+            </li>
             <li class="nav-item">
               <a routerLink="{{ '/ventas/listar-clientes' }}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>

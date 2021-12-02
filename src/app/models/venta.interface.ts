@@ -30,6 +30,7 @@ export interface NotaCredito {
   id_detalle_nota_credito: Array<any>;
 }
 export interface DetalleNotaCredito {
+  id_venta:number;
   cantidad: number;
   id_articulo: number;
 }
