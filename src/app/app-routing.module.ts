@@ -26,6 +26,8 @@ import { ListarPerfilesImpresoraComponent } from './pages/configuracion/listar-p
 import { ModificarPerfilImpresoraComponent } from './pages/configuracion/modificar-perfil-impresora/modificar-perfil-impresora.component';
 import { CrearNotaCreditoComponent } from './pages/ventas/crear-nota-credito/crear-nota-credito.component';
 import { ListarNotasCreditoComponent } from './pages/ventas/listar-notas-credito/listar-notas-credito.component';
+import { CrearArqueoCajaComponent } from './pages/ventas/crear-arqueo-caja/crear-arqueo-caja.component';
+import { ListarArqueoCajaComponent } from './pages/ventas/listar-arqueo-caja/listar-arqueo-caja.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -93,11 +95,22 @@ const routes: Routes = [
     component: CrearNotaCreditoComponent,
     canActivate: [LoginGuard],
   },
-{
+  {
     path: 'ventas/listar-notas-credito',
     component: ListarNotasCreditoComponent,
     canActivate: [LoginGuard],
   },
+  {
+    path: 'arqueo-caja/crear-arqueo-caja',
+    component: CrearArqueoCajaComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'arqueo-caja/listar-arqueo-caja',
+    component: ListarArqueoCajaComponent,
+    canActivate: [LoginGuard],
+  },
+
   {
     path: 'compras/listar-proveedores',
     component: ListarProveedoresComponent,

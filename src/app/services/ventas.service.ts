@@ -63,16 +63,20 @@ export class VentasService {
       headers,
     });
   }
-  crearNotaCredito(body:NotaCredito) {
+  crearNotaCredito(body: NotaCredito) {
     const access_token = `Token ${localStorage.getItem('access_token')}`;
     let headers = new HttpHeaders({
       authorization: access_token,
     }).set('Content-Type', 'application/json');
-    return this.http.post<any>(`${this.url}/nota-credito/nota-credito-venta/`, body, {
-      headers,
-    });
+    return this.http.post<any>(
+      `${this.url}/nota-credito/nota-credito-venta/`,
+      body,
+      {
+        headers,
+      }
+    );
   }
-getNotasCredito(pagina: string) {
+  getNotasCredito(pagina: string) {
     const access_token = `Token ${localStorage.getItem('access_token')}`;
     let headers = new HttpHeaders({
       authorization: access_token,
@@ -86,9 +90,40 @@ getNotasCredito(pagina: string) {
       authorization: access_token,
     }).set('Content-Type', 'application/json');
 
-    return this.http.get<any>(`${this.url}/nota-credito/nota-credito-venta/${id}/`, {
+    return this.http.get<any>(
+      `${this.url}/nota-credito/nota-credito-venta/${id}/`,
+      {
+        headers,
+      }
+    );
+  }
+  aperturaArqueoCaja(body: any) {
+    const access_token = `Token ${localStorage.getItem('access_token')}`;
+    let headers = new HttpHeaders({
+      authorization: access_token,
+    }).set('Content-Type', 'application/json');
+
+    return this.http.post<any>(`${this.url}/cajas/arqueo-caja/`, body, {
+      headers,
+    });
+  }
+  cierreArqueoCaja(body: any) {
+    const access_token = `Token ${localStorage.getItem('access_token')}`;
+    let headers = new HttpHeaders({
+      authorization: access_token,
+    }).set('Content-Type', 'application/json');
+
+    return this.http.put<any>(`${this.url}/cajas/arqueo-caja/${body.id_arqueo_caja}/`, body, {
       headers,
     });
   }
 
+  getArqueosCaja(pagina: string) {
+    const access_token = `Token ${localStorage.getItem('access_token')}`;
+    let headers = new HttpHeaders({
+      authorization: access_token,
+    }).set('Content-Type', 'application/json');
+
+    return this.http.get<any>(pagina, { headers });
+  }
 }

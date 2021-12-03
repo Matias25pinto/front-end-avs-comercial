@@ -145,13 +145,10 @@ export class CrearNotaCreditoComponent implements OnInit {
       }
       precio = articuloDetalleVenta.precio_unitario;
       if (articuloDetalleVenta.cantidad < 3) {
-        precio = articulo.precio_unitario;
         tipo_precio = 'Unitario';
-      } else if (articuloDetalleVenta.cantidad >= 3 && cantidad < 12) {
-        precio = articulo.precio_mayorista;
+      } else if (articuloDetalleVenta.cantidad >= 3 && articuloDetalleVenta.cantidad < 12) {
         tipo_precio = 'Mayorista';
       } else if (articuloDetalleVenta.cantidad >= 12) {
-        precio = articulo.precio_especial;
         tipo_precio = 'Especial';
       }
 

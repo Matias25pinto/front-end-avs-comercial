@@ -62,6 +62,9 @@ import { ModificarPerfilImpresoraComponent } from './pages/configuracion/modific
 import { FormularioPerfilImpresoraComponent } from './components/formulario-perfil-impresora/formulario-perfil-impresora.component';
 import { CrearNotaCreditoComponent } from './pages/ventas/crear-nota-credito/crear-nota-credito.component';
 import { ListarNotasCreditoComponent } from './pages/ventas/listar-notas-credito/listar-notas-credito.component';
+import { CrearArqueoCajaComponent } from './pages/ventas/crear-arqueo-caja/crear-arqueo-caja.component';
+import { ListarArqueoCajaComponent } from './pages/ventas/listar-arqueo-caja/listar-arqueo-caja.component';
+import { CerrarArqueoCajaComponent } from './pages/ventas/cerrar-arqueo-caja/cerrar-arqueo-caja.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +102,9 @@ import { ListarNotasCreditoComponent } from './pages/ventas/listar-notas-credito
     FormularioPerfilImpresoraComponent,
     CrearNotaCreditoComponent,
     ListarNotasCreditoComponent,
+    CrearArqueoCajaComponent,
+    ListarArqueoCajaComponent,
+    CerrarArqueoCajaComponent,
   ],
   imports: [
     BrowserModule,

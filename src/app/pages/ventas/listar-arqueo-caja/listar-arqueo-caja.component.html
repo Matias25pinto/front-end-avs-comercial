@@ -1,0 +1,219 @@
+<!-- navbar -->
+<app-navbar></app-navbar>
+<!-- /navbar-->
+<!-- aside -->
+<app-aside></app-aside>
+<!-- /aside -->
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Ventas</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item">
+              <a [routerLink]="'home'">ventas</a>
+            </li>
+            <li class="breadcrumb-item active">listar-arqueos-caja</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <!-- Mostrar Modal-->
+    <nz-modal
+      [(nzVisible)]="isVisible"
+      nzTitle="Cerrar Arqueo Caja"
+      (nzOnCancel)="handleCancel()"
+      (nzOnOk)="handleOk()"
+      nzCancelText="Cancelar"
+      nzOkText="Ok"
+    >
+      <ng-container *nzModalContent>
+        <!-- form start -->
+        <form [formGroup]="formulario" (ngSubmit)="enviarFormularioCierre()">
+          <div class="card-body">
+            <div class="form-group mb-3">
+              <label for="exampleInput">Monto Cierre de Caja</label>
+              <input
+                formControlName="montoCierre"
+                type="number"
+                class="form-control"
+                placeholder="Monto Apertura"
+              />
+              <small *ngIf="montoCierreNoValido" class="text-danger"
+                >El campo Monto Cierre es obligatorio.</small
+              >
+            </div>
+          </div>
+        </form>
+      </ng-container>
+    </nz-modal>
+    <!-- Fin Modal -->
+
+    <!-- Default box -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Arqueos de Caja</h3>
+
+        <div class="card-tools">
+          <button
+            type="button"
+            class="btn btn-tool"
+            data-card-widget="collapse"
+            title="Collapse"
+          >
+            <i class="fas fa-minus"></i>
+          </button>
+          <button
+            type="button"
+            class="btn btn-tool"
+            data-card-widget="remove"
+            title="Remove"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <!-- /.row -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Lista de Arqueos de Caja</h3>
+                <div class="card-tools">
+                  <form
+                    [formGroup]="formularioBuscar"
+                    (ngSubmit)="enviarFormulario()"
+                  >
+                    <div
+                      class="input-group input-group-sm"
+                      style="width: 150px"
+                    >
+                      <input
+                        formControlName="arqueoCaja"
+                        type="text"
+                        name="table_search"
+                        class="form-control float-right"
+                        placeholder="Buscar"
+                      />
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-default">
+                          <i class="fas fa-search"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table
+                  *ngIf="!isLoading"
+                  class="table table-hover text-nowrap text-center"
+                >
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Empleado</th>
+                      <th>Fecha Apertura</th>
+                      <th>Fecha Cierre</th>
+                      <th>Monto Apertura</th>
+                      <th>Monto Cierre</th>
+                      <th attr.colspan="1">Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let arqueo of arqueosCaja; let i = index">
+                      <td>{{ i + 1 }}</td>
+                      <td>{{arqueo.nombre_usuario}}</td>
+                      <td>{{arqueo.fecha_apertura}}</td>
+                      <td>{{arqueo.fecha_cierre}}</td>
+                      <td>
+                        {{arqueo.monto_apertura | currency : 'GS' : 'symbol' :
+                        '1.0-0'}}
+                      </td>
+                      <td>
+                        {{arqueo.monto_cierre | currency : 'GS' : 'symbol' :
+                        '1.0-0'}}
+                      </td>
+                      <td>
+                        <button
+                          (click)="mostrarModificarArqueo(arqueo.id_arqueo_caja)"
+                          class="btn btn-block bg-gradient-primary btn-flat"
+                          type="button"
+			  [disabled]="(arqueo.monto_cierre != 0) || !isUser"
+                        >
+                          Cerrar Arqueo Caja
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+        <!-- /.row -->
+        <div *ngIf="isLoading" class="row justify-content-center">
+          <div class="col-auto">
+            <i class="fas fa-sync fa-spin fa-5x"></i>
+          </div>
+        </div>
+        <div *ngIf="isError" class="row justify-content-center">
+          <div class="col-auto col-8 text-center">
+            <div class="alert alert-danger" role="alert">
+              <h3>ERROR!!!</h3>
+              <i class="fas fa-exclamation-circle fa-7x"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer">
+        <!-- Paginación de pagina-->
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <li [ngClass]="{'disabled':anterior == ''}" class="page-item">
+              <a
+                (click)="cargarArqueosCaja(anterior)"
+                class="page-link cursor-pointer m-1"
+                tabindex="-1"
+                [attr.aria-disabled]="anterior != ''"
+                >Anterior</a
+              >
+            </li>
+            <li [ngClass]="{'disabled':siguiente == ''}" class="page-item">
+              <a
+                (click)="cargarArqueosCaja(siguiente)"
+                [attr.aria-disabled]="siguiente != ''"
+                class="page-link cursor-pointer m-1"
+                >Siguiente</a
+              >
+            </li>
+          </ul>
+        </nav>
+        <!-- /paginación -->
+      </div>
+      <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- footer -->
+<app-footer></app-footer>
+<!-- /footer -->
