@@ -135,6 +135,12 @@
                 <p>Compras</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="{{'/compras/crear-compra'}}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Cargar Factura Compra</p>
+              </a>
+            </li>
           </ul>
         </li>
 
@@ -184,14 +190,20 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a routerLink="{{'/arqueo-caja/listar-arqueo-caja'}}" class="nav-link">
+              <a
+                routerLink="{{'/arqueo-caja/listar-arqueo-caja'}}"
+                class="nav-link"
+              >
                 <i class="far fa-circle nav-icon"></i>
                 <p>Arqueos</p>
               </a>
             </li>
 
             <li *ngIf="isVisibleCrearArqueo" class="nav-item">
-              <a routerLink="{{'/arqueo-caja/crear-arqueo-caja'}}" class="nav-link">
+              <a
+                routerLink="{{'/arqueo-caja/crear-arqueo-caja'}}"
+                class="nav-link"
+              >
                 <i class="far fa-circle nav-icon"></i>
                 <p>Crear Arqueo</p>
               </a>

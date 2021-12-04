@@ -65,6 +65,7 @@ import { ListarNotasCreditoComponent } from './pages/ventas/listar-notas-credito
 import { CrearArqueoCajaComponent } from './pages/ventas/crear-arqueo-caja/crear-arqueo-caja.component';
 import { ListarArqueoCajaComponent } from './pages/ventas/listar-arqueo-caja/listar-arqueo-caja.component';
 import { CerrarArqueoCajaComponent } from './pages/ventas/cerrar-arqueo-caja/cerrar-arqueo-caja.component';
+import { FormularioComprasComponent } from './components/formulario-compras/formulario-compras.component';
 
 @NgModule({
   declarations: [
@@ -105,6 +106,7 @@ import { CerrarArqueoCajaComponent } from './pages/ventas/cerrar-arqueo-caja/cer
     CrearArqueoCajaComponent,
     ListarArqueoCajaComponent,
     CerrarArqueoCajaComponent,
+    FormularioComprasComponent,
   ],
   imports: [
     BrowserModule,

@@ -20,7 +20,6 @@ import { CrearProveedorComponent } from './pages/compras/crear-proveedor/crear-p
 import { EditarProveedorComponent } from './pages/compras/editar-proveedor/editar-proveedor.component';
 import { CrearVentaComponent } from './pages/ventas/crear-venta/crear-venta.component';
 import { ListarVentasComponent } from './pages/ventas/listar-ventas/listar-ventas.component';
-import { ListarComprasComponent } from './pages/compras/listar-compras/listar-compras.component';
 import { CrearPerfilImpresoraComponent } from './pages/configuracion/crear-perfil-impresora/crear-perfil-impresora.component';
 import { ListarPerfilesImpresoraComponent } from './pages/configuracion/listar-perfiles-impresora/listar-perfiles-impresora.component';
 import { ModificarPerfilImpresoraComponent } from './pages/configuracion/modificar-perfil-impresora/modificar-perfil-impresora.component';
@@ -28,6 +27,8 @@ import { CrearNotaCreditoComponent } from './pages/ventas/crear-nota-credito/cre
 import { ListarNotasCreditoComponent } from './pages/ventas/listar-notas-credito/listar-notas-credito.component';
 import { CrearArqueoCajaComponent } from './pages/ventas/crear-arqueo-caja/crear-arqueo-caja.component';
 import { ListarArqueoCajaComponent } from './pages/ventas/listar-arqueo-caja/listar-arqueo-caja.component';
+import { ListarComprasComponent } from './pages/compras/listar-compras/listar-compras.component';
+import { CrearCompraComponent } from './pages/compras/crear-compra/crear-compra.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -131,6 +132,12 @@ const routes: Routes = [
     component: ListarComprasComponent,
     canActivate: [LoginGuard],
   },
+{
+    path: 'compras/crear-compra',
+    component: CrearCompraComponent,
+    canActivate: [LoginGuard],
+  },
+
   {
     path: 'configuracion/crear-perfil-impresora',
     component: CrearPerfilImpresoraComponent,

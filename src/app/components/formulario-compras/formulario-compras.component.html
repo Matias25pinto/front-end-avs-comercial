@@ -1,0 +1,208 @@
+<div class="card-body">
+  <div class="row">
+    <div class="col-lg-3 col-6">
+      <!-- small card -->
+      <div class="small-box bg-info">
+        <div class="inner">
+          <h3 class="m-2 text-white">{{totalCompra | number: '1.0-0' }} Gs.</h3>
+          <p>Total a Compra</p>
+        </div>
+        <div class="icon">
+          <i class="fas fa-shopping-cart"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-6">
+      <!-- small card -->
+      <div class="small-box bg-success">
+        <div class="inner">
+          <h3 class="m-2 text-white">{{iva10 | number: '1.2-2' }} Gs.</h3>
+          <p>IVA 1O%</p>
+        </div>
+        <div class="icon">
+          <i class="fas fa-balance-scale"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-6">
+      <!-- small card -->
+      <div class="small-box bg-success">
+        <div class="inner">
+          <h3 class="m-2 text-white">0 Gs.</h3>
+          <p>IVA 5%</p>
+        </div>
+        <div class="icon">
+          <i class="fas fa-balance-scale"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-6">
+      <!-- small card -->
+      <div class="small-box bg-warning">
+        <div class="inner">
+          <h3 class="m-2 text-white">0 Gs.</h3>
+          <p class="text-white">Exenta</p>
+        </div>
+        <div class="icon">
+          <i class="fas fa-balance-scale"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="row justify-content-left align-items-center">
+            <form
+              [formGroup]="formularioGrilla"
+              (ngSubmit)="enviarFormularioGrilla()"
+              class="
+                col-5
+                d-flex
+                flex-row
+                justify-content-left
+                align-items-center
+              "
+            >
+              <div class="input-group input-group-sm mr-3" style="width: 35%">
+                <input
+                  formControlName="codigo"
+                  #inputCodigo
+                  type="text"
+                  name="table_search"
+                  class="form-control float-right"
+                  placeholder="Código"
+                />
+
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-default">
+                    <i class="fas fa-cart-arrow-down"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="input-group input-group-sm mr-3" style="width: 35%">
+                <input
+                  #inputCosto_unitario
+                  formControlName="costo_unitario"
+                  type="text"
+                  name="table_search"
+                  class="form-control float-right"
+                  placeholder="Precio Costo"
+                />
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-default">
+                    <i class="fas fa-boxes"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="input-group input-group-sm mr-3" style="width: 20%">
+                <input
+                  #inputCantidad
+                  formControlName="cantidad"
+                  type="text"
+                  name="table_search"
+                  class="form-control float-right"
+                  placeholder="Cantidad"
+                />
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-default">
+                    <i class="fas fa-boxes"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+            <form
+              [formGroup]="formularioCompra"
+              (ngSubmit)="enviarFormularioCompra()"
+              class="
+                col-7
+                d-flex
+                flex-row
+                justify-content-left
+                align-items-center
+              "
+            >
+              <div class="input-group input-group-sm mr-3" style="width: 50%">
+                <nz-select
+                  formControlName="proveedor"
+                  class="nz-select"
+                  nzShowSearch
+                  nzAllowClear
+                  nzPlaceHolder="Select a person"
+                >
+                  <nz-option
+                    *ngFor="let proveedor of proveedores"
+                    nzLabel="{{proveedor.propietario}}"
+                    nzValue="{{proveedor.id_proveedor}}"
+                  ></nz-option>
+                </nz-select>
+              </div>
+              <div class="input-group input-group-sm mr-3" style="width: 21%">
+                <input
+                  formControlName="numero_factura"
+                  #inputImporte
+                  type="text"
+                  name="table_search"
+                  class="form-control float-right"
+                  placeholder="Número de Factura"
+                />
+              </div>
+
+              <div class="input-group input-group-sm mr-3" style="width: 20%">
+                <button type="submit" class="btn btn-block bg-gradient-primary">
+                  Agregar Factura
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body table-responsive p-0" style="height: 300px">
+          <table class="table table-head-fixed text-nowrap text-center">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Código</th>
+                <th>Artículo</th>
+                <th>Precio Costo</th>
+                <th>Cantidad</th>
+                <th>Unidad Medida</th>
+                <th>IVA</th>
+                <th>SubTotal</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody *ngIf="grilla.length > 0">
+              <tr *ngFor="let articulo of grilla; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{articulo.codigo_barras}}</td>
+                <td>{{articulo.nombre}}</td>
+                <td>{{articulo.costo_unitario | number: '1.0-0'}} Gs.</td>
+                <td>{{articulo.cantidad}}</td>
+                <td>{{articulo.unidad_medida}}</td>
+                <td>{{articulo.porc_iva}}%</td>
+                <td>
+                  {{articulo.costo_unitario * articulo.cantidad | number:
+                  '1.0-0'}} Gs.
+                </td>
+                <td>
+                  <button
+                    (click)="eliminarGrilla(articulo.id_articulo)"
+                    type="button"
+                    class="btn btn-block bg-gradient-danger btn-xs"
+                  >
+                    <i class="fas fa-trash-alt"></i> Eliminar
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+  </div>
+</div>
+<!-- /.card-body -->

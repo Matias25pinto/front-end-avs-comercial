@@ -28,6 +28,45 @@
 
   <!-- Main content -->
   <section class="content">
+    <!-- Mostrar Modal-->
+    <nz-modal
+      [(nzVisible)]="isVisible"
+      nzTitle="Factura"
+      (nzOnCancel)="handleCancel()"
+      (nzOnOk)="handleOk()"
+      nzCancelText="Cancelar"
+      nzOkText="Ok"
+    >
+      <ng-container *nzModalContent>
+        <label>Proveedor: {{modalFactura.nombre_proveedor | uppercase}}</label>
+        <br />
+        <label>Nro. Factura: {{modalFactura.numero_factura}}</label>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Código</th>
+              <th scope="col">Artículo</th>
+              <th scope="col">Cantidad</th>
+              <th scope="col">Costo</th>
+              <th scope="col">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let articulo of modalFactura.id_detalle_factura_compra; let i = index">
+	      <th scope="row">{{i+1}}</th>
+	      <td>{{articulo.codigo_articulo}}</td>
+	      <td>{{articulo.nombre_articulo}}</td>
+	      <td>{{articulo.cantidad}}</td>
+	      <td>{{articulo.costo_unitario | currency : 'GS' : 'symbol' : '1.0-0'}}</td>
+	      <td>{{articulo.costo_unitario * articulo.cantidad | currency : 'GS' : 'symbol' : '1.0-0'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </nz-modal>
+    <!-- Fin Modal -->
+
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
@@ -69,7 +108,7 @@
                       style="width: 150px"
                     >
                       <input
-                        formControlName="comprobante"
+                        formControlName="termino"
                         type="text"
                         name="table_search"
                         class="form-control float-right"
@@ -95,17 +134,31 @@
                       <th>#</th>
                       <th>Proveedor</th>
                       <th>Ruc</th>
-                      <th colspan="1">Opciones</th>
+                      <th>Total Compra</th>
+                      <th colspan="2">Opciones</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr *ngFor="let compra of compras; let i = index">
                       <td>{{ i + 1 }}</td>
-                      <td>{{ compra.proveedor}}</td>
-                      <td>{{compra.ruc}}</td>
+                      <td>{{ compra.nombre_proveedor}}</td>
+                      <td>{{compra.numero_factura}}</td>
+                      <td>
+                        {{compra.total | currency : 'GS' : 'symbol' : '1.0-0'}}
+                      </td>
                       <td>
                         <button
-                          (click)="eliminarCompra(compra.proveedor, compra.id_compra)"
+                          (click)="showModal(compra.id_factura_compra)"
+                          class="btn btn-block bg-gradient-primary btn-flat"
+                          type="button"
+                        >
+                          Ver Factura
+                        </button>
+                      </td>
+
+                      <td>
+                        <button
+                          (click)="eliminarCompra(compra.numero_factura, compra.id_factura_compra)"
                           class="btn btn-block bg-gradient-danger btn-flat"
                           type="button"
                         >

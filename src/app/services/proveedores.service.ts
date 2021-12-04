@@ -22,6 +22,10 @@ export class ProveedoresService {
     return this.http.get<getProveedores>(`${url}`);
   }
 
+getProveedoresLista() {
+    return this.http.get<any>(`${this.url}/proveedores/proveedores-lista/`);
+  }
+
   getProveedor(url: string) {
     return this.http.get<Proveedor>(`${url}`);
   }

@@ -23,6 +23,7 @@ export class FormularioUsuarioComponent implements OnInit {
 
   public impresoras: any[] = [];
   public url: string = environment.url;
+  public selectdValue = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -64,7 +65,6 @@ export class FormularioUsuarioComponent implements OnInit {
         }
       );
     } else {
-      console.log('EDITAR USUARIO');
       this.formularioUsuario = this.fb.group({
         username: ['', [Validators.required]],
         first_name: ['', [Validators.required]],
@@ -85,7 +85,6 @@ export class FormularioUsuarioComponent implements OnInit {
       .listaImpresoras(`${this.url}/configuracion/configuracion-lista/`)
       .subscribe((resp) => {
         this.impresoras = resp;
-        console.log(this.impresoras);
       });
     if (!this.isCreateUser) {
       this.cargarFormulario();
@@ -172,7 +171,7 @@ export class FormularioUsuarioComponent implements OnInit {
       if(impresora){
 	formulario["impresora"]=impresora.id_impresora;
       }
-      console.log(user, formulario);
+      console.log("FORMULARIO:", formulario);
       this.formularioUsuario.reset(formulario);
     });
   }

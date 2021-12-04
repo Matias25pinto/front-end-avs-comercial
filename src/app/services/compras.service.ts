@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Compra } from '../models/compra.interface';
 import { environment } from '../../environments/environment';
 
@@ -19,19 +19,46 @@ export class ComprasService {
   constructor(private http: HttpClient) {}
 
   getCompras(url: string) {
-    return this.http.get<getCompras>(`${url}`);
+    const access_token = `Token ${localStorage.getItem('access_token')}`;
+    let headers = new HttpHeaders({
+      authorization: access_token,
+    }).set('Content-Type', 'application/json');
+
+    return this.http.get<getCompras>(`${url}`, { headers });
   }
 
-  getCompra(url: string) {
-    return this.http.get<Compra>(`${url}`);
+  getCompra(id: number) {
+    const access_token = `Token ${localStorage.getItem('access_token')}`;
+    let headers = new HttpHeaders({
+      authorization: access_token,
+    }).set('Content-Type', 'application/json');
+
+    return this.http.get<any>(`${this.url}/facturas/factura-compra/${id}/`, {
+      headers,
+    });
   }
 
   crearCompra(body: Compra) {
-    return this.http.post<Compra>(`${this.url}/proveedores/`, body);
+    const access_token = `Token ${localStorage.getItem('access_token')}`;
+    let headers = new HttpHeaders({
+      authorization: access_token,
+    }).set('Content-Type', 'application/json');
+
+    return this.http.post<Compra>(
+      `${this.url}/facturas/factura-compra/`,
+      body,
+      { headers }
+    );
   }
 
-  
-  deleteCompra(url: string) {
-    return this.http.delete<Compra>(`${url}`);
+  deleteCompra(id: number) {
+    const access_token = `Token ${localStorage.getItem('access_token')}`;
+    let headers = new HttpHeaders({
+      authorization: access_token,
+    }).set('Content-Type', 'application/json');
+
+    return this.http.delete<any>(`${this.url}/facturas/factura-compra/${id}/`, {
+      headers,
+    });
   }
 }

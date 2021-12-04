@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 // ES6 Modules or TypeScript
 import Swal from 'sweetalert2';
 
-import { ProveedoresService } from '../../../services/proveedores.service';
-import { Proveedor } from '../../../models/proveedor.interface';
+import { ComprasService } from '../../../services/compras.service';
 
 import { environment } from '../../../../environments/environment';
 
@@ -16,10 +15,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class ListarComprasComponent implements OnInit {
   public url = environment.url;
-  public compras: any[] = [
-    { id_compra: 1, proveedor: 'Matias Pinto', ruc: '3984969-4' },
-    { id_compra: 2, proveedor: 'Matias2 Pinto2', ruc: '3984969-4' },
-  ];
+  public compras: any[] = [];
   public siguiente: string = '';
   public anterior: string = '';
   public isLoading: boolean = false;
@@ -28,17 +24,21 @@ export class ListarComprasComponent implements OnInit {
 
   public formularioBuscar: FormGroup;
 
+  //mostrar factura
+  public isVisible = false;
+  public modalFactura = {nombre_proveedor:'', numero_factura:'', id_detalle_factura_compra:[]};
+
   constructor(
     private router: Router,
-    private proveedoresService: ProveedoresService,
+    private comprasService: ComprasService,
     private fb: FormBuilder
   ) {
     this.formularioBuscar = this.fb.group({
-      comprobantes: ['', Validators.required],
+      termino: ['', Validators.required],
     });
   }
   ngOnInit(): void {
-    this.cargarCompras(`${this.url}/proveedores/`);
+    this.cargarCompras(`${this.url}/facturas/factura-compra/`);
   }
 
   limpiarFormulario() {
@@ -48,11 +48,11 @@ export class ListarComprasComponent implements OnInit {
   enviarFormulario() {
     this.isError = false;
     if (this.formularioBuscar.valid) {
-      const termino = this.formularioBuscar.get('proveedor')?.value;
-      const pagina: string = `${this.url}/proveedores/busqueda/?search=${termino}`;
+      const termino = this.formularioBuscar.get('termino')?.value;
+      const pagina: string = `${this.url}/facturas/busqueda/?search=${termino}`;
       this.buscarCompras(pagina);
     } else {
-      this.cargarCompras(`${this.url}/proveedores/`);
+      this.cargarCompras(`${this.url}/facturas/factura-compra`);
     }
   }
 
@@ -61,7 +61,7 @@ export class ListarComprasComponent implements OnInit {
     this.compras = [];
     this.siguiente = '';
     this.anterior = '';
-    this.proveedoresService.getProveedores(pagina).subscribe(
+    this.comprasService.getCompras(pagina).subscribe(
       (data) => {
         this.compras = data.results;
         this.siguiente = data.next != null ? data.next : '';
@@ -86,8 +86,9 @@ export class ListarComprasComponent implements OnInit {
     this.compras = [];
     this.siguiente = '';
     this.anterior = '';
-    this.proveedoresService.getProveedores(pagina).subscribe(
+    this.comprasService.getCompras(pagina).subscribe(
       (data) => {
+        console.log('COMPRAS:', data);
         this.compras = data.results;
         this.siguiente = data.next != null ? data.next : '';
         this.anterior = data.previous != null ? data.previous.toString() : '';
@@ -107,9 +108,9 @@ export class ListarComprasComponent implements OnInit {
     this.router.navigate(['compras', 'editar-proveedor', id]);
   }
 
-  eliminarCompra(comprobante: string, id: number) {
-    let titulo = `Eliminar Comprobante !!!`;
-    let message = `¿Está seguro de eliminar el comprobante ? `;
+  eliminarCompra(numero_factura: string, id: number) {
+    let titulo = `Eliminar Factura de Compra !!!`;
+    let message = `¿Está seguro de eliminar la factura de compra Nro. ${numero_factura}? `;
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',
@@ -130,30 +131,30 @@ export class ListarComprasComponent implements OnInit {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          this.proveedoresService
-            .deleteProveedor(`${this.url}/proveedores/${id}/`)
+          this.comprasService
+            .deleteCompra(id)
             .subscribe(
               (resp: any) => {
-                if (this.urlActual != `${this.url}/proveedores/`) {
+                if (this.urlActual != `${this.url}/facturas/facturas-compra/`) {
                   if (this.compras.length > 1) {
                     this.cargarCompras(`${this.urlActual}`);
                   } else {
                     this.cargarCompras(`${this.anterior}`);
                   }
                 } else {
-                  this.cargarCompras(`${this.url}/proveedores/`);
+                  this.cargarCompras(`${this.url}/facturas/factura-compra/`);
                 }
 
                 swalWithBootstrapButtons.fire(
                   'Eliminado!!!',
-                  'El comprobante fue eliminado con éxito!!!',
+                  'La factura de compra fue eliminado con éxito!!!',
                   'success'
                 );
               },
               (err: any) => {
                 swalWithBootstrapButtons.fire(
                   'ERROR!!!',
-                  'El comprobante no fue eliminado.',
+                  'La factura de compra no fue eliminado.',
                   'error'
                 );
               }
@@ -164,10 +165,24 @@ export class ListarComprasComponent implements OnInit {
         ) {
           swalWithBootstrapButtons.fire(
             'Cancelado!!!',
-            'El comprobante no fue eliminado.',
+            'La factura de compra no fue eliminado.',
             'error'
           );
         }
       });
+  }
+  showModal(id: number): void {
+    this.comprasService.getCompra(id).subscribe((data) => {
+      console.log(data);
+      this.modalFactura = data;
+      this.isVisible = true;
+    });
+  }
+  handleOk(): void {
+    this.isVisible = false;
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
   }
 }

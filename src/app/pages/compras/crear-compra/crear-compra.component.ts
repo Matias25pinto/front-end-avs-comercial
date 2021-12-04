@@ -5,10 +5,9 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './crear-compra.component.html',
 })
 export class CrearCompraComponent implements OnInit {
+  public isCreateCompras = true;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

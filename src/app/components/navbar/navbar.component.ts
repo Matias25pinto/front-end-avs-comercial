@@ -16,4 +16,9 @@ export class NavbarComponent implements OnInit {
     localStorage.removeItem('user');
     this.router.navigate(['login']);
   }
+  modificarPerfil() {
+    let usuario = JSON.parse(localStorage.getItem('user'));
+
+    this.router.navigate(['seguridad', 'modificar-usuario', usuario.id]);
+  }
 }
