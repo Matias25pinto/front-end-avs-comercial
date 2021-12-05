@@ -26,7 +26,11 @@ export class ListarComprasComponent implements OnInit {
 
   //mostrar factura
   public isVisible = false;
-  public modalFactura = {nombre_proveedor:'', numero_factura:'', id_detalle_factura_compra:[]};
+  public modalFactura = {
+    nombre_proveedor: '',
+    numero_factura: '',
+    id_detalle_factura_compra: [],
+  };
 
   constructor(
     private router: Router,
@@ -131,34 +135,32 @@ export class ListarComprasComponent implements OnInit {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          this.comprasService
-            .deleteCompra(id)
-            .subscribe(
-              (resp: any) => {
-                if (this.urlActual != `${this.url}/facturas/facturas-compra/`) {
-                  if (this.compras.length > 1) {
-                    this.cargarCompras(`${this.urlActual}`);
-                  } else {
-                    this.cargarCompras(`${this.anterior}`);
-                  }
+          this.comprasService.deleteCompra(id).subscribe(
+            (resp: any) => {
+              if (this.urlActual != `${this.url}/facturas/facturas-compra/`) {
+                if (this.compras.length > 1) {
+                  this.cargarCompras(`${this.urlActual}`);
                 } else {
-                  this.cargarCompras(`${this.url}/facturas/factura-compra/`);
+                  this.cargarCompras(`${this.anterior}`);
                 }
-
-                swalWithBootstrapButtons.fire(
-                  'Eliminado!!!',
-                  'La factura de compra fue eliminado con éxito!!!',
-                  'success'
-                );
-              },
-              (err: any) => {
-                swalWithBootstrapButtons.fire(
-                  'ERROR!!!',
-                  'La factura de compra no fue eliminado.',
-                  'error'
-                );
+              } else {
+                this.cargarCompras(`${this.url}/facturas/factura-compra/`);
               }
-            );
+
+              swalWithBootstrapButtons.fire(
+                'Eliminado!!!',
+                'La factura de compra fue eliminado con éxito!!!',
+                'success'
+              );
+            },
+            (err: any) => {
+              swalWithBootstrapButtons.fire(
+                'ERROR!!!',
+                'La factura de compra no fue eliminado.',
+                'error'
+              );
+            }
+          );
         } else if (
           /* Read more about handling dismissals below */
           result.dismiss === Swal.DismissReason.cancel
@@ -184,5 +186,9 @@ export class ListarComprasComponent implements OnInit {
 
   handleCancel(): void {
     this.isVisible = false;
+  }
+
+  crearNotaCredito(id: number) {
+    this.router.navigate(['compras', 'crear-nota-credito-compra', id]);
   }
 }

@@ -100,20 +100,20 @@
     class="row"
   >
     <div class="col">
-        <label for="exampleInput">Impresoras</label>
+      <label for="exampleInput">Impresoras</label>
       <div class="form-group">
         <nz-select
-	  class="nz-select"
+          formControlName="impresora"
+          class="nz-select"
           nzShowSearch
           nzAllowClear
           nzPlaceHolder="Seleccionar Impresora"
-          formControlName="impresora"
         >
           <nz-option
             *ngFor="let impresora of impresoras"
             nzCustomContent
-            nzLabel="{{impresora.nombre_impresora}}"
-            nzValue="{{impresora.id_impresora}}"
+            [nzLabel]="impresora.nombre_impresora"
+            [nzValue]="impresora.id_impresora"
           >
             {{impresora.nombre_impresora}}
           </nz-option>

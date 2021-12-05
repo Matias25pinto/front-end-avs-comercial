@@ -18,7 +18,7 @@
             <li class="breadcrumb-item">
               <a [routerLink]="'home'">compras</a>
             </li>
-            <li class="breadcrumb-item active">comprobantes</li>
+            <li class="breadcrumb-item active">listar-notas-credito</li>
           </ol>
         </div>
       </div>
@@ -28,19 +28,19 @@
 
   <!-- Main content -->
   <section class="content">
-    <!-- Mostrar Modal-->
+  <!-- Mostrar Modal-->
     <nz-modal
       [(nzVisible)]="isVisible"
-      nzTitle="Factura"
+      nzTitle="Nota de Crédito"
       (nzOnCancel)="handleCancel()"
       (nzOnOk)="handleOk()"
       nzCancelText="Cancelar"
       nzOkText="Ok"
     >
       <ng-container *nzModalContent>
-        <label>Proveedor: {{modalFactura.nombre_proveedor | uppercase}}</label>
+        <label>Proveedor: {{modalNotaCredito.nombre_proveedor | uppercase}}</label>
         <br />
-        <label>Nro. Factura: {{modalFactura.numero_factura}}</label>
+        <label>Nro. Factura: {{modalNotaCredito.numero_factura}}</label>
         <table class="table table-striped">
           <thead>
             <tr>
@@ -54,7 +54,7 @@
           </thead>
           <tbody>
             <tr
-              *ngFor="let articulo of modalFactura.id_detalle_factura_compra; let i = index"
+              *ngFor="let articulo of modalNotaCredito.id_detalle_nota_credito_proveedor; let i = index"
             >
               <th scope="row">{{i+1}}</th>
               <td>{{articulo.codigo_articulo}}</td>
@@ -74,11 +74,10 @@
       </ng-container>
     </nz-modal>
     <!-- Fin Modal -->
-
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Compras</h3>
+        <h3 class="card-title">Notas Crédito</h3>
 
         <div class="card-tools">
           <button
@@ -105,7 +104,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Lista de Compras</h3>
+                <h3 class="card-title">Lista de Notas de Crédito</h3>
                 <div class="card-tools">
                   <form
                     [formGroup]="formularioBuscar"
@@ -116,7 +115,7 @@
                       style="width: 150px"
                     >
                       <input
-                        formControlName="termino"
+                        formControlName="notaCredito"
                         type="text"
                         name="table_search"
                         class="form-control float-right"
@@ -141,45 +140,27 @@
                     <tr>
                       <th>#</th>
                       <th>Proveedor</th>
-                      <th>Ruc</th>
-                      <th>Total Compra</th>
-                      <th colspan="2">Opciones</th>
+                      <th>Nro. Factura</th>
+                      <th>Monto</th>
+                      <th attr.colspan="2">Opciones</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let compra of compras; let i = index">
+                    <tr *ngFor="let notaCredito of notasCredito; let i = index">
                       <td>{{ i + 1 }}</td>
-                      <td>{{ compra.nombre_proveedor}}</td>
-                      <td>{{compra.numero_factura}}</td>
+                      <td>{{notaCredito.nombre_proveedor}}</td>
+                      <td>{{notaCredito.numero_factura}}</td>
                       <td>
-                        {{compra.total | currency : 'GS' : 'symbol' : '1.0-0'}}
+                        {{notaCredito.monto_total | currency : 'GS' : 'symbol' :
+                        '1.0-0'}}
                       </td>
                       <td>
                         <button
-                          (click)="showModal(compra.id_factura_compra)"
+                          (click)="mostrarNotaCredito(notaCredito.id_nota_credito_proveedor)"
                           class="btn btn-block bg-gradient-primary btn-flat"
                           type="button"
                         >
-                          Ver Factura
-                        </button>
-                      </td>
-                      <td>
-                        <button
-                          (click)="crearNotaCredito(compra.id_factura_compra)"
-                          class="btn btn-block bg-gradient-warning btn-flat"
-                          type="button"
-                        >
-                          Crear Nota de Crédito
-                        </button>
-                      </td>
-
-                      <td>
-                        <button
-                          (click)="eliminarCompra(compra.numero_factura, compra.id_factura_compra)"
-                          class="btn btn-block bg-gradient-danger btn-flat"
-                          type="button"
-                        >
-                          Eliminar
+                          Ver Nota de Crédito
                         </button>
                       </td>
                     </tr>
@@ -213,7 +194,7 @@
           <ul class="pagination justify-content-center">
             <li [ngClass]="{'disabled':anterior == ''}" class="page-item">
               <a
-                (click)="cargarCompras(anterior)"
+                (click)="cargarNotasCredito(anterior)"
                 class="page-link cursor-pointer m-1"
                 tabindex="-1"
                 [attr.aria-disabled]="anterior != ''"
@@ -222,7 +203,7 @@
             </li>
             <li [ngClass]="{'disabled':siguiente == ''}" class="page-item">
               <a
-                (click)="cargarCompras(siguiente)"
+                (click)="cargarNotasCredito(siguiente)"
                 [attr.aria-disabled]="siguiente != ''"
                 class="page-link cursor-pointer m-1"
                 >Siguiente</a

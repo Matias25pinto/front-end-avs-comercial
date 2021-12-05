@@ -72,7 +72,7 @@
                 <p>Ventas</p>
               </a>
             </li>
-            <li class="nav-item">
+            <li *ngIf="isVisibleCrearVenta" class="nav-item">
               <a routerLink="{{ '/ventas/crear-venta' }}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Crear Venta</p>
@@ -139,6 +139,15 @@
               <a class="nav-link" routerLink="{{'/compras/crear-compra'}}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Cargar Factura Compra</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                routerLink="{{'/compras/listar-nota-credito-proveedor'}}"
+              >
+                <i class="far fa-circle nav-icon"></i>
+                <p>Listar Notas de Crédito</p>
               </a>
             </li>
           </ul>

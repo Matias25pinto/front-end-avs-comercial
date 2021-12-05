@@ -29,7 +29,8 @@ import { CrearArqueoCajaComponent } from './pages/ventas/crear-arqueo-caja/crear
 import { ListarArqueoCajaComponent } from './pages/ventas/listar-arqueo-caja/listar-arqueo-caja.component';
 import { ListarComprasComponent } from './pages/compras/listar-compras/listar-compras.component';
 import { CrearCompraComponent } from './pages/compras/crear-compra/crear-compra.component';
-
+import { CrearNotaCreditoProveedorComponent } from './pages/compras/crear-nota-credito-proveedor/crear-nota-credito-proveedor.component';
+import { ListarNotasCreditoProveedorComponent } from './pages/compras/listar-notas-credito-proveedor/listar-notas-credito-proveedor.component';
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'login', component: LoginComponent },
@@ -132,9 +133,19 @@ const routes: Routes = [
     component: ListarComprasComponent,
     canActivate: [LoginGuard],
   },
-{
+  {
     path: 'compras/crear-compra',
     component: CrearCompraComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'compras/crear-nota-credito-compra/:id',
+    component: CrearNotaCreditoProveedorComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'compras/listar-nota-credito-proveedor',
+    component: ListarNotasCreditoProveedorComponent ,
     canActivate: [LoginGuard],
   },
 

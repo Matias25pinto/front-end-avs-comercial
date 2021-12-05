@@ -61,4 +61,39 @@ export class ComprasService {
       headers,
     });
   }
+
+  crearNotaCredito(body: any) {
+    const access_token = `Token ${localStorage.getItem('access_token')}`;
+    let headers = new HttpHeaders({
+      authorization: access_token,
+    }).set('Content-Type', 'application/json');
+    return this.http.post<any>(
+      `${this.url}/nota-credito/nota-credito-proveedor/`,
+      body,
+      {
+        headers,
+      }
+    );
+  }
+  getNotasCredito(pagina: string) {
+    const access_token = `Token ${localStorage.getItem('access_token')}`;
+    let headers = new HttpHeaders({
+      authorization: access_token,
+    }).set('Content-Type', 'application/json');
+
+    return this.http.get<any>(pagina, { headers });
+  }
+  getNotaCredito(id: number) {
+    const access_token = `Token ${localStorage.getItem('access_token')}`;
+    let headers = new HttpHeaders({
+      authorization: access_token,
+    }).set('Content-Type', 'application/json');
+
+    return this.http.get<any>(
+      `${this.url}/nota-credito/nota-credito-venta/${id}/`,
+      {
+        headers,
+      }
+    );
+  }
 }

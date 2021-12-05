@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router } from '@angular/router';
+import { Router } from '@angular/router';
 // ES6 Modules or TypeScript
 import Swal from 'sweetalert2';
 
@@ -49,7 +49,7 @@ export class ListarVentasComponent implements OnInit {
     private fb: FormBuilder,
     private personaService: PersonaService,
     private articulosService: ArticulosService,
-    private router: Router,
+    private router: Router
   ) {
     this.formularioBuscar = this.fb.group({
       venta: ['', Validators.required],
@@ -61,8 +61,8 @@ export class ListarVentasComponent implements OnInit {
     this.cargarClientes();
     this.cargarArticulos();
   }
-  crearNotaCredito(id:number){
-    this.router.navigate(['ventas','crear-nota-credito',id]);
+  crearNotaCredito(id: number) {
+    this.router.navigate(['ventas', 'crear-nota-credito', id]);
   }
   cargarArticulos() {
     this.articulosService.getArticulosLista().subscribe((articulos) => {
@@ -208,12 +208,12 @@ export class ListarVentasComponent implements OnInit {
         {
           text: articulo.codigo_articulo,
           style: 'grilla',
-          absolutePosition: { x: positionX + 100, y: positionYGrilla },
+          absolutePosition: { x: positionX + 80, y: positionYGrilla },
         },
         {
           text: articulo.cantidad,
           style: 'grilla',
-          absolutePosition: { x: positionX + 150, y: positionYGrilla },
+          absolutePosition: { x: positionX + 140, y: positionYGrilla },
         },
         {
           text: `${articulo.nombre_articulo}`,
@@ -238,7 +238,7 @@ export class ListarVentasComponent implements OnInit {
         {
           text: `${iva10}`,
           style: 'grilla',
-          absolutePosition: { x: positionX + 510, y: positionYGrilla },
+          absolutePosition: { x: positionX + 520, y: positionYGrilla },
         },
       ];
       body = [...body, ...grilla];
@@ -250,82 +250,85 @@ export class ListarVentasComponent implements OnInit {
       {
         text: `${venta.numero_factura}`,
         style: 'header',
-        absolutePosition: { x: positionX + 400, y: positionY + 100 },
+        absolutePosition: {
+          x: original ? positionX + 440 : positionX + 470,
+          y: positionY + 90,
+        },
       },
       {
         text: venta.fecha,
         style: 'header',
-        absolutePosition: { x: positionX + 100, y: positionY + 110 },
+        absolutePosition: { x: positionX + 148, y: positionY + 110 },
       },
       {
         text: `${cliente.nombre_apellido}`,
         style: 'header',
-        absolutePosition: { x: positionX + 100, y: positionY + 120 },
+        absolutePosition: { x: positionX + 173, y: positionY + 120 },
       },
       {
         text: `${cliente.direccion}`,
         style: 'header',
-        absolutePosition: { x: positionX + 100, y: positionY + 130 },
+        absolutePosition: { x: positionX + 118, y: positionY + 130 },
       },
       {
         text: 'X',
         style: 'header',
         absolutePosition: {
-          x: venta.tipo_factura == 'CON' ? positionX + 400 : positionX + 450,
+          x: venta.tipo_factura == 'CON' ? positionX + 500 : positionX + 533,
           y: positionY + 110,
         },
       },
       {
         text: `${cliente.ruc}`,
         style: 'header',
-        absolutePosition: { x: positionX + 360, y: positionY + 120 },
+        absolutePosition: { x: positionX + 370, y: positionY + 120 },
       },
       {
         text: `${cliente.telefono}`,
         style: 'header',
-        absolutePosition: { x: positionX + 360, y: positionY + 130 },
+        absolutePosition: { x: positionX + 390, y: positionY + 130 },
       },
       ...body,
       {
         text: `${subTotalExenta}`,
         style: 'header',
-        absolutePosition: { x: positionX + 410, y: positionY + 335 },
+        absolutePosition: { x: positionX + 415, y: positionY + 295 },
       },
       {
         text: `${subTotalIva5}`,
         style: 'header',
-        absolutePosition: { x: positionX + 460, y: positionY + 335 },
+        absolutePosition: { x: positionX + 460, y: positionY + 295 },
       },
       {
         text: `${subTotalIva10}`,
         style: 'header',
-        absolutePosition: { x: positionX + 510, y: positionY + 335 },
+        absolutePosition: { x: positionX + 515, y: positionY + 295 },
       },
 
       {
         text: `${venta.monto_letras}`,
         style: 'header',
-        absolutePosition: { x: positionX + 110, y: positionY + 345 },
+        absolutePosition: { x: positionX + 143, y: positionY + 305 },
       },
       {
         text: venta.total,
         style: 'header',
-        absolutePosition: { x: positionX + 390, y: positionY + 345 },
+        absolutePosition: { x: positionX + 458, y: positionY + 305 },
       },
       {
         text: totalIva5,
         style: 'header',
-        absolutePosition: { x: positionX + 160, y: positionY + 370 },
+        absolutePosition: { x: positionX + 205, y: positionY + 315 },
       },
       {
         text: totalIva10,
         style: 'header',
-        absolutePosition: { x: positionX + 240, y: positionY + 370 },
+        absolutePosition: { x: positionX + 315, y: positionY + 315 },
       },
       {
         text: `${totalIva5 + totalIva10}`,
         style: 'header',
-        absolutePosition: { x: positionX + 310, y: positionY + 370 },
+        absolutePosition: { x: positionX + 440, y: positionY + 315 },
       },
     ];
     return content;
@@ -340,7 +343,7 @@ export class ListarVentasComponent implements OnInit {
       content: [...original, ...copia],
       styles: {
         header: {
-          fontSize: 10,
+          fontSize: 8,
           bold: true,
         },
         grilla: {

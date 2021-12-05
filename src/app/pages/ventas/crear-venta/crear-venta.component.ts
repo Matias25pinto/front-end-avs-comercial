@@ -349,6 +349,7 @@ export class CrearVentaComponent implements OnInit, AfterViewChecked {
   handleCancel(): void {
     this.isVisible = false;
   }
+  /*
   crearHojaFactura(venta: Venta, original: boolean) {
     //Crear Grilla
     let detalleVenta: Array<DetalleVenta> = venta.id_detalle_venta;
@@ -524,6 +525,186 @@ export class CrearVentaComponent implements OnInit, AfterViewChecked {
     ];
     return content;
   }
+  */
+  crearHojaFactura(venta: Venta, original: boolean) {
+    //Crear Grilla
+    let detalleVenta: Array<DetalleVenta> = venta.id_detalle_venta;
+
+    let body = [];
+
+    let cliente = this.clientes.find(
+      (cliente) => cliente.id_persona == venta.id_cliente
+    );
+
+    let positionX = parseInt(localStorage.getItem('coordenada_x'));
+
+    let positionY = parseInt(localStorage.getItem('coordenada_y'));
+    if (!original) {
+      positionX = positionX;
+      positionY = positionY + 350;
+    }
+
+    let positionYGrilla = positionY + 150;
+    let totalExenta = 0;
+    let totalIva5 = 0;
+    let totalIva10 = 0;
+    let totalIva = 0;
+    let subTotalExenta = 0;
+    let subTotalIva5 = 0;
+    let subTotalIva10 = 0;
+
+    for (let articulo of detalleVenta) {
+      positionYGrilla = positionYGrilla + 20;
+      let exenta = 0;
+      let iva10 = 0;
+      let iva5 = 0;
+      if (articulo.tipo_iva == 10) {
+        iva10 = parseInt(articulo.sub_total.toString());
+        totalIva10 = totalIva10 + parseInt(articulo.sub_total_iva.toString());
+        subTotalIva10 = subTotalIva10 + iva10;
+        totalIva = totalIva + parseInt(articulo.sub_total_iva.toString());
+      }
+      if (articulo.tipo_iva == 5) {
+        iva5 = parseInt(articulo.sub_total.toString());
+        totalIva5 = totalIva5 + parseInt(articulo.sub_total_iva.toString());
+        subTotalIva5 = subTotalIva5 + iva5;
+        totalIva = totalIva + parseInt(articulo.sub_total_iva.toString());
+      }
+      if (articulo.tipo_iva == 0) {
+        exenta = parseInt(articulo.sub_total.toString());
+        totalExenta = totalExenta + parseInt(articulo.sub_total_iva.toString());
+        subTotalExenta = subTotalExenta + exenta;
+      }
+      let grilla: Array<any> = [
+        {
+          text: articulo.codigo_articulo,
+          style: 'grilla',
+          absolutePosition: { x: positionX + 80, y: positionYGrilla },
+        },
+        {
+          text: articulo.cantidad,
+          style: 'grilla',
+          absolutePosition: { x: positionX + 140, y: positionYGrilla },
+        },
+        {
+          text: `${articulo.nombre_articulo}`,
+          style: 'grilla',
+          absolutePosition: { x: positionX + 180, y: positionYGrilla },
+        },
+        {
+          text: `${articulo.precio_unitario}`,
+          style: 'grilla',
+          absolutePosition: { x: positionX + 350, y: positionYGrilla },
+        },
+        {
+          text: `${exenta}`,
+          style: 'grilla',
+          absolutePosition: { x: positionX + 410, y: positionYGrilla },
+        },
+        {
+          text: `${iva5}`,
+          style: 'grilla',
+          absolutePosition: { x: positionX + 460, y: positionYGrilla },
+        },
+        {
+          text: `${iva10}`,
+          style: 'grilla',
+          absolutePosition: { x: positionX + 520, y: positionYGrilla },
+        },
+      ];
+      body = [...body, ...grilla];
+    }
+
+    //Fin Grilla
+    //contenido General de la factura
+    let content = [
+      {
+        text: `${venta.numero_factura}`,
+        style: 'header',
+        absolutePosition: {
+          x: original ? positionX + 440 : positionX + 470,
+          y: positionY + 90,
+        },
+      },
+      {
+        text: venta.fecha,
+        style: 'header',
+        absolutePosition: { x: positionX + 148, y: positionY + 110 },
+      },
+      {
+        text: `${cliente.nombre_apellido}`,
+        style: 'header',
+        absolutePosition: { x: positionX + 173, y: positionY + 120 },
+      },
+      {
+        text: `${cliente.direccion}`,
+        style: 'header',
+        absolutePosition: { x: positionX + 118, y: positionY + 130 },
+      },
+      {
+        text: 'X',
+        style: 'header',
+        absolutePosition: {
+          x: venta.tipo_factura == 'CON' ? positionX + 500 : positionX + 533,
+          y: positionY + 110,
+        },
+      },
+      {
+        text: `${cliente.ruc}`,
+        style: 'header',
+        absolutePosition: { x: positionX + 370, y: positionY + 120 },
+      },
+      {
+        text: `${cliente.telefono}`,
+        style: 'header',
+        absolutePosition: { x: positionX + 390, y: positionY + 130 },
+      },
+      ...body,
+      {
+        text: `${subTotalExenta}`,
+        style: 'header',
+        absolutePosition: { x: positionX + 415, y: positionY + 295 },
+      },
+      {
+        text: `${subTotalIva5}`,
+        style: 'header',
+        absolutePosition: { x: positionX + 460, y: positionY + 295 },
+      },
+      {
+        text: `${subTotalIva10}`,
+        style: 'header',
+        absolutePosition: { x: positionX + 515, y: positionY + 295 },
+      },
+
+      {
+        text: `${venta.monto_letras}`,
+        style: 'header',
+        absolutePosition: { x: positionX + 143, y: positionY + 305 },
+      },
+      {
+        text: venta.total,
+        style: 'header',
+        absolutePosition: { x: positionX + 458, y: positionY + 305 },
+      },
+      {
+        text: totalIva5,
+        style: 'header',
+        absolutePosition: { x: positionX + 205, y: positionY + 315 },
+      },
+      {
+        text: totalIva10,
+        style: 'header',
+        absolutePosition: { x: positionX + 315, y: positionY + 315 },
+      },
+      {
+        text: `${totalIva5 + totalIva10}`,
+        style: 'header',
+        absolutePosition: { x: positionX + 440, y: positionY + 315 },
+      },
+    ];
+    return content;
+  }
+
   async createPdf(venta: Venta) {
     let original = this.crearHojaFactura(venta, true);
     let copia = this.crearHojaFactura(venta, false);

@@ -11,6 +11,7 @@ export class AsideComponent implements OnInit {
   public rol = this.user.rol_usuario;
   public url = environment.url;
   public isVisibleCrearArqueo = false;
+  public isVisibleCrearVenta = false;
 
   constructor(private ventasService: VentasService) {}
 
@@ -24,15 +25,15 @@ export class AsideComponent implements OnInit {
         let arqueos =
           data.results.filter((arqueo) => arqueo.id_empleado == this.user.id) ||
           [];
-	console.log(arqueos);
         if (arqueos.length > 0) {
           let indice = 0;
           let ultimo_arqueo = arqueos[indice];
-	  console.log(ultimo_arqueo);
           if (ultimo_arqueo.monto_cierre == 0) {
             this.isVisibleCrearArqueo = false;
+	    this.isVisibleCrearVenta = true;
           } else {
             this.isVisibleCrearArqueo = true;
+	    this.isVisibleCrearVenta = false;
           }
         } else {
           this.isVisibleCrearArqueo = true;
