@@ -11,6 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 //Pipes
 import { SafePipe } from './pipes/safe.pipe';
 
+//NG2 Chart 
+import { ChartsModule } from 'ng2-charts';
 //La localidad de la app
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
@@ -69,6 +71,8 @@ import { FormularioComprasComponent } from './components/formulario-compras/form
 import { CrearNotaCreditoProveedorComponent } from './pages/compras/crear-nota-credito-proveedor/crear-nota-credito-proveedor.component';
 import { ListarNotasCreditoProveedorComponent } from './pages/compras/listar-notas-credito-proveedor/listar-notas-credito-proveedor.component';
 import { DashboardComponent } from './pages/reportes/dashboard/dashboard.component';
+import { PieChartComponent } from './components/pie-chart/pie-chart.component';
+import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 
 @NgModule({
   declarations: [
@@ -113,6 +117,8 @@ import { DashboardComponent } from './pages/reportes/dashboard/dashboard.compone
     CrearNotaCreditoProveedorComponent,
     ListarNotasCreditoProveedorComponent,
     DashboardComponent,
+    PieChartComponent,
+    BarChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -126,6 +132,7 @@ import { DashboardComponent } from './pages/reportes/dashboard/dashboard.compone
     NzSelectModule,
     NzDividerModule,
     NzModalModule,
+    ChartsModule
   ],
 
   providers: [

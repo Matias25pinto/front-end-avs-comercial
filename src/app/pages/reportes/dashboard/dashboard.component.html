@@ -1,1 +1,206 @@
-<p>dashboard works!</p>
+<!-- navbar -->
+<app-navbar></app-navbar>
+<!-- /navbar-->
+<!-- aside -->
+<app-aside></app-aside>
+<!-- /aside -->
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Home</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item">
+              <a [routerLink]="'home'">Reportes</a>
+            </li>
+            <li class="breadcrumb-item active">Dashboard</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <!-- Default box -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Reportes del Sistema Avs Comercial</h3>
+
+        <div class="card-tools">
+          <button
+            type="button"
+            class="btn btn-tool"
+            data-card-widget="collapse"
+            title="Collapse"
+          >
+            <i class="fas fa-minus"></i>
+          </button>
+          <button
+            type="button"
+            class="btn btn-tool"
+            data-card-widget="remove"
+            title="Remove"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row justify-content-center">
+          <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3 class="m-2 text-white">
+                  {{5000000 | number: '1.0-0' }} Gs.
+                </h3>
+                <h4 class="m-2 text-white">Cajero 1</h4>
+                <p>Cajero Con más ventas</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3 class="m-2 text-white">
+                  {{800000 | number: '1.0-0' }} Gs.
+                </h3>
+                <h4 class="m-2 text-white">Todas las Cajas</h4>
+                <p>Total de Ventas</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-balance-scale"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3 class="m-2 text-white">{{3000000 | number: '1.0-0' }} Gs.</h3>
+                <h4 class="m-2 text-white">Artículos</h4>
+                <p class="text-white">Total Compras</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-balance-scale"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-info">
+                <i class="fas fa-cart-arrow-down"></i>
+              </span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Cantidad de Ventas del Mes</span>
+                <span class="info-box-number"
+                  >{{10 | number: '1.0-0' }}</span
+                >
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <div class="col-md-6 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-info">
+                <i class="fas fa-cart-arrow-down"></i>
+              </span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Cantidad de Ventas del Día</span>
+                <span class="info-box-number"
+                  >{{4 | number: '1.0-0' }}</span
+                >
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-lg-6">
+            <app-pie-chart
+              [titulo]="titulo1"
+              [variables]="nombreProductos"
+              [valorVariables]="subTotalVenta"
+              [totalVariables]="totalVentas"
+            ></app-pie-chart>
+          </div>
+          <div class="col-12 col-lg-6">
+            <app-bar-chart
+              [titulo]="titulo2"
+              [variables]="nombreProductos"
+              [serie1]="serie1"
+              [valorVariablesSerie1]="valorVariablesSerie1"
+              [serie2]="serie2"
+              [valorVariablesSerie2]="valorVariablesSerie2"
+            ></app-bar-chart>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <h4 class="chart__titulo">Artículos con Stock Mínimo</h4>
+          <table class="col-12 col-lg-10 table table-striped text-center">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Código</th>
+                <th scope="col">Artículo</th>
+                <th scope="col">Stock Mínimo</th>
+                <th scope="col">Stock Actual</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>133</td>
+                <td>Artículo 1</td>
+                <td>10</td>
+                <td>8</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>132</td>
+                <td>Artículo 2</td>
+                <td>20</td>
+                <td>15</td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td>131</td>
+                <td>Artículo 3</td>
+                <td>12</td>
+                <td>10</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer">Footer</div>
+      <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- footer -->
+<app-footer></app-footer>
+<!-- /footer -->

@@ -1,0 +1,18 @@
+<div class="chart">
+  <div
+    *ngIf="true"
+    class="chart"
+  >
+  <h4 class="chart__titulo">{{titulo}}</h4>
+    <canvas
+      baseChart
+      [data]="pieChartData"
+      [labels]="pieChartLabels"
+      [chartType]="pieChartType"
+      [options]="pieChartOptions"
+      [legend]="pieChartLegend"
+    >
+    </canvas>
+  </div>
+</div>
+

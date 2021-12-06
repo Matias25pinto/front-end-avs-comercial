@@ -5,6 +5,7 @@ import { LoginGuard } from './guards/login.guard';
 //Components
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
+import { DashboardComponent } from './pages/reportes/dashboard/dashboard.component';
 import { CrearArticuloComponent } from './pages/inventario/crear-articulo/crear-articulo.component';
 import { ModificarArticuloComponent } from './pages/inventario/modificar-articulo/modificar-articulo.component';
 import { VerArticulosComponent } from './pages/inventario/ver-articulos/ver-articulos.component';
@@ -35,6 +36,11 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent, canActivate: [LoginGuard] },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [LoginGuard],
+  },
   {
     path: 'inventario/crear-articulo',
     component: CrearArticuloComponent,

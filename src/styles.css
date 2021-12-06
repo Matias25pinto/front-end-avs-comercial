@@ -27,6 +27,24 @@
   padding: 8px;
   display: block;
 }
+/*
+=====================================
+**************CHART**************
+=====================================
+*/
+.chart {
+  max-width: 100%;
+  width: 100%;
+  margin: 10px auto;
+}
+.chart__titulo {
+  color: #212121;;
+  font-size: 1em;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 700;
+  margin: 15px;
+  text-align: center;
+}
 
 html,
 body {
