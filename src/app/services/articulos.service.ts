@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Articulo } from '../models/articulo.interface';
 import { environment } from '../../environments/environment';
 
@@ -38,6 +38,15 @@ export class ArticulosService {
       `${this.url}/articulos/${body.id_articulo}/`,
       body
     );
+  }
+
+  ajustarStockArticulo(body: any) {
+    const access_token = `Token ${localStorage.getItem('access_token')}`;
+    let headers = new HttpHeaders({
+      authorization: access_token,
+    }).set('Content-Type', 'application/json');
+
+    return this.http.post(`${this.url}/articulos/ajuste-stock/`, body, {headers});
   }
 
   deleteArticulo(url: string) {

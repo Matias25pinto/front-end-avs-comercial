@@ -95,6 +95,18 @@ export class CrearVentaComponent implements OnInit, AfterViewChecked {
     }
   }
   agregarGrilla(codigo: string, cantidadString: string) {
+    //si la grilla es igual a 9 no ingresa el item
+    if (this.grilla.length == 9) {
+      this.limpiarFormularioGrilla();
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'La factura ya esta llena se alcanzo el limite de items',
+        footer: '<p>El limite de ítems por factura es de 9</p>',
+      });
+
+      return;
+    }
     let articulo = this.articulos.find((articulo) => {
       if (articulo.codigo_barras == codigo) {
         return articulo;
@@ -223,19 +235,19 @@ export class CrearVentaComponent implements OnInit, AfterViewChecked {
   }
   enviarFormularioGrilla() {
     //solo acepta hasta hasta 10 elementos
-    if (this.formularioGrilla.valid && this.grilla.length < 10) {
+    if (this.formularioGrilla.valid && this.grilla.length < 9) {
       const codigo = this.formularioGrilla.get('codigo')?.value;
       const cantidad = this.formularioGrilla.get('cantidad')?.value;
       if (codigo != '' && parseInt(cantidad) > 0) {
         this.agregarGrilla(codigo, cantidad);
       }
     } else {
-      if (this.grilla.length >= 10) {
+      if (this.grilla.length >= 9) {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
           text: 'La factura ya esta llena se alcanzo el limite de items',
-          footer: '<p>El limite de ítems por factura es de 10</p>',
+          footer: '<p>El limite de ítems por factura es de 9</p>',
         });
       } else {
         Swal.fire({
@@ -274,42 +286,41 @@ export class CrearVentaComponent implements OnInit, AfterViewChecked {
         let fecha_creacion = `${fecha.getFullYear()}-${
           fecha.getMonth() + 1
         }-${fecha.getDate()}`;
-        let detalleVenta: DetalleVenta[] = this.grilla.map((articulo) => {
-          let detalle: DetalleVenta = {
-            precio_unitario: articulo.precio_unitario,
-            sub_total_iva: articulo.sub_total_iva,
-            tipo_iva: articulo.tipo_iva,
-            nombre_articulo: articulo.nombre_articulo,
-            estado: 'A',
-            fecha_creacion: fecha_creacion,
+        let detalleVenta: any[] = this.grilla.map((articulo) => {
+          let detalle: any = {
+            // precio_unitario: articulo.precio_unitario,
+            //sub_total_iva: articulo.sub_total_iva,
+            //tipo_iva: articulo.tipo_iva,
+            //nombre_articulo: articulo.nombre_articulo,
+            //estado: 'A',
+            //fecha_creacion: fecha_creacion,
             cantidad: articulo.cantidad,
             sub_total: articulo.cantidad * articulo.precio,
             id_articulo: articulo.id_articulo,
-            codigo_articulo: articulo.codigo_articulo,
+            //codigo_articulo: articulo.codigo_articulo,
           };
           return detalle;
         });
 
-        let body: Venta = {
+        let body: any = {
           id_detalle_venta: detalleVenta,
-          id_venta: 0,
-          estado: 'A',
-          fecha_creacion: fecha_creacion,
-          fecha: fecha_creacion,
           total: this.totalVenta,
           id_cliente: id_cliente,
           tipo_factura,
         };
 
+        console.log('Mi BODY', body);
+
         this.ventasService.crearVenta(body).subscribe(
           (resp) => {
-            console.log(resp);
+            console.log('RESP:', resp);
             let link: string = resp.factura;
             this.mostrarVuelto(resp);
             this.limpiarFormularioGrilla();
             this.limpiarFormularioVenta();
           },
           (err) => {
+            console.log('ERROR:', err);
             Swal.fire({
               icon: 'error',
               title: 'No se pudo realizar la venta',

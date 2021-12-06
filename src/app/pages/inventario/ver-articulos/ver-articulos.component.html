@@ -69,7 +69,7 @@
                       style="width: 150px"
                     >
                       <input
-			formControlName="articulo"
+                        formControlName="articulo"
                         type="text"
                         name="table_search"
                         class="form-control float-right"
@@ -95,7 +95,7 @@
                       <th>#</th>
                       <th>Artículo</th>
                       <th>Código</th>
-                      <th [attr.colspan]=2>Opciones</th>
+                      <th [attr.colspan]="2">Opciones</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -112,6 +112,16 @@
                           Modificar
                         </button>
                       </td>
+                      <td>
+                        <button
+                          (click)="ajustarStock(articulo.id_articulo)"
+                          class="btn btn-block bg-gradient-warning btn-flat"
+                          type="button"
+                        >
+                          Ajustar Stock
+                        </button>
+                      </td>
+
                       <td>
                         <button
                           (click)="eliminarArticulo(articulo.nombre, articulo.id_articulo)"

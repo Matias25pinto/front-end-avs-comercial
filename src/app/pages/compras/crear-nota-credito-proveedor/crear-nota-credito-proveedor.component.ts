@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ComprasService } from '../../../services/compras.service';
 import { ProveedoresService } from '../../../services/proveedores.service';
 
@@ -51,7 +51,8 @@ export class CrearNotaCreditoProveedorComponent implements OnInit {
     private fb: FormBuilder,
     private comprasService: ComprasService,
     private proveedoresService: ProveedoresService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.route.params.subscribe((params) => {
       this.idCompra = params.id;
@@ -117,7 +118,7 @@ export class CrearNotaCreditoProveedorComponent implements OnInit {
         return;
       }
       precio = articuloDetalleCompra.costo_unitario;
-      console.log("articulo",articulo);
+      console.log('articulo', articulo);
       let articuloGrilla: Grilla = {
         id_articulo: articulo.id_articulo,
         nombre: articulo.nombre_articulo,
@@ -253,8 +254,6 @@ export class CrearNotaCreditoProveedorComponent implements OnInit {
         id_factura_compra: this.idCompra,
         monto_total: this.totalCompra,
       };
-      console.log('body', body);
-
       this.comprasService.crearNotaCredito(body).subscribe(
         (resp) => {
           console.log('resp', resp);
@@ -267,6 +266,7 @@ export class CrearNotaCreditoProveedorComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500,
           });
+          this.cargarCompra();
         },
         (err) => {
           Swal.fire({

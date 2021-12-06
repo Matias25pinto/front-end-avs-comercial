@@ -102,6 +102,9 @@ export class VerArticulosComponent implements OnInit {
   modificarArticulo(id: number) {
     this.router.navigate(['inventario', 'modificar-articulo', id]);
   }
+  ajustarStock(id: number) {
+    this.router.navigate(['inventario', 'ajustar-stock-articulo', id]);
+  }
 
   eliminarArticulo(articulo: string, id: number) {
     let titulo = `Eliminar Artículo !!!`;

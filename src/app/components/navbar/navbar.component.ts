@@ -14,6 +14,9 @@ export class NavbarComponent implements OnInit {
     localStorage.removeItem('access_token');
     localStorage.removeItem('reload');
     localStorage.removeItem('user');
+    localStorage.removeItem('coordenada_x');
+    localStorage.removeItem('coordenada_y');
+
     this.router.navigate(['login']);
   }
   modificarPerfil() {

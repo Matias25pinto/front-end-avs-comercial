@@ -49,6 +49,10 @@ const routes: Routes = [
     path: 'inventario/modificar-articulo/:id',
     component: ModificarArticuloComponent,
   },
+  {
+    path: 'inventario/ajustar-stock-articulo/:id',
+    component: ModificarStockComponent,
+  },
 
   {
     path: 'seguridad/listar-usuarios',
@@ -145,7 +149,7 @@ const routes: Routes = [
   },
   {
     path: 'compras/listar-nota-credito-proveedor',
-    component: ListarNotasCreditoProveedorComponent ,
+    component: ListarNotasCreditoProveedorComponent,
     canActivate: [LoginGuard],
   },
 

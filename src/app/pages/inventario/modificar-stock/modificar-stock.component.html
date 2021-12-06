@@ -18,7 +18,7 @@
             <li class="breadcrumb-item">
               <a [routerLink]="'home'">inventario</a>
             </li>
-            <li class="breadcrumb-item active">modificar stock</li>
+            <li class="breadcrumb-item active">ajustar stock</li>
           </ol>
         </div>
       </div>
@@ -55,18 +55,27 @@
       <div class="card-body">
         <!-- Formulario articulo -->
         <!-- form start -->
-        <form [formGroup]="formularioModificarStock">
+        <form [formGroup]="formularioModificarStock" (ngSubmit)="enviarFormulario()">
           <div class="form-group mb-3">
-            <label for="exampleInput">{{ "Artículo: Articulo 1" }}</label>
+            <label *ngIf="articulo" for="exampleInput"
+              >{{ "Artículo: " + articulo.nombre }}</label
+            >
           </div>
           <div class="form-group mb-3">
-            <label for="exampleInput">{{ "Código: 123" }}</label>
+            <label *ngIf="articulo" for="exampleInput"
+              >{{ "Código: "+ articulo.codigo_barras }}</label
+            >
+          </div>
+          <div class="form-group mb-3">
+            <label *ngIf="articulo" for="exampleInput"
+              >{{ "Stock Actual: "+ articulo.stock_actual }}</label
+            >
           </div>
 
           <div class="form-group mb-3">
             <label for="exampleInput">Motivo de ajuste de stock</label>
             <textarea
-              formControlName="motivo"
+              formControlName="motivo_ajuste"
               class="form-control"
               rows="3"
               placeholder=""
@@ -76,28 +85,37 @@
           <div class="form-group mb-3">
             <label for="exampleInput">Tipo de Ajuste</label>
             <select
-              formControlName="tipo"
+              formControlName="tipo_ajuste"
               class="custom-select rounded-0"
               id="tipoAjuste"
               name="tipoAjuste"
             >
-              <option value="alta">Alta de Artículo</option>
-              <option value="baja">Baja de Artículo</option>
+              <option value="A">Alta de Artículo</option>
+              <option value="B">Baja de Artículo</option>
             </select>
           </div>
 
           <div class="form-group mb-3">
-            <label for="exampleInput">Ajuste</label>
+            <label for="exampleInput">Cantidad</label>
             <input
-              formControlName="ajuste"
+              formControlName="cantidad"
               type="number"
               class="form-control"
               placeholder="Ajuste de Stock"
             />
           </div>
 
-          <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Guardar</button>
+          <div class="row">
+            <div class="col">
+              <div *ngIf="!isLoading" class="card-footer text-center">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+              </div>
+              <div *ngIf="isLoading" class="card-footer text-center">
+                <button type="button" [disabled]="true" class="btn btn-primary">
+                  <i class="fas fa-spinner fa-pulse"></i>
+                </button>
+              </div>
+            </div>
           </div>
         </form>
       </div>
