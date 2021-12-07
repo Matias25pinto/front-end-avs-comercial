@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Venta, DetalleVenta, NotaCredito } from '../models/venta.interface';
 import { environment } from '../../environments/environment';

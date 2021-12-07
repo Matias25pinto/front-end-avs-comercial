@@ -35,7 +35,7 @@ import { ListarNotasCreditoProveedorComponent } from './pages/compras/listar-not
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent, canActivate: [LoginGuard] },
+  { path: 'home', component: DashboardComponent, canActivate: [LoginGuard] },
   {
     path: 'dashboard',
     component: DashboardComponent,
