@@ -90,7 +90,20 @@ export class ComprasService {
     }).set('Content-Type', 'application/json');
 
     return this.http.get<any>(
-      `${this.url}/nota-credito/nota-credito-venta/${id}/`,
+      `${this.url}/nota-credito/nota-credito-proveedor/${id}/`,
+      {
+        headers,
+      }
+    );
+  }
+  deleteNotaCredito(id: number) {
+    const access_token = `Token ${localStorage.getItem('access_token')}`;
+    let headers = new HttpHeaders({
+      authorization: access_token,
+    }).set('Content-Type', 'application/json');
+
+    return this.http.delete<any>(
+      `${this.url}/nota-credito/nota-credito-proveedor/${id}/`,
       {
         headers,
       }

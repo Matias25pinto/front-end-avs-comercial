@@ -46,7 +46,9 @@ export class ArticulosService {
       authorization: access_token,
     }).set('Content-Type', 'application/json');
 
-    return this.http.post(`${this.url}/articulos/ajuste-stock/`, body, {headers});
+    return this.http.post(`${this.url}/articulos/ajuste-stock/`, body, {
+      headers,
+    });
   }
 
   deleteArticulo(url: string) {

@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { environment } from '../../../../environments/environment';
-
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ComprasService } from '../../../services/compras.service';
 import { ProveedoresService } from '../../../services/proveedores.service';
-
+// ES6 Modules or TypeScript
+import Swal from 'sweetalert2';
 //PDFmake en TypeScript
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
@@ -144,5 +143,67 @@ export class ListarNotasCreditoProveedorComponent implements OnInit {
 
     console.log(this.modalNotaCredito);
     this.showModal();
+  }
+  eliminarNotaCreditoProveedor(id:number, numero_factura:string){
+let titulo = `Eliminar Nota Crédito de Compra !!!`;
+    let message = `¿Está seguro de eliminar la nota de crédito de compra Nro. ${numero_factura}? `;
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger',
+      },
+      buttonsStyling: false,
+    });
+
+    swalWithBootstrapButtons
+      .fire({
+        title: titulo,
+        text: message,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Si, para eliminar!',
+        cancelButtonText: 'No, cancelar!',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.comprasService.deleteNotaCredito(id).subscribe(
+            (resp: any) => {
+              if (this.urlActual != `${this.url}/nota-credito/nota-credito-proveedor/`) {
+                if (this.notasCredito.length > 1) {
+                  this.cargarNotasCredito(`${this.urlActual}`);
+                } else {
+                  this.cargarNotasCredito(`${this.anterior}`);
+                }
+              } else {
+                this.cargarNotasCredito(`${this.url}/nota-credito/nota-credito-proveedor/`);
+              }
+
+              swalWithBootstrapButtons.fire(
+                'Eliminado!!!',
+                'La nota de crédito de compra fue eliminado con éxito!!!',
+                'success'
+              );
+            },
+            (err: any) => {
+              swalWithBootstrapButtons.fire(
+                'ERROR!!!',
+                'La nota de crédito de compra no fue eliminado.',
+                'error'
+              );
+            }
+          );
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelado!!!',
+            'La nota de crédito de compra no fue eliminado.',
+            'error'
+          );
+        }
+      });
+
   }
 }

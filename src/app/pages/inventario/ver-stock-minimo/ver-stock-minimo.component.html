@@ -1,0 +1,112 @@
+<!-- navbar -->
+<app-navbar></app-navbar>
+<!-- /navbar-->
+<!-- aside -->
+<app-aside></app-aside>
+<!-- /aside -->
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Inventario</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item">
+              <a [routerLink]="'home'">Inventario</a>
+            </li>
+            <li class="breadcrumb-item active">ver artículos con mínimo</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <!-- Default box -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Reporte de Artículos con Stock Mínimo</h3>
+
+        <div class="card-tools">
+          <button
+            type="button"
+            class="btn btn-tool"
+            data-card-widget="collapse"
+            title="Collapse"
+          >
+            <i class="fas fa-minus"></i>
+          </button>
+          <button
+            type="button"
+            class="btn btn-tool"
+            data-card-widget="remove"
+            title="Remove"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <h4 class="chart__titulo">Artículos con Stock Mínimo</h4>
+        <table class="col-12 col-lg-10 table table-striped text-center">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Código</th>
+              <th scope="col">Artículo</th>
+              <th scope="col">Stock Mínimo</th>
+              <th scope="col">Stock Actual</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let articulo of articulos; let i = index">
+              <th scope="row">{{i+1}}</th>
+              <td>{{articulo.codigo_barras}}</td>
+              <td>Artículo 1</td>
+              <td>{{articulo.stock_minimo}}</td>
+              <td>{{articulo.stock_actual}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.row -->
+      <div *ngIf="isLoading" class="row justify-content-center">
+        <div class="col-auto">
+          <i class="fas fa-sync fa-spin fa-5x"></i>
+        </div>
+      </div>
+      <div *ngIf="isError" class="row justify-content-center">
+        <div class="col-auto col-8 text-center">
+          <div class="alert alert-danger" role="alert">
+            <h3>ERROR!!!</h3>
+            <i class="fas fa-exclamation-circle fa-7x"></i>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="isVacio" class="row justify-content-center">
+        <div class="col-auto col-8 text-center">
+          <div class="alert alert-danger" role="alert">
+            <h3>No existen Artículos con Stock Mínimo!!!</h3>
+            <i class="fas fa-exclamation-circle fa-7x"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer">Footer</div>
+    <!-- /.card-footer-->
+    <!-- /.card -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- footer -->
+<app-footer></app-footer>
+<!-- /footer -->

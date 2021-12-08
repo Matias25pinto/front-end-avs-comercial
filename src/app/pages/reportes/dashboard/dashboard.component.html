@@ -54,15 +54,55 @@
       </div>
       <div class="card-body">
         <div class="row justify-content-center">
+          <form [formGroup]="formulario" (ngSbmit)="enviarFormulario()">
+            <mat-form-field appearance="fill">
+              <mat-label>Rango de Fecha</mat-label>
+              <mat-date-range-input [rangePicker]="picker">
+                <input
+                  formControlName="fechaInicio"
+                  matStartDate
+                  placeholder="Fecha Inicio"
+                />
+                <input
+                  formControlName="fechaFin"
+                  matEndDate
+                  placeholder="Fecha Fin"
+                />
+              </mat-date-range-input>
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-date-range-picker touchUi #picker></mat-date-range-picker>
+            </mat-form-field>
+          </form>
+        </div>
+        <div class="row justify-content-center mb-3">
+          <div *ngIf="!isLoading" class="">
+            <button
+              type="button"
+              (click)="enviarFormulario()"
+              class="btn btn-primary"
+            >
+              Actualizar Fecha
+            </button>
+          </div>
+          <div *ngIf="isLoading" class="">
+            <button type="button" [disabled]="true" class="btn btn-primary">
+              <i class="fas fa-spinner fa-pulse"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="row justify-content-center">
           <div class="col-lg-3 col-6">
             <!-- small card -->
             <div class="small-box bg-info">
               <div class="inner">
                 <h3 class="m-2 text-white">
-                  {{5000000 | number: '1.0-0' }} Gs.
+                  {{'vendedor 1' | uppercase }}
                 </h3>
-                <h4 class="m-2 text-white">Cajero 1</h4>
-                <p>Cajero Con más ventas</p>
+                <p>Vendedor con más ventas</p>
               </div>
               <div class="icon">
                 <i class="fas fa-shopping-cart"></i>
@@ -74,9 +114,8 @@
             <div class="small-box bg-success">
               <div class="inner">
                 <h3 class="m-2 text-white">
-                  {{800000 | number: '1.0-0' }} Gs.
+                  {{totalVentas | number: '1.0-0' }} Gs.
                 </h3>
-                <h4 class="m-2 text-white">Todas las Cajas</h4>
                 <p>Total de Ventas</p>
               </div>
               <div class="icon">
@@ -88,8 +127,9 @@
             <!-- small card -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3 class="m-2 text-white">{{3000000 | number: '1.0-0' }} Gs.</h3>
-                <h4 class="m-2 text-white">Artículos</h4>
+                <h3 class="m-2 text-white">
+                  {{totalCompras | number: '1.0-0' }} Gs.
+                </h3>
                 <p class="text-white">Total Compras</p>
               </div>
               <div class="icon">
@@ -98,97 +138,24 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-6 col-sm-6 col-12">
-            <div class="info-box">
-              <span class="info-box-icon bg-info">
-                <i class="fas fa-cart-arrow-down"></i>
-              </span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Cantidad de Ventas del Mes</span>
-                <span class="info-box-number"
-                  >{{10 | number: '1.0-0' }}</span
-                >
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <div class="col-md-6 col-sm-6 col-12">
-            <div class="info-box">
-              <span class="info-box-icon bg-info">
-                <i class="fas fa-cart-arrow-down"></i>
-              </span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Cantidad de Ventas del Día</span>
-                <span class="info-box-number"
-                  >{{4 | number: '1.0-0' }}</span
-                >
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-        </div>
 
         <div class="row">
           <div class="col-12 col-lg-6">
             <app-pie-chart
               [titulo]="titulo1"
               [variables]="nombreProductos"
-              [valorVariables]="subTotalVenta"
+              [valorVariables]="subTotalVentaPie"
               [totalVariables]="totalVentas"
             ></app-pie-chart>
           </div>
           <div class="col-12 col-lg-6">
             <app-bar-chart
               [titulo]="titulo2"
-              [variables]="nombreProductos"
+              [variables]="nombreVendedores"
               [serie1]="serie1"
               [valorVariablesSerie1]="valorVariablesSerie1"
-              [serie2]="serie2"
-              [valorVariablesSerie2]="valorVariablesSerie2"
             ></app-bar-chart>
           </div>
-        </div>
-        <div class="row justify-content-center">
-          <h4 class="chart__titulo">Artículos con Stock Mínimo</h4>
-          <table class="col-12 col-lg-10 table table-striped text-center">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Código</th>
-                <th scope="col">Artículo</th>
-                <th scope="col">Stock Mínimo</th>
-                <th scope="col">Stock Actual</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>133</td>
-                <td>Artículo 1</td>
-                <td>10</td>
-                <td>8</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>132</td>
-                <td>Artículo 2</td>
-                <td>20</td>
-                <td>15</td>
-              </tr>
-              <tr>
-                <th scope="row">1</th>
-                <td>131</td>
-                <td>Artículo 3</td>
-                <td>12</td>
-                <td>10</td>
-              </tr>
-            </tbody>
-          </table>
         </div>
       </div>
       <!-- /.card-body -->

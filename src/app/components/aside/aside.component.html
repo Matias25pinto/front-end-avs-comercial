@@ -183,6 +183,15 @@
                 <p>Crear Articulo</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a
+                routerLink="{{ '/inventario/ver-stock-minimo' }}"
+                class="nav-link"
+              >
+                <i class="far fa-circle nav-icon"></i>
+                <p>Artículos con Stock Mínimo</p>
+              </a>
+            </li>
           </ul>
         </li>
 
@@ -244,7 +253,7 @@
                 <p>Usuarios</p>
               </a>
             </li>
-            <li  class="nav-item">
+            <li class="nav-item">
               <a
                 routerLink="{{ '/seguridad/cambiar-password-usuario/'+user.id }}"
                 class="nav-link"

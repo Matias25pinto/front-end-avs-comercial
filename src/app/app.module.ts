@@ -74,6 +74,7 @@ import { DashboardComponent } from './pages/reportes/dashboard/dashboard.compone
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { CambiarPasswordUsuarioComponent } from './pages/seguridad/cambiar-password-usuario/cambiar-password-usuario.component';
+import { VerStockMinimoComponent } from './pages/inventario/ver-stock-minimo/ver-stock-minimo.component';
 
 @NgModule({
   declarations: [
@@ -121,6 +122,7 @@ import { CambiarPasswordUsuarioComponent } from './pages/seguridad/cambiar-passw
     PieChartComponent,
     BarChartComponent,
     CambiarPasswordUsuarioComponent,
+    VerStockMinimoComponent,
   ],
   imports: [
     BrowserModule,

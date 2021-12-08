@@ -26,6 +26,7 @@ export class FormularioArticuloComponent implements OnInit {
   public marcas: Marca[] = [];
   public marcasDesc: string[] = [];
   public loadingMarca = false;
+  public stockActual = 0;
   private url = environment.url;
 
   constructor(
@@ -41,12 +42,8 @@ export class FormularioArticuloComponent implements OnInit {
         [Validators.required, Validators.pattern('[0-9]{1,13}$')],
       ],
       costo: ['', [Validators.required, Validators.pattern('[0-9]{1,13}$')]],
-      porc_iva: ['', [Validators.required, Validators.pattern('[0-9]{1,2}$')]],
+      porc_iva: [10, [Validators.required, Validators.pattern('[0-9]{1,2}$')]],
       porc_comision: [
-        '',
-        [Validators.required, Validators.pattern('[0-9]{1,13}$')],
-      ],
-      stock_actual: [
         '',
         [Validators.required, Validators.pattern('[0-9]{1,13}$')],
       ],
@@ -120,13 +117,6 @@ export class FormularioArticuloComponent implements OnInit {
       false
     );
   }
-  get stock_actualNoValido(): boolean {
-    return (
-      (this.formulario.get('stock_actual')?.invalid &&
-        this.formulario.get('stock_actual')?.touched) ||
-      false
-    );
-  }
   get stock_minimoNoValido(): boolean {
     return (
       (this.formulario.get('stock_minimo')?.invalid &&
@@ -176,7 +166,7 @@ export class FormularioArticuloComponent implements OnInit {
   addMarca(input: HTMLInputElement) {
     const value = input.value;
     if (this.marcasDesc.indexOf(value) === -1 && input.value != '') {
-    this.loadingMarca = true;
+      this.loadingMarca = true;
       let fecha = new Date();
       const fecha_creacion = `${fecha.getFullYear()}-${fecha.getMonth()}-${fecha.getDate()}`;
       const body: Marca = {
@@ -209,13 +199,13 @@ export class FormularioArticuloComponent implements OnInit {
           costo: articulo.costo,
           porc_iva: articulo.porc_iva,
           porc_comision: articulo.porc_comision,
-          stock_actual: articulo.stock_actual,
           stock_minimo: articulo.stock_minimo,
           unidad_medida: articulo.unidad_medida,
           precio_unitario: articulo.precio_unitario,
           precio_mayorista: articulo.precio_mayorista,
           precio_especial: articulo.precio_especial,
         });
+	this.stockActual = articulo.stock_actual;
       });
   }
 
@@ -237,7 +227,7 @@ export class FormularioArticuloComponent implements OnInit {
         porc_iva: this.formulario.get('porc_iva')?.value,
         porc_comision: this.formulario.get('porc_comision')?.value,
         stock_minimo: this.formulario.get('stock_minimo')?.value,
-        stock_actual: this.formulario.get('stock_actual')?.value,
+        stock_actual: this.stockActual,
         unidad_medida: this.formulario.get('unidad_medida')?.value,
         precio_unitario: this.formulario.get('precio_unitario')?.value,
         precio_mayorista: this.formulario.get('precio_mayorista')?.value,
@@ -317,9 +307,8 @@ export class FormularioArticuloComponent implements OnInit {
       id_marca: '',
       codigo_barras: '',
       costo: '',
-      porc_iva: '',
+      porc_iva: 10,
       porc_comision: '',
-      stock_actual: '',
       stock_minimo: '',
       unidad_medida: 'UN',
       precio_unitario: '',

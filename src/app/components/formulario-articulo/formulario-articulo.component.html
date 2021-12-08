@@ -47,13 +47,17 @@
         <nz-divider></nz-divider>
         <div class="container">
           <input class="form-control" type="text" nz-input #inputElement />
-          <a *ngIf="!loadingMarca" class="add-item" (click)="addMarca(inputElement)">
+          <a
+            *ngIf="!loadingMarca"
+            class="add-item"
+            (click)="addMarca(inputElement)"
+          >
             <i nz-icon nzType="plus"></i>
             Add Marca
           </a>
-          <a *ngIf="loadingMarca" class="add-item" >
+          <a *ngIf="loadingMarca" class="add-item">
             <i class="fas fa-spinner fa-pulse"></i>
-	    Loading...
+            Loading...
           </a>
         </div>
       </ng-template>
@@ -76,12 +80,11 @@
 
     <div class="form-group mb-3">
       <label for="exampleInput">IVA %</label>
-      <input
-        formControlName="porc_iva"
-        type="number"
-        class="form-control"
-        placeholder="Porcentaje del IVA"
-      />
+      <select formControlName="porc_iva" class="form-control">
+        <option value="10">10%</option>
+        <option value="5">5%</option>
+        <option value="0">exenta</option>
+      </select>
       <small *ngIf="porc_ivaNoValido" class="text-danger"
         >El campo IVA es obligatorio.</small
       >
@@ -97,19 +100,6 @@
       />
       <small *ngIf="porc_comisionNoValido" class="text-danger"
         >El campo Comisión es obligatorio.</small
-      >
-    </div>
-
-    <div class="form-group mb-3">
-      <label for="exampleInput">Stock Actual</label>
-      <input
-        formControlName="stock_actual"
-        type="number"
-        class="form-control"
-        placeholder="Stock actual"
-      />
-      <small *ngIf="stock_actualNoValido" class="text-danger"
-        >El campo Stock Actual es obligatorio.</small
       >
     </div>
 

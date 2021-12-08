@@ -20,4 +20,14 @@ export class ReportesService {
       headers,
     });
   }
+  getArticulosStockMinimo() {
+    const access_token = `Token ${localStorage.getItem('access_token')}`;
+    let headers = new HttpHeaders({
+      authorization: access_token,
+    }).set('Content-Type', 'application/json');
+
+    return this.http.get<Array<any>>(`${this.url}/reportes/reporte-articulos-stock/`, {
+      headers,
+    });
+  }
 }

@@ -28,7 +28,7 @@
 
   <!-- Main content -->
   <section class="content">
-  <!-- Mostrar Modal-->
+    <!-- Mostrar Modal-->
     <nz-modal
       [(nzVisible)]="isVisible"
       nzTitle="Nota de Crédito"
@@ -38,7 +38,9 @@
       nzOkText="Ok"
     >
       <ng-container *nzModalContent>
-        <label>Proveedor: {{modalNotaCredito.nombre_proveedor | uppercase}}</label>
+        <label
+          >Proveedor: {{modalNotaCredito.nombre_proveedor | uppercase}}</label
+        >
         <br />
         <label>Nro. Factura: {{modalNotaCredito.numero_factura}}</label>
         <table class="table table-striped">
@@ -161,6 +163,15 @@
                           type="button"
                         >
                           Ver Nota de Crédito
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          (click)="eliminarNotaCreditoProveedor(notaCredito.id_nota_credito_proveedor, notaCredito.numero_factura)"
+                          class="btn btn-block bg-gradient-danger btn-flat"
+                          type="button"
+                        >
+                          Eliminar
                         </button>
                       </td>
                     </tr>

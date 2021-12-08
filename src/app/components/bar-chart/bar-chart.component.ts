@@ -11,8 +11,6 @@ export class BarChartComponent implements OnInit {
   @Input() variables: string[] = [];
   @Input() serie1: string = '';
   @Input() valorVariablesSerie1: number[] = [];
-  @Input() serie2: string = '';
-  @Input() valorVariablesSerie2: number[] = [];
   @Input() titulo: string = '';
 
   //Bar
@@ -27,7 +25,6 @@ export class BarChartComponent implements OnInit {
 
   public barChartData: any[] = [
     { data: [], label: 'label1' },
-    { data: [], label: 'label2' },
   ];
   constructor() {}
 
@@ -35,7 +32,6 @@ export class BarChartComponent implements OnInit {
     this.barChartLabels = this.variables;
     this.barChartData = [
       { data: this.valorVariablesSerie1, label: this.serie1 },
-      { data: this.valorVariablesSerie2, label: this.serie2 },
     ];
     console.log(this.barChartData);
   }

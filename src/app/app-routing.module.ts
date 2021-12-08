@@ -10,6 +10,7 @@ import { CrearArticuloComponent } from './pages/inventario/crear-articulo/crear-
 import { ModificarArticuloComponent } from './pages/inventario/modificar-articulo/modificar-articulo.component';
 import { VerArticulosComponent } from './pages/inventario/ver-articulos/ver-articulos.component';
 import { ModificarStockComponent } from './pages/inventario/modificar-stock/modificar-stock.component';
+import { VerStockMinimoComponent } from './pages/inventario/ver-stock-minimo/ver-stock-minimo.component';
 import { ListarUsuariosComponent } from './pages/seguridad/listar-usuarios/listar-usuarios.component';
 import { CrearUsuarioComponent } from './pages/seguridad/crear-usuario/crear-usuario.component';
 import { ModificarUsuarioComponent } from './pages/seguridad/modificar-usuario/modificar-usuario.component';
@@ -55,10 +56,17 @@ const routes: Routes = [
   {
     path: 'inventario/modificar-articulo/:id',
     component: ModificarArticuloComponent,
+    canActivate: [LoginGuard],
   },
   {
     path: 'inventario/ajustar-stock-articulo/:id',
     component: ModificarStockComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'inventario/ver-stock-minimo',
+    component: VerStockMinimoComponent,
+    canActivate: [LoginGuard],
   },
 
   {
