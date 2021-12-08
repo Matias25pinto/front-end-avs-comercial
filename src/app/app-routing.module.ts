@@ -32,10 +32,11 @@ import { ListarComprasComponent } from './pages/compras/listar-compras/listar-co
 import { CrearCompraComponent } from './pages/compras/crear-compra/crear-compra.component';
 import { CrearNotaCreditoProveedorComponent } from './pages/compras/crear-nota-credito-proveedor/crear-nota-credito-proveedor.component';
 import { ListarNotasCreditoProveedorComponent } from './pages/compras/listar-notas-credito-proveedor/listar-notas-credito-proveedor.component';
+import { CambiarPasswordUsuarioComponent } from './pages/seguridad/cambiar-password-usuario/cambiar-password-usuario.component';
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: DashboardComponent, canActivate: [LoginGuard] },
+  { path: 'home', component: HomeComponent, canActivate: [LoginGuard] },
   {
     path: 'dashboard',
     component: DashboardComponent,
@@ -75,6 +76,12 @@ const routes: Routes = [
     component: ModificarUsuarioComponent,
     canActivate: [LoginGuard],
   },
+  {
+    path: 'seguridad/cambiar-password-usuario/:id',
+    component: CambiarPasswordUsuarioComponent,
+    canActivate: [LoginGuard],
+  },
+
   {
     path: 'ventas/listar-clientes',
     component: ListarClientesComponent,

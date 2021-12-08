@@ -46,7 +46,7 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-	      <a routerLink="{{'/dashboard'}}" class="nav-link">
+              <a routerLink="{{'/dashboard'}}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Dashboard</p>
               </a>
@@ -78,7 +78,7 @@
                 <p>Crear Venta</p>
               </a>
             </li>
-            <li class="nav-item">
+            <li *ngIf="rol =='ADMINISTRADOR'" class="nav-item">
               <a
                 routerLink="{{ '/ventas/listar-notas-credito' }}"
                 class="nav-link"
@@ -220,24 +220,6 @@
           </ul>
         </li>
 
-        <li *ngIf="rol =='ADMINISTRADOR' && false" class="nav-item">
-          <a class="nav-link cursor-pointer">
-            <i class="fas fa-user-friends"></i>
-            <p>
-              Recursos Humanos
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Recursos</p>
-              </a>
-            </li>
-          </ul>
-        </li>
-
         <li *ngIf="rol =='ADMINISTRADOR'" class="nav-item">
           <a class="nav-link cursor-pointer">
             <i class="fas fa-unlock-alt"></i>
@@ -260,6 +242,15 @@
               >
                 <i class="far fa-circle nav-icon"></i>
                 <p>Usuarios</p>
+              </a>
+            </li>
+            <li  class="nav-item">
+              <a
+                routerLink="{{ '/seguridad/cambiar-password-usuario/'+user.id }}"
+                class="nav-link"
+              >
+                <i class="far fa-circle nav-icon"></i>
+                <p>Cambiar Password</p>
               </a>
             </li>
           </ul>

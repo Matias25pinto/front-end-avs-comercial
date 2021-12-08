@@ -42,6 +42,16 @@ export class UsuarioService {
     return this.http.get<getUser>(`${url}`);
   }
 
+  cambiarPassword(body: any) {
+    const access_token = `Token ${localStorage.getItem('access_token')}`;
+    let headers = new HttpHeaders({
+      authorization: access_token,
+    }).set('Content-Type', 'application/json');
+    return this.http.put(`${this.url}/users/cambiopassword/`, body, {
+      headers,
+    });
+  }
+
   deleteUsuario(url: string) {
     return this.http.delete(url);
   }

@@ -19,25 +19,33 @@ export class AsideComponent implements OnInit {
     this.mostrarCrearArqueoCaja();
   }
   mostrarCrearArqueoCaja() {
-    this.ventasService
-      .getArqueosCaja(`${this.url}/cajas/arqueo-caja/`)
-      .subscribe((data) => {
-        let arqueos =
-          data.results.filter((arqueo) => arqueo.id_empleado == this.user.id) ||
-          [];
-        if (arqueos.length > 0) {
-          let indice = 0;
-          let ultimo_arqueo = arqueos[indice];
-          if (ultimo_arqueo.monto_cierre == 0) {
-            this.isVisibleCrearArqueo = false;
-	    this.isVisibleCrearVenta = true;
-          } else {
-            this.isVisibleCrearArqueo = true;
-	    this.isVisibleCrearVenta = false;
+    if (this.user) {
+      this.ventasService
+        .getArqueosCaja(`${this.url}/cajas/arqueo-caja/`)
+        .subscribe(
+          (data) => {
+            let arqueos =
+              data.results.filter(
+                (arqueo) => arqueo.id_empleado == this.user.id
+              ) || [];
+            if (arqueos.length > 0) {
+              let indice = 0;
+              let ultimo_arqueo = arqueos[indice];
+              if (ultimo_arqueo.monto_cierre == 0) {
+                this.isVisibleCrearArqueo = false;
+                this.isVisibleCrearVenta = true;
+              } else {
+                this.isVisibleCrearArqueo = true;
+                this.isVisibleCrearVenta = false;
+              }
+            } else {
+              this.isVisibleCrearArqueo = true;
+            }
+          },
+          (err) => {
+            console.log(err);
           }
-        } else {
-          this.isVisibleCrearArqueo = true;
-        }
-      });
+        );
+    }
   }
 }

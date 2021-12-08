@@ -103,6 +103,9 @@ export class ListarUsuariosComponent implements OnInit {
   modificarUsuario(id: number = 0) {
     this.router.navigate(['seguridad', 'modificar-usuario', id]);
   }
+  cambiarPasswordUsuario(id: number = 0) {
+    this.router.navigate(['seguridad', 'cambiar-password-usuario', id]);
+  }
 
   eliminarUsuario(usuario: string, id: number = 0) {
     let titulo = `Eliminar Usuario !!!`;

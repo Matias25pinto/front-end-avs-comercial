@@ -73,6 +73,7 @@ import { ListarNotasCreditoProveedorComponent } from './pages/compras/listar-not
 import { DashboardComponent } from './pages/reportes/dashboard/dashboard.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
+import { CambiarPasswordUsuarioComponent } from './pages/seguridad/cambiar-password-usuario/cambiar-password-usuario.component';
 
 @NgModule({
   declarations: [
@@ -119,6 +120,7 @@ import { BarChartComponent } from './components/bar-chart/bar-chart.component';
     DashboardComponent,
     PieChartComponent,
     BarChartComponent,
+    CambiarPasswordUsuarioComponent,
   ],
   imports: [
     BrowserModule,
