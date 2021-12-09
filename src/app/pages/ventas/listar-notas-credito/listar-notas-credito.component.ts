@@ -110,8 +110,8 @@ export class ListarNotasCreditoComponent implements OnInit {
       }
     );
   }
-  cargarCliente(id:number){
-   return this.clientes.find(cliente => cliente.id_persona == id);
+  cargarCliente(id: number) {
+    return this.clientes.find((cliente) => cliente.id_persona == id);
   }
 
   cargarNotasCredito(pagina: string) {
@@ -121,7 +121,6 @@ export class ListarNotasCreditoComponent implements OnInit {
     this.anterior = '';
     this.ventasService.getNotasCredito(pagina).subscribe(
       (data) => {
-        console.log(data);
         this.notasCredito = data.results;
         this.siguiente = data.next != null ? data.next : '';
         this.anterior = data.previous != null ? data.previous.toString() : '';
@@ -149,27 +148,31 @@ export class ListarNotasCreditoComponent implements OnInit {
 
   mostrarNotaCredito(id: number) {
     this.ventasService.getNotaCredito(id).subscribe((notaCredito) => {
-      console.log(notaCredito);
       this.cliente = this.cargarCliente(notaCredito.id_cliente);
       this.createPdf(notaCredito);
       this.showModal();
     });
   }
-  crearHojaFactura(notaCredito: any, original: boolean) {
+  crearHojaNotaCredito(notaCredito: any, original: boolean) {
+    console.log("total nota credito", notaCredito);
     //Crear Grilla
     let detalleNotaCredito: Array<any> = notaCredito.id_detalle_nota_credito;
 
     let body = [];
 
-    let positionX = parseInt(localStorage.getItem('coordenada_x'));
+    let cliente = this.clientes.find(
+      (cliente) => cliente.id_persona == notaCredito.id_cliente
+    );
 
-    let positionY = parseInt(localStorage.getItem('coordenada_y'));
+    let positionX = parseInt(localStorage.getItem('coordenada_x')) - 15; //ajustamos la nota de crédito a la impresora
+
+    let positionY = parseInt(localStorage.getItem('coordenada_y')) + 15; //ajustamos la nota de crédito a la impresora
     if (!original) {
       positionX = positionX;
-      positionY = positionY + 350;
+      positionY = positionY + 355;
     }
 
-    let positionYGrilla = positionY + 150;
+    let positionYGrilla = positionY + 155;
     let totalExenta = 0;
     let totalIva5 = 0;
     let totalIva10 = 0;
@@ -179,7 +182,7 @@ export class ListarNotasCreditoComponent implements OnInit {
     let subTotalIva10 = 0;
 
     for (let articulo of detalleNotaCredito) {
-      positionYGrilla = positionYGrilla + 20;
+      positionYGrilla = positionYGrilla + 15;
       let exenta = 0;
       let iva10 = 0;
       let iva5 = 0;
@@ -210,12 +213,12 @@ export class ListarNotasCreditoComponent implements OnInit {
         {
           text: articulo.codigo_articulo,
           style: 'grilla',
-          absolutePosition: { x: positionX + 100, y: positionYGrilla },
+          absolutePosition: { x: positionX + 80, y: positionYGrilla },
         },
         {
           text: articulo.cantidad,
           style: 'grilla',
-          absolutePosition: { x: positionX + 150, y: positionYGrilla },
+          absolutePosition: { x: positionX + 140, y: positionYGrilla },
         },
         {
           text: `${articulo.nombre_articulo}`,
@@ -240,7 +243,7 @@ export class ListarNotasCreditoComponent implements OnInit {
         {
           text: `${iva10}`,
           style: 'grilla',
-          absolutePosition: { x: positionX + 510, y: positionYGrilla },
+          absolutePosition: { x: positionX + 520, y: positionYGrilla },
         },
       ];
       body = [...body, ...grilla];
@@ -252,81 +255,84 @@ export class ListarNotasCreditoComponent implements OnInit {
       {
         text: `${notaCredito.numero_factura}`,
         style: 'header',
-        absolutePosition: { x: positionX + 400, y: positionY + 100 },
+        absolutePosition: {
+          x: original ? positionX + 440 : positionX + 470,
+          y: positionY + 80,
+        },
       },
       {
         text: notaCredito.fecha,
         style: 'header',
-        absolutePosition: { x: positionX + 100, y: positionY + 110 },
+        absolutePosition: { x: positionX + 148, y: positionY + 110 },
       },
       {
-        text: `${this.cliente.nombre_apellido}`,
+        text: `${cliente.nombre_apellido}`,
         style: 'header',
-        absolutePosition: { x: positionX + 100, y: positionY + 120 },
+        absolutePosition: { x: positionX + 173, y: positionY + 120 },
       },
       {
-        text: `${this.cliente.direccion}`,
+        text: `${cliente.direccion}`,
         style: 'header',
-        absolutePosition: { x: positionX + 100, y: positionY + 130 },
+        absolutePosition: { x: positionX + 118, y: positionY + 130 },
       },
       {
-        text: `${this.cliente.ruc}`,
+        text: `${cliente.ruc}`,
         style: 'header',
-        absolutePosition: { x: positionX + 360, y: positionY + 120 },
+        absolutePosition: { x: positionX + 370, y: positionY + 120 },
       },
       {
-        text: `${this.cliente.telefono}`,
+        text: `${cliente.telefono}`,
         style: 'header',
-        absolutePosition: { x: positionX + 360, y: positionY + 130 },
+        absolutePosition: { x: positionX + 390, y: positionY + 130 },
       },
       ...body,
       {
         text: `${subTotalExenta}`,
         style: 'header',
-        absolutePosition: { x: positionX + 410, y: positionY + 335 },
+        absolutePosition: { x: positionX + 415, y: positionY + 295 },
       },
       {
         text: `${subTotalIva5}`,
         style: 'header',
-        absolutePosition: { x: positionX + 460, y: positionY + 335 },
+        absolutePosition: { x: positionX + 460, y: positionY + 295 },
       },
       {
         text: `${subTotalIva10}`,
         style: 'header',
-        absolutePosition: { x: positionX + 510, y: positionY + 335 },
+        absolutePosition: { x: positionX + 515, y: positionY + 295 },
       },
 
       {
         text: `${notaCredito.monto_letras}`,
         style: 'header',
-        absolutePosition: { x: positionX + 110, y: positionY + 345 },
+        absolutePosition: { x: positionX + 143, y: positionY + 305 },
       },
       {
-        text: notaCredito.total,
+        text: notaCredito.monto_total,
         style: 'header',
-        absolutePosition: { x: positionX + 390, y: positionY + 345 },
+        absolutePosition: { x: positionX + 458, y: positionY + 305 },
       },
       {
         text: totalIva5,
         style: 'header',
-        absolutePosition: { x: positionX + 160, y: positionY + 370 },
+        absolutePosition: { x: positionX + 205, y: positionY + 310 },
       },
       {
         text: totalIva10,
         style: 'header',
-        absolutePosition: { x: positionX + 240, y: positionY + 370 },
+        absolutePosition: { x: positionX + 315, y: positionY + 310 },
       },
       {
         text: `${totalIva5 + totalIva10}`,
         style: 'header',
-        absolutePosition: { x: positionX + 310, y: positionY + 370 },
+        absolutePosition: { x: positionX + 440, y: positionY + 310 },
       },
     ];
     return content;
   }
   async createPdf(notaCredito: any) {
-    let original = this.crearHojaFactura(notaCredito, true);
-    let copia = this.crearHojaFactura(notaCredito, false);
+    let original = this.crearHojaNotaCredito(notaCredito, true);
+    let copia = this.crearHojaNotaCredito(notaCredito, false);
     const pdfDefinition: any = {
       // a string or { width: number, height: number }
       pageSize: 'A4',
@@ -334,7 +340,7 @@ export class ListarNotasCreditoComponent implements OnInit {
       content: [...original, ...copia],
       styles: {
         header: {
-          fontSize: 10,
+          fontSize: 8,
           bold: true,
         },
         grilla: {

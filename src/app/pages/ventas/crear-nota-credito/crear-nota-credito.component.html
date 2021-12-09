@@ -77,7 +77,7 @@
             <div class="small-box bg-info">
               <div class="inner">
                 <h3 class="m-2 text-white">
-                  {{totalVenta | number: '1.0-0' }} Gs.
+                  {{totalNotaCredito | number: '1.0-0' }} Gs.
                 </h3>
                 <p>Total Nota Crédito</p>
               </div>
@@ -192,7 +192,7 @@
                       Factura: {{venta.numero_factura}}
                     </p>
                     <p class="m-2" *ngIf="venta">
-                      Monto Deducible: {{venta.total | currency : 'GS' : 'symbol'
+                      Monto Deducible: {{venta.total -venta.total_nota_credito | currency : 'GS' : 'symbol'
                       : '1.0-0'}}
                     </p>
                   </div>
