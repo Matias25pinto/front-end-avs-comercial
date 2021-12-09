@@ -68,7 +68,7 @@
             <tr *ngFor="let articulo of articulos; let i = index">
               <th scope="row">{{i+1}}</th>
               <td>{{articulo.codigo_barras}}</td>
-              <td>Artículo 1</td>
+	      <td>{{articulo.nombre}}</td>
               <td>{{articulo.stock_minimo}}</td>
               <td>{{articulo.stock_actual}}</td>
             </tr>

@@ -83,7 +83,7 @@ export class CrearNotaCreditoComponent implements OnInit {
   cargarVenta() {
     this.ventasService.getVenta(this.idVenta).subscribe((venta) => {
       this.venta = venta;
-      console.log("venta",this.venta);
+      console.log('venta', this.venta);
       this.articulosDetalleVenta = venta.id_detalle_venta;
       this.idCliente = venta.id_cliente;
       this.cargarClientes();
@@ -94,7 +94,6 @@ export class CrearNotaCreditoComponent implements OnInit {
       this.cliente = resp.find(
         (persona) => persona.id_persona == this.idCliente
       );
-
     });
   }
   cargarArticulos() {
@@ -182,7 +181,8 @@ export class CrearNotaCreditoComponent implements OnInit {
     this.totalNotaCredito = 0;
     this.iva10 = 0;
     this.grilla.map((articulo) => {
-      this.totalNotaCredito = this.totalNotaCredito + articulo.precio * articulo.cantidad;
+      this.totalNotaCredito =
+        this.totalNotaCredito + articulo.precio * articulo.cantidad;
       if (articulo.porc_iva == 10) {
         this.iva10 = this.iva10 + (articulo.precio * articulo.cantidad) / 11;
       }
@@ -283,7 +283,11 @@ export class CrearNotaCreditoComponent implements OnInit {
     this.formularioGrilla.reset({ codigo: '', cantidad: 1 });
   }
   enviarFormularioNotaCredito() {
-    if (this.totalNotaCredito <= (this.venta.total - this.venta.total_nota_credito)) {
+    if (
+      this.totalNotaCredito <=
+        this.venta.total - this.venta.total_nota_credito &&
+      this.grilla.length > 0
+    ) {
       let detalleVenta: DetalleNotaCredito[] = this.grilla.map((articulo) => {
         let detalle: DetalleNotaCredito = {
           cantidad: articulo.cantidad,
@@ -302,7 +306,7 @@ export class CrearNotaCreditoComponent implements OnInit {
       this.ventasService.crearNotaCredito(body).subscribe(
         (resp) => {
           this.limpiarFormularioGrilla();
-	  this.cargarVenta();
+          this.cargarVenta();
           this.grilla = [];
           this.mostrarNotaCredito(resp);
         },
@@ -315,12 +319,21 @@ export class CrearNotaCreditoComponent implements OnInit {
         }
       );
     } else {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'La nota de crédito no puede ser superior al monto de la venta',
-        footer: '<p>Verificar el campo código y el campo cantidad</p>',
-      });
+      if (this.grilla.length < 1) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Agregue por lo menos un artículo a la nota de crédito',
+          footer: '<p>Verificar el campo código y el campo cantidad</p>',
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'La nota de crédito no puede ser superior al monto de la venta',
+          footer: '<p>Verificar el campo código y el campo cantidad</p>',
+        });
+      }
     }
   }
   formatearMoneda(monto: number) {
@@ -339,7 +352,7 @@ export class CrearNotaCreditoComponent implements OnInit {
   handleCancel(): void {
     this.isVisible = false;
   }
-  
+
   mostrarNotaCredito(notaCredito: any) {
     //this.linkPdf = `https://docs.google.com/gview?url=https://${link}&embedded=true`;
     this.createPdf(notaCredito);

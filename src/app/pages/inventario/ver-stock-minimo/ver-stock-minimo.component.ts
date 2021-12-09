@@ -20,6 +20,7 @@ export class VerStockMinimoComponent implements OnInit {
         if (this.articulos.length == 0) {
           this.isVacio = true;
         }
+	console.log(this.articulos);
       },
       (err) => {
         this.isError = true;
