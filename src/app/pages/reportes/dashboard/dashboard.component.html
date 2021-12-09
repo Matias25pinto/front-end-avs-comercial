@@ -99,9 +99,13 @@
             <!-- small card -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3 class="m-2 text-white">
-                  {{'vendedor 1' | uppercase }}
-                </h3>
+                <small class="m-1 text-white">
+                  {{mejorVendedor.nombre_vendedor | uppercase }}
+                </small>
+                <h4 class="m-1 text-white">
+                  {{mejorVendedor.ventas_totales | number: '1.0-0'}} Gs.
+                </h4>
+
                 <p>Vendedor con más ventas</p>
               </div>
               <div class="icon">
@@ -139,13 +143,13 @@
           </div>
         </div>
 
-        <div class="row">
+        <div *ngIf="totalProductosPie > 0" class="row">
           <div class="col-12 col-lg-6">
             <app-pie-chart
               [titulo]="titulo1"
               [variables]="nombreProductos"
-              [valorVariables]="subTotalVentaPie"
-              [totalVariables]="totalVentas"
+              [valorVariables]="subTotalProductosPie"
+              [totalVariables]="totalProductosPie"
             ></app-pie-chart>
           </div>
           <div class="col-12 col-lg-6">
