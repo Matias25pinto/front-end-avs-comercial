@@ -359,20 +359,21 @@ export class CrearNotaCreditoComponent implements OnInit {
     this.showModal();
   }
   crearHojaNotaCredito(notaCredito: any, original: boolean) {
+    console.log('total nota credito', notaCredito);
     //Crear Grilla
     let detalleNotaCredito: Array<any> = notaCredito.id_detalle_nota_credito;
 
     let body = [];
 
-    let positionX = parseInt(localStorage.getItem('coordenada_x')) - 15; //ajustamos la nota de crédito a la impresora
+    let positionX = parseInt(localStorage.getItem('coordenada_x')); //ajustamos la nota de crédito a la impresora
 
-    let positionY = parseInt(localStorage.getItem('coordenada_y')) + 15; //ajustamos la nota de crédito a la impresora
+    let positionY = parseInt(localStorage.getItem('coordenada_y')); //ajustamos la nota de crédito a la impresora
     if (!original) {
       positionX = positionX;
       positionY = positionY + 355;
     }
 
-    let positionYGrilla = positionY + 155;
+    let positionYGrilla = positionY + 150;
     let totalExenta = 0;
     let totalIva5 = 0;
     let totalIva10 = 0;
@@ -382,7 +383,7 @@ export class CrearNotaCreditoComponent implements OnInit {
     let subTotalIva10 = 0;
 
     for (let articulo of detalleNotaCredito) {
-      positionYGrilla = positionYGrilla + 15;
+      positionYGrilla = positionYGrilla + 20;
       let exenta = 0;
       let iva10 = 0;
       let iva5 = 0;
@@ -413,37 +414,37 @@ export class CrearNotaCreditoComponent implements OnInit {
         {
           text: articulo.codigo_articulo,
           style: 'grilla',
-          absolutePosition: { x: positionX + 80, y: positionYGrilla },
+          absolutePosition: { x: positionX + 60, y: positionYGrilla },
         },
         {
           text: articulo.cantidad,
           style: 'grilla',
-          absolutePosition: { x: positionX + 140, y: positionYGrilla },
+          absolutePosition: { x: positionX + 120, y: positionYGrilla },
         },
         {
           text: `${articulo.nombre_articulo}`,
           style: 'grilla',
-          absolutePosition: { x: positionX + 180, y: positionYGrilla },
+          absolutePosition: { x: positionX + 175, y: positionYGrilla },
         },
         {
           text: `${articulo.precio_unitario}`,
           style: 'grilla',
-          absolutePosition: { x: positionX + 350, y: positionYGrilla },
+          absolutePosition: { x: positionX + 335, y: positionYGrilla },
         },
         {
           text: `${exenta}`,
           style: 'grilla',
-          absolutePosition: { x: positionX + 410, y: positionYGrilla },
+          absolutePosition: { x: positionX + 392, y: positionYGrilla },
         },
         {
           text: `${iva5}`,
           style: 'grilla',
-          absolutePosition: { x: positionX + 460, y: positionYGrilla },
+          absolutePosition: { x: positionX + 442, y: positionYGrilla },
         },
         {
           text: `${iva10}`,
           style: 'grilla',
-          absolutePosition: { x: positionX + 520, y: positionYGrilla },
+          absolutePosition: { x: positionX + 502, y: positionYGrilla },
         },
       ];
       body = [...body, ...grilla];
@@ -456,80 +457,81 @@ export class CrearNotaCreditoComponent implements OnInit {
         text: `${notaCredito.numero_factura}`,
         style: 'header',
         absolutePosition: {
-          x: original ? positionX + 440 : positionX + 470,
-          y: positionY + 80,
+          x: original ? positionX + 430 : positionX + 460,
+          y: positionY + 90,
         },
       },
       {
         text: notaCredito.fecha,
         style: 'header',
-        absolutePosition: { x: positionX + 148, y: positionY + 110 },
+        absolutePosition: { x: positionX + 133, y: positionY + 110 },
       },
       {
         text: `${this.cliente.nombre_apellido}`,
         style: 'header',
-        absolutePosition: { x: positionX + 173, y: positionY + 120 },
+        absolutePosition: { x: positionX + 155, y: positionY + 120 },
       },
       {
         text: `${this.cliente.direccion}`,
         style: 'header',
-        absolutePosition: { x: positionX + 118, y: positionY + 130 },
+        absolutePosition: { x: positionX + 103, y: positionY + 130 },
       },
       {
         text: `${this.cliente.ruc}`,
         style: 'header',
-        absolutePosition: { x: positionX + 370, y: positionY + 120 },
+        absolutePosition: { x: positionX + 355, y: positionY + 120 },
       },
       {
         text: `${this.cliente.telefono}`,
         style: 'header',
-        absolutePosition: { x: positionX + 390, y: positionY + 130 },
+        absolutePosition: { x: positionX + 375, y: positionY + 130 },
       },
       ...body,
       {
         text: `${subTotalExenta}`,
         style: 'header',
-        absolutePosition: { x: positionX + 415, y: positionY + 295 },
+        absolutePosition: { x: positionX + 397, y: positionY + 295 },
       },
       {
         text: `${subTotalIva5}`,
         style: 'header',
-        absolutePosition: { x: positionX + 460, y: positionY + 295 },
+        absolutePosition: { x: positionX + 442, y: positionY + 295 },
       },
       {
         text: `${subTotalIva10}`,
         style: 'header',
-        absolutePosition: { x: positionX + 515, y: positionY + 295 },
+        absolutePosition: { x: positionX + 497, y: positionY + 295 },
       },
 
       {
         text: `${notaCredito.monto_letras}`,
         style: 'header',
-        absolutePosition: { x: positionX + 143, y: positionY + 305 },
+        absolutePosition: { x: positionX + 133, y: positionY + 305 },
       },
       {
         text: notaCredito.monto_total,
         style: 'header',
-        absolutePosition: { x: positionX + 458, y: positionY + 305 },
+        absolutePosition: { x: positionX + 452, y: positionY + 305 },
       },
       {
         text: totalIva5,
         style: 'header',
-        absolutePosition: { x: positionX + 205, y: positionY + 310 },
+        absolutePosition: { x: positionX + 195, y: positionY + 315 },
       },
       {
         text: totalIva10,
         style: 'header',
-        absolutePosition: { x: positionX + 315, y: positionY + 310 },
+        absolutePosition: { x: positionX + 305, y: positionY + 315 },
       },
       {
         text: `${totalIva5 + totalIva10}`,
         style: 'header',
-        absolutePosition: { x: positionX + 440, y: positionY + 310 },
+        absolutePosition: { x: positionX + 430, y: positionY + 315 },
       },
     ];
     return content;
   }
+
   async createPdf(notaCredito: any) {
     let original = this.crearHojaNotaCredito(notaCredito, true);
     let copia = this.crearHojaNotaCredito(notaCredito, false);
